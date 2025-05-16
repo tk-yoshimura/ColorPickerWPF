@@ -30,7 +30,7 @@ private void HSVColorPicker_HSVColorChanged(object sender, HSVColorChangedEventA
 ```
 
 ## Licence
-[CC BY-ND](LICENSE)
+[MIT](LICENSE)
 
 ## Author
 
