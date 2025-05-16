@@ -8,7 +8,13 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Reference Include="ColorPicker">
+      <HintPath>..\ColorPicker\bin\Release\net8.0-windows\ColorPicker.dll</HintPath>
+    </Reference>
+  </ItemGroup >
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Reference Include="ColorPicker">
       <HintPath>..\ColorPicker\bin\Debug\net8.0-windows\ColorPicker.dll</HintPath>
     </Reference>
