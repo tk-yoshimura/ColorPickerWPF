@@ -1,0 +1,193 @@
+﻿<Window
+    x:Class="ColorPickerGUITest.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorPickerGUITest"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ColorPickerGUI Demo"
+    Width="800"
+    Height="500"
+    MinWidth="800"
+    MinHeight="500"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <colorpicker:HSVColorPicker
+                    x:Name="HSVColorPicker"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HSVColorChanged="HSVColorPicker_HSVColorChanged"
+                    SelectedColor="{Binding SelectedHSV}" />
+                <colorpicker:YCbCrColorPicker
+                    x:Name="YCbCrColorPicker"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    SelectedColor="{Binding SelectedYCbCr}"
+                    YCbCrColorChanged="YCbCrColorPicker_YCbCrColorChanged" />
+
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Orientation="Vertical">
+                    <colorpicker:RedSlider
+                        x:Name="RedSlider"
+                        Height="20"
+                        RGBColorChanged="RedSlider_RGBColorChanged"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:GreenSlider
+                        x:Name="GreenSlider"
+                        Height="20"
+                        RGBColorChanged="GreenSlider_RGBColorChanged"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:BlueSlider
+                        x:Name="BlueSlider"
+                        Height="20"
+                        RGBColorChanged="BlueSlider_RGBColorChanged"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:GrayscaleSlider
+                        x:Name="GrayscaleSlider"
+                        Height="20"
+                        SliderValueChanged="GrayscaleSlider_SliderValueChanged"
+                        Value="{Binding SelectedGrayscale}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Orientation="Vertical">
+                    <colorpicker:HueSlider
+                        x:Name="HueSlider"
+                        Height="20"
+                        HSVColorChanged="HueSlider_HSVColorChanged"
+                        SelectedColor="{Binding SelectedHSV}" />
+                    <colorpicker:SaturationSlider
+                        x:Name="SaturationSlider"
+                        Height="20"
+                        HSVColorChanged="SaturationSlider_HSVColorChanged"
+                        SelectedColor="{Binding SelectedHSV}" />
+                    <colorpicker:BrightnessSlider
+                        x:Name="BrightnessSlider"
+                        Height="20"
+                        HSVColorChanged="BrightnessSlider_HSVColorChanged"
+                        SelectedColor="{Binding SelectedHSV}" />
+                    <colorpicker:AlphaSlider
+                        x:Name="AlphaSlider"
+                        Height="20"
+                        SelectedColor="{Binding SelectedRGB}"
+                        SliderValueChanged="AlphaSlider_SliderValueChanged"
+                        Value="{Binding SelectedAlpha}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Orientation="Vertical">
+                    <TextBlock>RGB</TextBlock>
+                    <colorpicker:RedNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:GreenNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:BlueNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedRGB}" />
+
+                    <TextBlock>HSV</TextBlock>
+                    <colorpicker:HueNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedHSV}" />
+                    <colorpicker:SaturationNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedHSV}" />
+                    <colorpicker:BrightnessNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedHSV}" />
+
+                    <TextBlock>Alpha</TextBlock>
+                    <colorpicker:AlphaNumericBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedAlpha="{Binding SelectedAlpha}" />
+
+                    <TextBlock>Hex</TextBlock>
+                    <colorpicker:RGBHexadecimalBox
+                        Height="20"
+                        Margin="0,2"
+                        SelectedColor="{Binding SelectedRGB}" />
+                </StackPanel>
+
+
+                <colorpicker:PreviewPanel
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Width="50"
+                    Height="50"
+                    Alpha="{Binding SelectedAlpha}"
+                    Color="{Binding SelectedRGB}" />
+
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Orientation="Vertical">
+                    <colorpicker:GraphicalSlider
+                        Height="20"
+                        SliderValueChanged="GraphicalSlider_SliderValueChanged"
+                        Value="{Binding SelectedValue}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Orientation="Vertical">
+                    <colorpicker:GraphicalSlider
+                        Height="20"
+                        SliderValueChanged="GraphicalSlider_SliderValueChanged"
+                        Value="{Binding SelectedValue}" />
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="4" Grid.Column="2">
+                    <colorpicker:NumericBox Height="20" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBar" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
