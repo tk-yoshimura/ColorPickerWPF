@@ -5,6 +5,10 @@
 .NET 8.0 - windows  
 WPF  
 
+## Install
+[Download DLL](https://github.com/tk-yoshimura/ColorPickerWPF/releases)  
+[Download Nuget](https://www.nuget.org/packages/tyoshimura.ColorPickerWPF/)  
+
 ## Demo
 ![Demo](images/demo.png)
 
