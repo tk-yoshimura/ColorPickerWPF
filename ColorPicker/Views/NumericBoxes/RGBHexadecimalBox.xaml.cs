@@ -59,8 +59,11 @@ namespace ColorPicker {
         protected void UpdateText() {
             Color color = (Color)SelectedColor;
 
+            int index = textBox.CaretIndex;
+
             textBox.TextChanged -= TextBox_TextChanged;
             textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}";
+            textBox.CaretIndex = index;
             textBox.TextChanged += TextBox_TextChanged;
         }
 

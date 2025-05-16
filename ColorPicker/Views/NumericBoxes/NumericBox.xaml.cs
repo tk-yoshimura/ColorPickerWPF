@@ -51,9 +51,7 @@ namespace ColorPicker {
             set {
                 SetValue(ValueProperty, int.Clamp(value, MinValue, MaxValue));
 
-                textBox.TextChanged -= TextBox_TextChanged;
-                textBox.Text = $"{Value}";
-                textBox.TextChanged += TextBox_TextChanged;
+                UpdateText();
 
                 ValueChanged?.Invoke(this, EventArgs.Empty);
 
@@ -61,6 +59,15 @@ namespace ColorPicker {
                 OnPropertyChanged(nameof(IsMinimum));
                 OnPropertyChanged(nameof(IsMaximum));
             }
+        }
+
+        protected void UpdateText() {
+            int index = textBox.CaretIndex;
+
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.Text = $"{Value}";
+            textBox.CaretIndex = index;
+            textBox.TextChanged += TextBox_TextChanged;
         }
 
         public static readonly DependencyProperty MinValueProperty =
