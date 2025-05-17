@@ -95,7 +95,7 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(IsColorREF));
         }
-        
+
         private void TextBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) {
             textBox.SelectAll();
         }

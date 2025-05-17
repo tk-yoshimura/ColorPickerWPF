@@ -140,12 +140,12 @@ namespace ColorPicker {
                 Value = value;
             }
         }
-                
+
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Up) { 
+            if (e.Key == Key.Up) {
                 ChangeValue(1);
             }
-            else if (e.Key == Key.Down) { 
+            else if (e.Key == Key.Down) {
                 ChangeValue(-1);
             }
         }
