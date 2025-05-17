@@ -170,6 +170,10 @@ namespace ColorPicker {
             StopTimer();
         }
 
+        private void NumericBox_MouseWheel(object sender, MouseWheelEventArgs e) {
+            ChangeValue(int.Sign(e.Delta));
+        }
+
         protected void ChangeValue(int diff) {
             Value += diff;
         }
