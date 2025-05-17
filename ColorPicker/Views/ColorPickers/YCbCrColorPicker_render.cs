@@ -14,7 +14,7 @@ namespace ColorPicker {
                 return;
             }
 
-            int size = PickerSize, side = size - 1;
+            int size = PickerPixelSize, side = size - 1;
             double radius = side * 0.5, side_inv = 1d / side;
 
             static byte clip(double c) => (byte)double.Clamp(c, 0, 255);
@@ -63,12 +63,12 @@ namespace ColorPicker {
                 return;
             }
 
-            int side = PickerSize - 1;
+            int side = PickerPixelSize - 1;
             double radius = side * 0.5;
 
             (double dpi_x, double dpi_y) = Utils.ColorPickerUtil.GetVisualDPI(this);
 
-            RenderTargetBitmap bitmap = new(Size, Size, dpi_x, dpi_y, PixelFormats.Pbgra32);
+            RenderTargetBitmap bitmap = new(PixelSize, PixelSize, dpi_x, dpi_y, PixelFormats.Pbgra32);
 
             (_, double cb, double cr) = SelectedColor;
 
@@ -77,14 +77,18 @@ namespace ColorPicker {
             Pen pen_white = new(new SolidColorBrush(Colors.White), 1);
             Pen pen_black = new(new SolidColorBrush(Colors.Black), 1);
 
-            double x = cb * side + radius + MarginWidth + 0.5;
-            double y = cr * side + radius + MarginWidth + 0.5;
+            (double sx, double sy) = Utils.ColorPickerUtil.GetVisualScalingFactor(this);
+
+            double x = cb * side + radius + MarginWidth * sx + 0.5;
+            double y = cr * side + radius + MarginWidth * sy + 0.5;
 
             Point tri_center = new(x, y);
 
             using (DrawingContext context = visual.RenderOpen()) {
-                context.DrawEllipse(null, pen_black, tri_center, 3, 3);
-                context.DrawEllipse(null, pen_white, tri_center, 4, 4);
+                context.PushTransform(Utils.ColorPickerUtil.GetVisualScalingTransform(this));
+
+                context.DrawEllipse(null, pen_black, tri_center, 3 * sx, 3 * sy);
+                context.DrawEllipse(null, pen_white, tri_center, 4 * sx, 4 * sy);
             }
 
             bitmap.Render(visual);

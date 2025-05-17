@@ -17,7 +17,7 @@ namespace ColorPicker {
                 return;
             }
 
-            int size = Size;
+            int size = PixelSize;
             double radius = size * 0.5;
 
             double outer_thr_sq = radius * radius * outer_ring * outer_ring;
@@ -104,7 +104,7 @@ namespace ColorPicker {
 
             const double bias = 2d;
 
-            int size = Size;
+            int size = PixelSize;
             double radius = size * 0.5;
 
             double sqrt3 = double.Sqrt(3), sqrt3_inv = 1 / sqrt3;
@@ -113,7 +113,7 @@ namespace ColorPicker {
             double side_inv = 1 / side;
             double x0 = radius - side * 0.5;
             double y0 = radius + radius * triangle_vertex * 0.5;
-            double sy = 2d / sqrt3;
+            double t = 2d / sqrt3;
 
             byte[] buf = new byte[checked(size * size * 4)];
 
@@ -166,7 +166,7 @@ namespace ColorPicker {
 
                 fixed (byte* c = buf) {
                     for (int x, y = 0, i = 0; y < size; y++) {
-                        double dy = (y0 - y) * sy, v = double.Clamp(dy * side_inv, 0, 1);
+                        double dy = (y0 - y) * t, v = double.Clamp(dy * side_inv, 0, 1);
                         double va = threshold(dy, side, bias);
 
                         if (va < 0.01) {
@@ -228,7 +228,7 @@ namespace ColorPicker {
                 return;
             }
 
-            int size = Size;
+            int size = PixelSize;
             double radius = size * 0.5;
 
             (double dpi_x, double dpi_y) = Utils.ColorPickerUtil.GetVisualDPI(this);
@@ -249,12 +249,14 @@ namespace ColorPicker {
             double side = radius * triangle_vertex * sqrt3;
             double x0 = radius - side * 0.5;
             double y0 = radius + radius * triangle_vertex * 0.5;
-            double sy = 2d / sqrt3;
+            double t = 2d / sqrt3;
 
             double dy = s * v, dx = v - dy * 0.5;
 
+            (double sx, double sy) = Utils.ColorPickerUtil.GetVisualScalingFactor(this);
+
             double x = x0 + dx * side + 0.5;
-            double y = y0 - (dy * side / sy) + 0.5;
+            double y = y0 - (dy * side / t) + 0.5;
 
             Point ring_center = new(
                 radius + double.SinPi(h / 3.0) * ring_radius + 0.5,
@@ -263,11 +265,13 @@ namespace ColorPicker {
             Point tri_center = new(x, y);
 
             using (DrawingContext context = visual.RenderOpen()) {
-                context.DrawEllipse(null, pen_black, ring_center, 3, 3);
-                context.DrawEllipse(null, pen_white, ring_center, 4, 4);
+                context.PushTransform(Utils.ColorPickerUtil.GetVisualScalingTransform(this));
 
-                context.DrawEllipse(null, pen_black, tri_center, 3, 3);
-                context.DrawEllipse(null, pen_white, tri_center, 4, 4);
+                context.DrawEllipse(null, pen_black, ring_center, 3 * sx, 3 * sy);
+                context.DrawEllipse(null, pen_white, ring_center, 4 * sx, 4 * sy);
+
+                context.DrawEllipse(null, pen_black, tri_center, 3 * sx, 3 * sy);
+                context.DrawEllipse(null, pen_white, tri_center, 4 * sx, 4 * sy);
             }
 
             bitmap.Render(visual);

@@ -80,8 +80,8 @@ namespace ColorPicker {
             }
         }
 
-        protected int PanelWidth => checked((int)ActualWidth);
-        protected int PanelHeight => checked((int)ActualHeight);
+        protected int PanelWidth => checked((int)Utils.ColorPickerUtil.GetPixelSize(this).pixelWidth);
+        protected int PanelHeight => checked((int)Utils.ColorPickerUtil.GetPixelSize(this).pixelHeight);
 
         private int block_size = 5;
         public int BlockSize {

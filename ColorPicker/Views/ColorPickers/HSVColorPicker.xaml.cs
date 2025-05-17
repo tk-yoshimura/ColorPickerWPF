@@ -69,6 +69,8 @@ namespace ColorPicker {
 
         public int Size => checked((int)double.Min(ActualWidth, ActualHeight));
 
+        public int PixelSize => checked((int)Utils.ColorPickerUtil.GetPixelMinSize(this));
+
         private void ColorPicker_Loaded(object sender, RoutedEventArgs e) {
             RenderAllImages();
 
@@ -87,6 +89,6 @@ namespace ColorPicker {
             RenderPointer();
         }
 
-        protected bool IsValidSize => Size >= 50;
+        protected bool IsValidSize => PixelSize >= 50;
     }
 }

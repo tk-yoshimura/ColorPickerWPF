@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ColorPicker.Utils;
+using System.Windows;
 using System.Windows.Input;
 
 // Copyright (c) T.Yoshimura 2025
@@ -22,7 +23,7 @@ namespace ColorPicker {
         }
 
         private (double norm, double phase) CircleCoord(Point pt) {
-            int size = Size;
+            int size = PixelSize;
             double radius = size * 0.5;
 
             double dx = pt.X - radius, dy = pt.Y - radius;
@@ -45,7 +46,7 @@ namespace ColorPicker {
         }
 
         private (double u, double v) TriangleCoord(Point pt) {
-            int size = Size;
+            int size = PixelSize;
             double radius = size * 0.5;
 
             double sqrt3 = double.Sqrt(3);
@@ -93,7 +94,7 @@ namespace ColorPicker {
         }
 
         private void Grid_ColorPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            Point pt = e.GetPosition(Grid_ColorPicker);
+            Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
 
             if (CheckHitCircleArea(pt)) {
                 operation_place = OperationPlace.Circle;
@@ -117,6 +118,7 @@ namespace ColorPicker {
         }
 
         private void Grid_ColorPicker_MouseMove(object sender, MouseEventArgs e) {
+
             if (e.LeftButton != MouseButtonState.Pressed) {
                 operation_place = OperationPlace.None;
 
@@ -127,14 +129,15 @@ namespace ColorPicker {
                 }
             }
             else if (operation_place != OperationPlace.None) {
-                Point pt = e.GetPosition(Grid_ColorPicker);
+                Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
                 AcceptOperation(pt);
             }
         }
 
         private void Grid_ColorPicker_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+
             if (operation_place != OperationPlace.None) {
-                Point pt = e.GetPosition(Grid_ColorPicker);
+                Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
                 AcceptOperation(pt);
             }
 

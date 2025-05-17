@@ -13,15 +13,15 @@ namespace ColorPicker {
                 return;
             }
 
-            byte[] buf = new byte[checked(TrackWidth * TrackHeight * 4)];
+            byte[] buf = new byte[checked(TrackPixelWidth * TrackPixelHeight * 4)];
 
-            RenderSlider(TrackWidth, TrackHeight, buf);
+            RenderSlider(TrackPixelWidth, TrackPixelHeight, buf);
 
             PixelFormat pixel_format = PixelFormats.Pbgra32;
-            int stride = checked(TrackWidth * pixel_format.BitsPerPixel + 7) / 8;
-            (double dpi_x, double dpi_y) = Utils.ColorPickerUtil.GetVisualDPI(this);
+            int stride = checked(TrackPixelWidth * pixel_format.BitsPerPixel + 7) / 8;
+            (double dpi_x, double dpi_y) = ColorPickerUtil.GetVisualDPI(this);
 
-            BitmapSource bitmap = BitmapSource.Create(TrackWidth, TrackHeight, dpi_x, dpi_y, pixel_format, null, buf, stride);
+            BitmapSource bitmap = BitmapSource.Create(TrackPixelWidth, TrackPixelHeight, dpi_x, dpi_y, pixel_format, null, buf, stride);
 
             bitmap.Freeze();
 
@@ -53,26 +53,30 @@ namespace ColorPicker {
                 return;
             }
 
-            int side = TrackWidth - 1;
+            int side = TrackPixelWidth - 1;
 
-            (double dpi_x, double dpi_y) = Utils.ColorPickerUtil.GetVisualDPI(this);
+            (double dpi_x, double dpi_y) = ColorPickerUtil.GetVisualDPI(this);
 
-            RenderTargetBitmap bitmap = new(checked((int)ActualWidth), checked((int)ActualHeight), dpi_x, dpi_y, PixelFormats.Pbgra32);
+            RenderTargetBitmap bitmap = new(PixelWidth, PixelHeight, dpi_x, dpi_y, PixelFormats.Pbgra32);
 
             DrawingVisual visual = new();
 
             Pen pen_white = new(new SolidColorBrush(Colors.White), 1);
             Brush brush_black = new SolidColorBrush(Colors.Black);
 
-            double x = Value * side + TrackMarginWidth + 0.5;
-            double y = TrackHeight + TrackMarginWidth;
+            (double sx, double sy) = ColorPickerUtil.GetVisualScalingFactor(this);
+
+            double x = Value * side + TrackMarginWidth * sx + 0.5;
+            double y = TrackPixelHeight + TrackMarginWidth * sy;
 
             using (DrawingContext context = visual.RenderOpen()) {
+                context.PushTransform(ColorPickerUtil.GetVisualScalingTransform(this));
+
                 context.DrawPolygon(
                     brush_black, pen_white,
-                    [new(x, y - ThumbSize.Height - 1),
-                     new(x - ThumbSize.Width * 0.5, y - 1),
-                     new(x + ThumbSize.Width * 0.5, y - 1)
+                    [new(x, y - (ThumbSize.Height + 1) * sy),
+                     new(x - ThumbSize.Width * sx * 0.5, y - sy),
+                     new(x + ThumbSize.Width * sx * 0.5, y - sy)
                     ],
                     fill_rule: FillRule.Nonzero
                 );

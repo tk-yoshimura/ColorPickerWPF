@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ColorPicker.Utils;
+using System.Windows;
 using System.Windows.Input;
 
 // Copyright (c) T.Yoshimura 2025
@@ -7,7 +8,7 @@ using System.Windows.Input;
 namespace ColorPicker {
     public partial class YCbCrColorPicker {
         private (double cb, double cr) Coord(Point pt) {
-            int side = PickerSize - 1;
+            int side = PickerPixelSize - 1;
             double radius = side * 0.5, side_inv = 1d / side;
 
             double cb = (pt.X - MarginWidth - radius) * side_inv;
@@ -29,7 +30,7 @@ namespace ColorPicker {
         }
 
         private void Grid_ColorPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            Point pt = e.GetPosition(Grid_ColorPicker);
+            Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
             AcceptOperation(pt);
 
             UIElement el = (UIElement)sender;
@@ -50,12 +51,12 @@ namespace ColorPicker {
                 return;
             }
 
-            Point pt = e.GetPosition(Grid_ColorPicker);
+            Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
             AcceptOperation(pt);
         }
 
         private void Grid_ColorPicker_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-            Point pt = e.GetPosition(Grid_ColorPicker);
+            Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
             AcceptOperation(pt);
 
             UIElement el = (UIElement)sender;

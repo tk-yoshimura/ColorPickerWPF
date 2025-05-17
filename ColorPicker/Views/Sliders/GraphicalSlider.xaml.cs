@@ -58,8 +58,8 @@ namespace ColorPicker {
             OnPropertyChanged(nameof(Value));
         }
 
-        private int track_margin_width = 4;
-        public int TrackMarginWidth {
+        private double track_margin_width = 4;
+        public double TrackMarginWidth {
             get => track_margin_width;
             set {
                 if (value < 0) {
@@ -87,21 +87,24 @@ namespace ColorPicker {
 
         public Thickness TrackMargin => new(TrackMarginWidth, 0, TrackMarginWidth, TrackMarginWidth);
 
-        protected int TrackWidth => checked((int)ActualWidth) - TrackMarginWidth * 2;
-        protected int TrackHeight => checked((int)ActualHeight) - TrackMarginWidth;
+        protected int PixelWidth => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelWidth));
+        protected int PixelHeight => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelHeight));
+
+        protected int TrackPixelWidth => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelWidth - TrackMarginWidth * Utils.ColorPickerUtil.GetVisualScalingFactor(this).scaleX * 2));
+        protected int TrackPixelHeight => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelHeight - TrackMarginWidth * Utils.ColorPickerUtil.GetVisualScalingFactor(this).scaleY));
 
         private void Slider_Loaded(object sender, RoutedEventArgs e) {
             RenderAllImages();
 
-            OnPropertyChanged(nameof(TrackWidth));
-            OnPropertyChanged(nameof(TrackHeight));
+            OnPropertyChanged(nameof(TrackPixelWidth));
+            OnPropertyChanged(nameof(TrackPixelHeight));
         }
 
         private void Slider_SizeChanged(object sender, SizeChangedEventArgs e) {
             RenderAllImages();
 
-            OnPropertyChanged(nameof(TrackWidth));
-            OnPropertyChanged(nameof(TrackHeight));
+            OnPropertyChanged(nameof(TrackPixelWidth));
+            OnPropertyChanged(nameof(TrackPixelHeight));
         }
 
         public virtual void RenderAllImages() {
@@ -109,6 +112,6 @@ namespace ColorPicker {
             RenderPointer();
         }
 
-        protected bool IsValidSize => TrackWidth >= 50 && TrackHeight >= 2;
+        protected bool IsValidSize => TrackPixelWidth >= 50 && TrackPixelHeight >= 2;
     }
 }
