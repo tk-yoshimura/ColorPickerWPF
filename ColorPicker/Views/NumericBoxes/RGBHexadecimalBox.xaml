@@ -28,6 +28,9 @@
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsColorREF, ElementName=this}" Value="True">
+                            <Setter Property="Foreground" Value="{Binding Foreground, ElementName=this}" />
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding IsColorREF, ElementName=this}" Value="False">
                             <Setter Property="Foreground" Value="{Binding InvalidHexBrush, ElementName=this}" />
                         </DataTrigger>
