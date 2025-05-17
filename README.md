@@ -1,5 +1,5 @@
 # ColorPickerWPF
- ColorPicker of WPF UserControl 
+ ColorPicker of WPF UserControl
 
 ## Requirement
 .NET 8.0 - windows  
