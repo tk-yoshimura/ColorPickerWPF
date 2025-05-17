@@ -132,7 +132,7 @@ namespace ColorPicker {
         private static Regex NonNumericRegex { get; } = new Regex("[^0-9]+");
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             string text = ((TextBox)sender).Text + e.Text;
-            e.Handled = NonNumericRegex.IsMatch(text) || text.Length >= textBox.MaxLength;
+            e.Handled = NonNumericRegex.IsMatch(text);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {

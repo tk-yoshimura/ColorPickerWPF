@@ -21,7 +21,7 @@
             GotKeyboardFocus="TextBox_GotKeyboardFocus"
             InputMethod.IsInputMethodEnabled="False"
             LostFocus="TextBox_LostFocus"
-            MaxLength="9"
+            MaxLength="8"
             MaxLines="1"
             PreviewTextInput="TextBox_PreviewTextInput"
             SelectionBrush="{Binding SelectionBrush, ElementName=this}"

@@ -70,7 +70,7 @@ namespace ColorPicker {
         private static Regex NonHexadecimalRegex { get; } = new Regex("[^0-9A-Fa-f]+");
         private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
             string text = ((TextBox)sender).Text + e.Text;
-            e.Handled = NonHexadecimalRegex.IsMatch(text) || text.Length >= textBox.MaxLength;
+            e.Handled = NonHexadecimalRegex.IsMatch(text);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
