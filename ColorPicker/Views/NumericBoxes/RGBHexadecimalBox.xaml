@@ -11,6 +11,7 @@
     x:Name="this"
     d:DesignHeight="20"
     d:DesignWidth="100"
+    Background="White"
     mc:Ignorable="d">
     <Grid>
         <TextBox
