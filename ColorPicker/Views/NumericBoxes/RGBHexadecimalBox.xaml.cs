@@ -79,6 +79,11 @@ namespace ColorPicker {
             if (TryParseColor(text, out RGB color)) {
                 SelectedColor = color;
             }
+            else {
+                int index = textBox.CaretIndex;
+                textBox.Text = textBox.Text.ToUpper();
+                textBox.CaretIndex = index;
+            }
 
             OnPropertyChanged(nameof(IsColorREF));
         }
