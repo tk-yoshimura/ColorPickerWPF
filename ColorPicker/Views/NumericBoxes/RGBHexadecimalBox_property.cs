@@ -49,5 +49,27 @@ namespace ColorPicker {
             }
         }
         #endregion
+
+        #region InvalidHexBrush
+        public static readonly DependencyProperty InvalidHexBrushProperty =
+            DependencyProperty.Register(
+                nameof(InvalidHexBrush),
+                typeof(Brush),
+                typeof(RGBHexadecimalBox),
+                new FrameworkPropertyMetadata(
+                    new SolidColorBrush(Colors.Gray),
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
+                )
+            );
+
+        public Brush InvalidHexBrush {
+            get => (Brush)GetValue(InvalidHexBrushProperty);
+            set {
+                SetValue(InvalidHexBrushProperty, value);
+
+                OnPropertyChanged(nameof(InvalidHexBrush));
+            }
+        }
+        #endregion
     }
 }

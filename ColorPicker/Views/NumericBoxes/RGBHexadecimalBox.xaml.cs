@@ -79,6 +79,8 @@ namespace ColorPicker {
             if (TryParseColor(text, out RGB color)) {
                 SelectedColor = color;
             }
+
+            OnPropertyChanged(nameof(IsColorREF));
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e) {
@@ -90,6 +92,8 @@ namespace ColorPicker {
             else {
                 UpdateText();
             }
+
+            OnPropertyChanged(nameof(IsColorREF));
         }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e) {
@@ -123,5 +127,7 @@ namespace ColorPicker {
 
             return true;
         }
+
+        public bool IsColorREF => textBox is not null && textBox.Text.Length == 6;
     }
 }

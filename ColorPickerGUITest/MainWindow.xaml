@@ -198,6 +198,7 @@
                         Background="LightCyan"
                         BorderBrush="Orange"
                         Foreground="Red"
+                        InvalidHexBrush="Pink"
                         SelectionBrush="Green" />
                 </StackPanel>
             </Grid>
