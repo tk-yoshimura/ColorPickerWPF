@@ -179,7 +179,16 @@
 
 
                 <StackPanel Grid.Row="4" Grid.Column="2">
-                    <colorpicker:NumericBox Height="20" />
+                    <colorpicker:NumericBox
+                        Height="20"
+                        ButtonBorderBrush="Aqua"
+                        ButtonMouseLeaveBrush="Brown"
+                        ButtonMouseOverBrush="BlueViolet"
+                        Foreground="Red"
+                        SelectionBrush="Green"
+                        TextBoxBorderBrush="Orange"
+                        TriangleFillBrush="Pink"
+                        Value="5000" />
                 </StackPanel>
             </Grid>
         </Grid>

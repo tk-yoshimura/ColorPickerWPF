@@ -23,9 +23,13 @@
         <TextBox
             x:Name="textBox"
             Grid.Column="0"
+            Background="Transparent"
+            BorderBrush="{Binding TextBoxBorderBrush, ElementName=this}"
+            Foreground="{Binding Foreground, ElementName=this}"
             MaxLength="8"
             MaxLines="1"
             PreviewTextInput="TextBox_PreviewTextInput"
+            SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="{Binding Value, ElementName=this, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
             TextAlignment="Right"
             TextChanged="TextBox_TextChanged" />
@@ -40,10 +44,10 @@
                 x:Name="GridUp"
                 Grid.Row="0"
                 MouseLeftButtonDown="GridUp_MouseLeftButtonDown">
-                <Rectangle Stroke="LightGray" />
+                <Rectangle Stroke="{Binding ButtonBorderBrush, ElementName=this}" />
                 <Polygon
                     Margin="4,2"
-                    Fill="Gray"
+                    Fill="{Binding TriangleFillBrush, ElementName=this}"
                     Points="0,10 5,0 10,10"
                     Stretch="Fill" />
 
@@ -56,7 +60,11 @@
                             </DataTrigger>
 
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="LightGray" />
+                                <Setter Property="Background" Value="{Binding ButtonMouseOverBrush, ElementName=this}" />
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="{Binding ButtonMouseLeaveBrush, ElementName=this}" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -67,10 +75,10 @@
                 x:Name="GridDown"
                 Grid.Row="1"
                 MouseLeftButtonDown="GridDown_MouseLeftButtonDown">
-                <Rectangle Stroke="LightGray" />
+                <Rectangle Stroke="{Binding ButtonBorderBrush, ElementName=this}" />
                 <Polygon
                     Margin="4,2"
-                    Fill="Gray"
+                    Fill="{Binding TriangleFillBrush, ElementName=this}"
                     Points="0,0 5,10 10,0"
                     Stretch="Fill" />
 
@@ -83,7 +91,11 @@
                             </DataTrigger>
 
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="LightGray" />
+                                <Setter Property="Background" Value="{Binding ButtonMouseOverBrush, ElementName=this}" />
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="{Binding ButtonMouseLeaveBrush, ElementName=this}" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>
