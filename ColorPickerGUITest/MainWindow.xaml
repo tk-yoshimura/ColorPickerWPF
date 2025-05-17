@@ -181,6 +181,7 @@
                 <StackPanel Grid.Row="4" Grid.Column="2">
                     <colorpicker:NumericBox
                         Height="20"
+                        Background="LightCyan"
                         ButtonBorderBrush="Aqua"
                         ButtonMouseLeaveBrush="Brown"
                         ButtonMouseOverBrush="BlueViolet"
@@ -188,7 +189,16 @@
                         SelectionBrush="Green"
                         TextBoxBorderBrush="Orange"
                         TriangleFillBrush="Pink"
+                        TriangleMargin="5,1"
                         Value="5000" />
+
+                    <colorpicker:RGBHexadecimalBox
+                        Height="20"
+                        Margin="0,2"
+                        Background="LightCyan"
+                        BorderBrush="Orange"
+                        Foreground="Red"
+                        SelectionBrush="Green" />
                 </StackPanel>
             </Grid>
         </Grid>

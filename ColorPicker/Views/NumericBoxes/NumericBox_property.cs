@@ -137,5 +137,27 @@ namespace ColorPicker {
             }
         }
         #endregion
+
+        #region TriangleMargin
+        public static readonly DependencyProperty TriangleMarginProperty =
+            DependencyProperty.Register(
+                nameof(TriangleMargin),
+                typeof(Thickness),
+                typeof(NumericBox),
+                new FrameworkPropertyMetadata(
+                    new Thickness(4, 2, 4, 2),
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
+                )
+            );
+
+        public Thickness TriangleMargin {
+            get => (Thickness)GetValue(TriangleMarginProperty);
+            set {
+                SetValue(TriangleMarginProperty, value);
+
+                OnPropertyChanged(nameof(TriangleMargin));
+            }
+        }
+        #endregion
     }
 }

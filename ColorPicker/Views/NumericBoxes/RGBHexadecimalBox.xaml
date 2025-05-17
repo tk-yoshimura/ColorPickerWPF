@@ -15,11 +15,13 @@
     <Grid>
         <TextBox
             x:Name="textBox"
+            BorderBrush="{Binding BorderBrush, ElementName=this}"
             Foreground="{Binding Foreground, ElementName=this}"
             LostFocus="TextBox_LostFocus"
             MaxLength="9"
             MaxLines="1"
             PreviewTextInput="TextBox_PreviewTextInput"
+            SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="000000"
             TextAlignment="Right"
             TextChanged="TextBox_TextChanged" />
