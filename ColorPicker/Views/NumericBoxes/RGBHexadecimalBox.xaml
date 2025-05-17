@@ -18,6 +18,8 @@
             x:Name="textBox"
             Background="{x:Null}"
             BorderBrush="{Binding BorderBrush, ElementName=this}"
+            GotKeyboardFocus="TextBox_GotKeyboardFocus"
+            InputMethod.IsInputMethodEnabled="False"
             LostFocus="TextBox_LostFocus"
             MaxLength="9"
             MaxLines="1"
@@ -25,7 +27,7 @@
             SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="000000"
             TextAlignment="Right"
-            TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus">
+            TextChanged="TextBox_TextChanged">
 
             <TextBox.Style>
                 <Style TargetType="TextBox">

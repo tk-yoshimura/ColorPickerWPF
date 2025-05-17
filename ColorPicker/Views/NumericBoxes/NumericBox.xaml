@@ -26,6 +26,8 @@
             Background="{x:Null}"
             BorderBrush="{Binding TextBoxBorderBrush, ElementName=this}"
             Foreground="{Binding Foreground, ElementName=this}"
+            GotKeyboardFocus="TextBox_GotKeyboardFocus"
+            InputMethod.IsInputMethodEnabled="False"
             MaxLength="8"
             MaxLines="1"
             PreviewKeyDown="TextBox_PreviewKeyDown"
@@ -33,7 +35,7 @@
             SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="{Binding Value, ElementName=this, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
             TextAlignment="Right"
-            TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus" />
+            TextChanged="TextBox_TextChanged" />
 
         <Grid Grid.Column="1" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
             <Grid.RowDefinitions>
