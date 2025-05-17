@@ -28,6 +28,7 @@
             Foreground="{Binding Foreground, ElementName=this}"
             MaxLength="8"
             MaxLines="1"
+            PreviewKeyDown="TextBox_PreviewKeyDown"
             PreviewTextInput="TextBox_PreviewTextInput"
             SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="{Binding Value, ElementName=this, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
