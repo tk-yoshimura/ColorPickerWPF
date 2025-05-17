@@ -25,7 +25,7 @@
             SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="000000"
             TextAlignment="Right"
-            TextChanged="TextBox_TextChanged">
+            TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus">
 
             <TextBox.Style>
                 <Style TargetType="TextBox">

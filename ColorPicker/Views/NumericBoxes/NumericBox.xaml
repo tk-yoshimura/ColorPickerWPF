@@ -33,7 +33,7 @@
             SelectionBrush="{Binding SelectionBrush, ElementName=this}"
             Text="{Binding Value, ElementName=this, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
             TextAlignment="Right"
-            TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged" GotKeyboardFocus="TextBox_GotKeyboardFocus" />
 
         <Grid Grid.Column="1" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
             <Grid.RowDefinitions>

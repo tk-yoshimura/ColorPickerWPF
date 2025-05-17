@@ -150,6 +150,10 @@ namespace ColorPicker {
             }
         }
 
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
+            textBox.SelectAll();
+        }
+
         private void GridUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             ChangeValue(1);
 

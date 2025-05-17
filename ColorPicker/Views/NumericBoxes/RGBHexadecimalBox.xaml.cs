@@ -95,6 +95,10 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(IsColorREF));
         }
+        
+        private void TextBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) {
+            textBox.SelectAll();
+        }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e) {
             bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
