@@ -15,6 +15,7 @@
     <Grid>
         <TextBox
             x:Name="textBox"
+            Background="{x:Null}"
             BorderBrush="{Binding BorderBrush, ElementName=this}"
             LostFocus="TextBox_LostFocus"
             MaxLength="9"

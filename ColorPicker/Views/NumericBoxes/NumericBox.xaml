@@ -23,7 +23,7 @@
         <TextBox
             x:Name="textBox"
             Grid.Column="0"
-            Background="Transparent"
+            Background="{x:Null}"
             BorderBrush="{Binding TextBoxBorderBrush, ElementName=this}"
             Foreground="{Binding Foreground, ElementName=this}"
             MaxLength="8"
