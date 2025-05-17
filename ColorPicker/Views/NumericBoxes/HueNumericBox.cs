@@ -42,7 +42,7 @@ namespace ColorPicker {
         }
 
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
-            SelectedColor = new(Value / 60d, SelectedColor.S, SelectedColor.V);
+            SelectedColor = new(Value / double.BitIncrement(60d), SelectedColor.S, SelectedColor.V);
         }
     }
 }
