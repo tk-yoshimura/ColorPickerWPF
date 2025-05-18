@@ -11,6 +11,7 @@ namespace ColorPicker {
             ValueChanged += NumericBox_ValueChanged;
         }
 
+        #region SelectedAlpha
         public static readonly DependencyProperty SelectedAlphaProperty =
             DependencyProperty.Register(
                 nameof(SelectedAlpha),
@@ -39,6 +40,7 @@ namespace ColorPicker {
                 ValueChanged += NumericBox_ValueChanged;
             }
         }
+        #endregion
 
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedAlpha = Value / 255d;

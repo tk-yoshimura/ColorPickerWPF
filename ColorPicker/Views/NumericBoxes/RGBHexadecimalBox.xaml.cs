@@ -27,6 +27,7 @@ namespace ColorPicker {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        #region SelectedColor
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
@@ -55,6 +56,7 @@ namespace ColorPicker {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+        #endregion
 
         protected void UpdateText() {
             Color color = (Color)SelectedColor;
@@ -104,14 +106,14 @@ namespace ColorPicker {
         private void TextBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) {
             textBox.SelectAll();
         }
-        
+
         private void TextBox_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
-            if (sender is not TextBox textbox) { 
+            if (sender is not TextBox textbox) {
                 return;
             }
 
-            if (textbox.IsFocused) { 
-                return; 
+            if (textbox.IsFocused) {
+                return;
             }
 
             textbox.Focus();

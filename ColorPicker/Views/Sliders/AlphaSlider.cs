@@ -7,7 +7,9 @@ using System.Windows;
 
 namespace ColorPicker {
     public class AlphaSlider : GraphicalSlider {
-        public static new readonly DependencyProperty SelectedColorProperty =
+
+        #region SelectedColor
+        public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
                 typeof(RGB),
@@ -38,6 +40,7 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(SelectedColor));
         }
+        #endregion
 
         protected override void RenderSlider(int width, int height, byte[] buf) {
             const int block_size = 4;

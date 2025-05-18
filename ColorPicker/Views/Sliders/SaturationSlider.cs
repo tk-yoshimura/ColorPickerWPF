@@ -9,7 +9,8 @@ namespace ColorPicker {
     public class SaturationSlider : GraphicalSlider {
         public event EventHandler<HSVColorChangedEventArgs> HSVColorChanged;
 
-        public static new readonly DependencyProperty SelectedColorProperty =
+        #region SelectedColor
+        public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
                 typeof(HSV),
@@ -56,6 +57,7 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(SelectedColor));
         }
+        #endregion
 
         protected override void RenderSlider(int width, int height, byte[] buf) {
             if (height < 1) {

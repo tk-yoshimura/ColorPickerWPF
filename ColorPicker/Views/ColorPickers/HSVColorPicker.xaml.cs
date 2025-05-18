@@ -23,6 +23,7 @@ namespace ColorPicker {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        #region SelectedColor
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
@@ -66,6 +67,7 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(SelectedColor));
         }
+        #endregion
 
         public int Size => checked((int)double.Min(ActualWidth, ActualHeight));
 

@@ -22,8 +22,8 @@ namespace ColorPicker {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-
-        public static readonly DependencyProperty SelectedColorProperty =
+        #region Value
+        public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(
                 nameof(Value),
                 typeof(double),
@@ -42,14 +42,14 @@ namespace ColorPicker {
         }
 
         public double Value {
-            get => (double)GetValue(SelectedColorProperty);
+            get => (double)GetValue(ValueProperty);
             set {
                 SetValue(value, user_operation: false);
             }
         }
 
         protected virtual void SetValue(double value, bool user_operation) {
-            SetValue(SelectedColorProperty, double.Clamp(value, 0, 1));
+            SetValue(ValueProperty, double.Clamp(value, 0, 1));
 
             RenderPointer();
 
@@ -57,6 +57,7 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(Value));
         }
+        #endregion
 
         private double track_margin_width = 4;
         public double TrackMarginWidth {

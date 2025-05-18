@@ -27,7 +27,7 @@ namespace ColorPicker {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-
+        #region Value
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(
                 nameof(Value),
@@ -60,16 +60,9 @@ namespace ColorPicker {
                 OnPropertyChanged(nameof(IsMaximum));
             }
         }
+        #endregion
 
-        protected void UpdateText() {
-            int index = textBox.CaretIndex;
-
-            textBox.TextChanged -= TextBox_TextChanged;
-            textBox.Text = $"{Value}";
-            textBox.CaretIndex = index;
-            textBox.TextChanged += TextBox_TextChanged;
-        }
-
+        #region MinValue
         public static readonly DependencyProperty MinValueProperty =
             DependencyProperty.Register(
                 nameof(MinValue),
@@ -97,7 +90,9 @@ namespace ColorPicker {
                 OnPropertyChanged(nameof(IsMinimum));
             }
         }
+        #endregion
 
+        #region MaxValue
         public static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register(
                 nameof(MaxValue),
@@ -124,6 +119,16 @@ namespace ColorPicker {
                 OnPropertyChanged(nameof(MaxValue));
                 OnPropertyChanged(nameof(IsMaximum));
             }
+        }
+        #endregion
+
+        protected void UpdateText() {
+            int index = textBox.CaretIndex;
+
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.Text = $"{Value}";
+            textBox.CaretIndex = index;
+            textBox.TextChanged += TextBox_TextChanged;
         }
 
         public bool IsMinimum => Value <= MinValue;
@@ -155,12 +160,12 @@ namespace ColorPicker {
         }
 
         private void TextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            if (sender is not TextBox textbox) { 
+            if (sender is not TextBox textbox) {
                 return;
             }
 
-            if (textbox.IsFocused) { 
-                return; 
+            if (textbox.IsFocused) {
+                return;
             }
 
             textbox.Focus();

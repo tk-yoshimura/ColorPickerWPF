@@ -12,6 +12,7 @@ namespace ColorPicker {
             ValueChanged += NumericBox_ValueChanged;
         }
 
+        #region SelectedColor
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
@@ -40,6 +41,7 @@ namespace ColorPicker {
                 ValueChanged += NumericBox_ValueChanged;
             }
         }
+        #endregion
 
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedColor = new(SelectedColor.H, SelectedColor.S, Value / 100d);
