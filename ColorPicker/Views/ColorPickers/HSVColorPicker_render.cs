@@ -12,6 +12,7 @@ namespace ColorPicker {
         const double outer_ring = 0.995;
         const double inner_ring = 0.85;
         const double triangle_vertex = 0.81;
+        private const double min_alpha = 0.01;
 
         private void RenderRing() {
             if (!IsValidSize) {
@@ -127,65 +128,61 @@ namespace ColorPicker {
             double d = double.Floor(color.H), f = color.H - d;
             int cr_i = (int)d;
 
-            unsafe {
-                double r, g, b;
-                double* cv, cs, cf;
+            if ((cr_i & 1) == 0) {
+                f = 1 - f;
+            }
 
-                switch (cr_i) {
-                    case 0:
-                        cv = &r;
-                        cf = &g;
-                        cs = &b;
-                        f = (1 - f);
-                        break;
-                    case 1:
-                        cf = &r;
-                        cv = &g;
-                        cs = &b;
-                        break;
-                    case 2:
-                        cs = &r;
-                        cv = &g;
-                        cf = &b;
-                        f = (1 - f);
-                        break;
-                    case 3:
-                        cs = &r;
-                        cf = &g;
-                        cv = &b;
-                        break;
-                    case 4:
-                        cf = &r;
-                        cs = &g;
-                        cv = &b;
-                        f = (1 - f);
-                        break;
-                    default:
-                        cv = &r;
-                        cs = &g;
-                        cf = &b;
-                        break;
-                }
+            Parallel.For(0, size, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (y) => {
+                unsafe {
+                    fixed (byte* c = buf) {
+                        double r, g, b;
+                        double* cv, cs, cf;
 
-                fixed (byte* c = buf) {
-                    for (int x, y = 0, i = 0; y < size; y++) {
+                        switch (cr_i) {
+                            case 0:
+                                cv = &r;
+                                cf = &g;
+                                cs = &b;
+                                break;
+                            case 1:
+                                cf = &r;
+                                cv = &g;
+                                cs = &b;
+                                break;
+                            case 2:
+                                cs = &r;
+                                cv = &g;
+                                cf = &b;
+                                break;
+                            case 3:
+                                cs = &r;
+                                cf = &g;
+                                cv = &b;
+                                break;
+                            case 4:
+                                cf = &r;
+                                cs = &g;
+                                cv = &b;
+                                break;
+                            default:
+                                cv = &r;
+                                cs = &g;
+                                cf = &b;
+                                break;
+                        }
+
                         double dy = (y0 - y) * t, v = double.Clamp(dy * side_inv, 0, 1);
                         double va = threshold(dy, side, bias);
 
-                        if (va < 0.01) {
-                            i += size * 4;
-                            continue;
-                        }
-
                         int sx = int.Clamp((int)double.Floor(x0 - bias + dy * 0.5), 0, size - 1);
-                        i += sx * 4;
+                        int i = (sx + y * size) * 4;
 
-                        for (x = sx; x < size; x++, i += 4) {
+                        for (int x = sx; x < size; x++, i += 4) {
                             double dx = x - dy * 0.5 - x0, u = double.Clamp(dx * side_inv, 0, 1);
                             double ua = threshold(dx, side - dy, bias);
 
                             double a = double.Min(va, ua);
-                            if (a <= 0.01) {
+                            if (a <= min_alpha) {
                                 continue;
                             }
 
@@ -205,13 +202,12 @@ namespace ColorPicker {
                             Debug.Assert(i + 3 < buf.Length);
 
                             if (u + v >= 1.05) {
-                                i += (size - x) * 4;
                                 break;
                             }
                         }
                     }
                 }
-            }
+            });
 
             PixelFormat pixel_format = PixelFormats.Pbgra32;
             int stride = checked(size * pixel_format.BitsPerPixel + 7) / 8;

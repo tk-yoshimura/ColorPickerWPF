@@ -23,11 +23,11 @@ namespace ColorPicker {
 
             double cr_y = color.Y;
 
-            unsafe {
-                fixed (byte* c = buf) {
-                    for (int x, y = 0, i = 0; y < size; y++) {
+            Parallel.For(0, size, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (y) => {
+                unsafe {
+                    fixed (byte* c = buf) {
                         double cr = (y - radius) * side_inv;
-                        for (x = 0; x < size; x++, i += 4) {
+                        for (int x = 0, i = y * size * 4; x < size; x++, i += 4) {
                             double cb = (x - radius) * side_inv;
 
                             double r = cr_y + YCbCr.Consts.ycbcr_to_rgb_m31 * cr;
@@ -43,7 +43,7 @@ namespace ColorPicker {
                         }
                     }
                 }
-            }
+            });
 
             PixelFormat pixel_format = PixelFormats.Pbgra32;
             int stride = checked(size * pixel_format.BitsPerPixel + 7) / 8;

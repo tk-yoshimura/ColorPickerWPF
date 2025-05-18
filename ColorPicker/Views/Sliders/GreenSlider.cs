@@ -71,8 +71,7 @@ namespace ColorPicker {
 
             unsafe {
                 fixed (byte* c = buf) {
-                    int i = 0;
-                    for (int x = 0; x < width; x++, i += 4) {
+                    for (int x = 0, i = 0; x < width; x++, i += 4) {
                         byte g = (byte)double.Clamp(x * scale, 0, 255);
 
                         c[i] = b;
@@ -83,16 +82,8 @@ namespace ColorPicker {
                         Debug.Assert(i + 3 < buf.Length);
                     }
 
-                    for (int x, y = 1, j; y < height; y++) {
-                        for (x = 0, j = 0; x < width; x++, i += 4, j += 4) {
-                            c[i] = c[j];
-                            c[i + 1] = c[j + 1];
-                            c[i + 2] = c[j + 2];
-                            c[i + 3] = c[j + 3];
-
-                            Debug.Assert(i + 3 < buf.Length);
-                            Debug.Assert(j + 3 < buf.Length);
-                        }
+                    for (int y = 1; y < height; y++) {
+                        Array.Copy(buf, 0, buf, y * width * 4, width * 4);
                     }
                 }
             }
