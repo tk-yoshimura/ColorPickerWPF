@@ -57,15 +57,17 @@ namespace ColorPicker {
                 RenderPointer(color);
                 RenderCbCr(color);
                 SetValue(SelectedColorProperty, color);
+
+                YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
             }
             else if (prev_color.Cb != color.Cb || prev_color.Cr != color.Cr) {
                 prev_color = color;
 
                 RenderPointer(color);
                 SetValue(SelectedColorProperty, color);
-            }
 
-            YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+            }
         }
         #endregion
 

@@ -31,15 +31,26 @@ namespace ColorPicker {
             }
         }
 
+        private HSV prev_color = new();
         public HSV SelectedColor {
             get => (HSV)GetValue(SelectedColorProperty);
             set {
-                SetValue(SelectedColorProperty, value);
-
-                ValueChanged -= NumericBox_ValueChanged;
-                Value = (int)(SelectedColor.H * 60 + 0.5);
-                ValueChanged += NumericBox_ValueChanged;
+                if (prev_color.H != value.H) {
+                    prev_color = value;
+                    UpdateValue(value.H);
+                    SetValue(SelectedColorProperty, value);
+                }
+                else if (prev_color != value) {
+                    prev_color = value;
+                    SetValue(SelectedColorProperty, value);
+                }
             }
+        }
+
+        protected void UpdateValue(double val) {
+            ValueChanged -= NumericBox_ValueChanged;
+            Value = (int)(val * 60d + 0.5);
+            ValueChanged += NumericBox_ValueChanged;
         }
         #endregion
 

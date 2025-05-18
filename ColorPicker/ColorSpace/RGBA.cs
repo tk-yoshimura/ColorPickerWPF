@@ -80,6 +80,14 @@ namespace ColorPicker.ColorSpace {
             alpha = A;
         }
 
+        public static bool operator ==(RGBA cr1, RGBA cr2) {
+            return cr1.R == cr2.R && cr1.G == cr2.G && cr1.B == cr2.B && cr1.A == cr2.A;
+        }
+
+        public static bool operator !=(RGBA cr1, RGBA cr2) {
+            return !(cr1 == cr2);
+        }
+
         public readonly RGBA Normalize =>
             new(
                 double.Clamp(R, 0, 1),
@@ -87,6 +95,14 @@ namespace ColorPicker.ColorSpace {
                 double.Clamp(B, 0, 1),
                 double.Clamp(A, 0, 1)
             );
+
+        public override bool Equals(object obj) {
+            return (obj is RGBA cr) && (this == cr);
+        }
+
+        public override int GetHashCode() {
+            return R.GetHashCode() ^ G.GetHashCode() ^ B.GetHashCode() ^ A.GetHashCode();
+        }
 
         public override readonly string ToString() {
             return $"r={R:0.000} g={G:0.000} b={B:0.000} a={A:0.000}";

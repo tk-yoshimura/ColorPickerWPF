@@ -30,17 +30,21 @@ namespace ColorPicker {
             }
         }
 
+        private double prev_alpha = 0;
         public double SelectedAlpha {
             get => (double)GetValue(SelectedAlphaProperty);
             set {
-                SetValue(SelectedAlphaProperty, value);
-                UpdateValue();
+                if (prev_alpha != value) {
+                    prev_alpha = value;
+                    UpdateValue(value);
+                    SetValue(SelectedAlphaProperty, value);
+                }
             }
         }
 
-        protected void UpdateValue() {
+        protected void UpdateValue(double val) {
             ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(SelectedAlpha * MaxValue + 0.5);
+            Value = (int)(val * MaxValue + 0.5);
             ValueChanged += NumericBox_ValueChanged;
         }
         #endregion
@@ -71,7 +75,7 @@ namespace ColorPicker {
 
                 MaxValue = (int)value;
 
-                UpdateValue();
+                UpdateValue(SelectedAlpha);
             }
         }
         #endregion

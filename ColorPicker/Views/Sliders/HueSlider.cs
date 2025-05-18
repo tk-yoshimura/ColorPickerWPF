@@ -42,12 +42,23 @@ namespace ColorPicker {
             SetSelectedColor(new HSV(Value * scale6_dec, SelectedColor.S, SelectedColor.V), user_operation);
         }
 
+        HSV prev_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation) {
-            SetValue(SelectedColorProperty, color);
+            if (prev_color.H != color.H) {
+                prev_color = color;
 
-            base.SetValue(SelectedColor.H / scale6_dec, user_operation);
+                base.SetValue(color.H / scale6_dec, user_operation);
+                SetValue(SelectedColorProperty, color);
 
-            HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+            }
+            else if (prev_color != color) {
+                prev_color = color;
+
+                SetValue(SelectedColorProperty, color);
+
+                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+            }
         }
         #endregion
 

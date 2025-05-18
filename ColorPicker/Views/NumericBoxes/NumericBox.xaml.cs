@@ -46,17 +46,22 @@ namespace ColorPicker {
             }
         }
 
+        private int prev_value = 0;
         public int Value {
             get => (int)GetValue(ValueProperty);
             set {
-                SetValue(ValueProperty, int.Clamp(value, MinValue, MaxValue));
+                value = int.Clamp(value, MinValue, MaxValue);
 
-                UpdateText();
+                if (prev_value != value) {
+                    prev_value = value;
 
-                ValueChanged?.Invoke(this, EventArgs.Empty);
+                    SetValue(ValueProperty, value);
+                    UpdateText();
+                    ValueChanged?.Invoke(this, EventArgs.Empty);
 
-                OnPropertyChanged(nameof(IsMinimum));
-                OnPropertyChanged(nameof(IsMaximum));
+                    OnPropertyChanged(nameof(IsMinimum));
+                    OnPropertyChanged(nameof(IsMaximum));
+                }
             }
         }
         #endregion

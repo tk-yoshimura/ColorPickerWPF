@@ -102,6 +102,22 @@ namespace ColorPicker.ColorSpace {
             cr = Cr;
         }
 
+        public static bool operator ==(YCbCr cr1, YCbCr cr2) {
+            return cr1.Y == cr2.Y && cr1.Cb == cr2.Cb && cr1.Cr == cr2.Cr;
+        }
+
+        public static bool operator !=(YCbCr cr1, YCbCr cr2) {
+            return !(cr1 == cr2);
+        }
+
+        public override bool Equals(object obj) {
+            return (obj is YCbCr cr) && (this == cr);
+        }
+
+        public override int GetHashCode() {
+            return Y.GetHashCode() ^ Cb.GetHashCode() ^ Cr.GetHashCode();
+        }
+
         public override readonly string ToString() {
             return $"y={Y:0.000} cb={Cb:0.000} cr={Cr:0.000}";
         }

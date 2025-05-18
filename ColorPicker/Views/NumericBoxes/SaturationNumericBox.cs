@@ -31,17 +31,25 @@ namespace ColorPicker {
             }
         }
 
+        private HSV prev_color = new();
         public HSV SelectedColor {
             get => (HSV)GetValue(SelectedColorProperty);
             set {
-                SetValue(SelectedColorProperty, value);
-                UpdateValue();
+                if (prev_color.S != value.S) {
+                    prev_color = value;
+                    UpdateValue(value.S);
+                    SetValue(SelectedColorProperty, value);
+                }
+                else if (prev_color != value) {
+                    prev_color = value;
+                    SetValue(SelectedColorProperty, value);
+                }
             }
         }
 
-        protected void UpdateValue() {
+        protected void UpdateValue(double val) {
             ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(SelectedColor.S * MaxValue + 0.5);
+            Value = (int)(val * MaxValue + 0.5);
             ValueChanged += NumericBox_ValueChanged;
         }
         #endregion
@@ -72,7 +80,7 @@ namespace ColorPicker {
 
                 MaxValue = (int)value;
 
-                UpdateValue();
+                UpdateValue(SelectedColor.S);
             }
         }
         #endregion

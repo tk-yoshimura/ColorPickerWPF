@@ -17,7 +17,7 @@ namespace ColorPicker {
         public RGBHexadecimalBox() {
             InitializeComponent();
 
-            UpdateText();
+            UpdateText((SelectedColor, SelectedAlpha));
 
             DataObject.AddPastingHandler(textBox, OnPaste);
 
@@ -50,14 +50,16 @@ namespace ColorPicker {
             }
         }
 
+        private RGB prev_color = new();
         public RGB SelectedColor {
             get => (RGB)GetValue(SelectedColorProperty);
             set {
-                SetValue(SelectedColorProperty, value);
-
-                UpdateText();
-
-                ValueChanged?.Invoke(this, EventArgs.Empty);
+                if (prev_color != value) {
+                    prev_color = value;
+                    UpdateText((value, SelectedAlpha));
+                    SetValue(SelectedColorProperty, value);
+                    ValueChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
         #endregion
@@ -81,14 +83,18 @@ namespace ColorPicker {
             }
         }
 
+        private double prev_alpha = new();
         public double SelectedAlpha {
             get => (double)GetValue(SelectedAlphaProperty);
             set {
-                SetValue(SelectedAlphaProperty, value);
+                if (prev_alpha != value) {
+                    prev_alpha = value;
 
-                UpdateText();
+                    UpdateText((SelectedColor, value));
+                    SetValue(SelectedAlphaProperty, value);
 
-                ValueChanged?.Invoke(this, EventArgs.Empty);
+                    ValueChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
         #endregion
@@ -122,9 +128,8 @@ namespace ColorPicker {
         }
         #endregion
 
-        protected void UpdateText() {
-            Color color = (Color)SelectedColor;
-            int alpha = (int)double.Clamp(SelectedAlpha * 255, 0, 255);
+        protected void UpdateText(RGBA rgba) {
+            Color color = (Color)rgba;
 
             int index = textBox.CaretIndex;
 
@@ -135,10 +140,10 @@ namespace ColorPicker {
                     textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}";
                     break;
                 case HexadecimalBoxEncodingMode.RGBA:
-                    textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}{alpha:X2}";
+                    textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
                     break;
                 case HexadecimalBoxEncodingMode.ARGB:
-                    textBox.Text = $"{alpha:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+                    textBox.Text = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
                     break;
             }
 
@@ -184,7 +189,7 @@ namespace ColorPicker {
                 }
             }
             else {
-                UpdateText();
+                UpdateText((SelectedColor, SelectedAlpha));
             }
 
             OnPropertyChanged(nameof(IsColorREF));

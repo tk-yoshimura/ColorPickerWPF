@@ -57,15 +57,18 @@ namespace ColorPicker {
                 RenderPointer(color);
                 RenderTriangle(color);
                 SetValue(SelectedColorProperty, color);
+
+                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+
             }
             else if (prev_color.S != color.S || prev_color.V != color.V) {
                 prev_color = color;
 
                 RenderPointer(color);
                 SetValue(SelectedColorProperty, color);
-            }
 
-            HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+            }
         }
         #endregion
 

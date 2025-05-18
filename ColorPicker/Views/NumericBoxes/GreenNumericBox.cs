@@ -31,17 +31,25 @@ namespace ColorPicker {
             }
         }
 
+        private RGB prev_color = new();
         public RGB SelectedColor {
             get => (RGB)GetValue(SelectedColorProperty);
             set {
-                SetValue(SelectedColorProperty, value);
-                UpdateValue();
+                if (prev_color.G != value.G) {
+                    prev_color = value;
+                    UpdateValue(value.G);
+                    SetValue(SelectedColorProperty, value);
+                }
+                else if (prev_color != value) {
+                    prev_color = value;
+                    SetValue(SelectedColorProperty, value);
+                }
             }
         }
 
-        protected void UpdateValue() {
+        protected void UpdateValue(double val) {
             ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(SelectedColor.G * MaxValue + 0.5);
+            Value = (int)(val * MaxValue + 0.5);
             ValueChanged += NumericBox_ValueChanged;
         }
         #endregion
@@ -72,7 +80,7 @@ namespace ColorPicker {
 
                 MaxValue = (int)value;
 
-                UpdateValue();
+                UpdateValue(SelectedColor.G);
             }
         }
         #endregion

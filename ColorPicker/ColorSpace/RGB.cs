@@ -69,12 +69,28 @@ namespace ColorPicker.ColorSpace {
             b = B;
         }
 
+        public static bool operator ==(RGB cr1, RGB cr2) {
+            return cr1.R == cr2.R && cr1.G == cr2.G && cr1.B == cr2.B;
+        }
+
+        public static bool operator !=(RGB cr1, RGB cr2) {
+            return !(cr1 == cr2);
+        }
+
         public readonly RGB Normalize =>
             new(
                 double.Clamp(R, 0, 1),
                 double.Clamp(G, 0, 1),
                 double.Clamp(B, 0, 1)
             );
+
+        public override bool Equals(object obj) {
+            return (obj is RGB cr) && (this == cr);
+        }
+
+        public override int GetHashCode() {
+            return R.GetHashCode() ^ G.GetHashCode() ^ B.GetHashCode();
+        }
 
         public override readonly string ToString() {
             return $"r={R:0.000} g={G:0.000} b={B:0.000}";

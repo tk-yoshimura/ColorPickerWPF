@@ -131,6 +131,22 @@ namespace ColorPicker.ColorSpace {
             v = V;
         }
 
+        public static bool operator ==(HSV cr1, HSV cr2) {
+            return cr1.H == cr2.H && cr1.S == cr2.S && cr1.V == cr2.V;
+        }
+
+        public static bool operator !=(HSV cr1, HSV cr2) {
+            return !(cr1 == cr2);
+        }
+
+        public override bool Equals(object obj) {
+            return (obj is HSV cr) && (this == cr);
+        }
+
+        public override int GetHashCode() {
+            return H.GetHashCode() ^ S.GetHashCode() ^ V.GetHashCode();
+        }
+
         public override readonly string ToString() {
             return $"h={H:0.000} s={S:0.000} v={V:0.000}";
         }

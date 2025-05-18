@@ -51,13 +51,13 @@ namespace ColorPicker {
         double prev_value = 0d;
         protected virtual void SetValue(double value, bool user_operation) {
             if (prev_value != value) {
-                RenderThumb(value);
                 prev_value = value;
+
+                RenderThumb(value);
+                SetValue(ValueProperty, double.Clamp(value, 0, 1));
+
+                SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
             }
-
-            SetValue(ValueProperty, double.Clamp(value, 0, 1));
-
-            SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
         }
         #endregion
 
