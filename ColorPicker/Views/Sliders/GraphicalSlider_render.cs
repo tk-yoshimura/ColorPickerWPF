@@ -8,14 +8,14 @@ using System.Windows.Media.Imaging;
 
 namespace ColorPicker {
     public partial class GraphicalSlider {
-        protected void RenderTrack() {
+        protected void RenderTrack(object parameter = null) {
             if (!IsValidSize) {
                 return;
             }
 
             byte[] buf = new byte[checked(TrackPixelWidth * TrackPixelHeight * 4)];
 
-            RenderSlider(TrackPixelWidth, TrackPixelHeight, buf);
+            RenderSlider(TrackPixelWidth, TrackPixelHeight, buf, parameter);
 
             PixelFormat pixel_format = PixelFormats.Pbgra32;
             int stride = checked(TrackPixelWidth * pixel_format.BitsPerPixel + 7) / 8;
@@ -32,7 +32,7 @@ namespace ColorPicker {
             Debug.WriteLine($"{nameof(GraphicalSlider)} - {nameof(RenderTrack)}");
         }
 
-        protected virtual void RenderSlider(int width, int height, byte[] buf) {
+        protected virtual void RenderSlider(int width, int height, byte[] buf, object parameter) {
             unsafe {
                 fixed (byte* c = buf) {
                     for (int x, y = 0, i = 0; y < height; y++) {

@@ -37,25 +37,30 @@ namespace ColorPicker {
         private RGB prev_color = new();
         protected void SetSelectedColor(RGB color) {
             if (prev_color.R != color.R || prev_color.G != color.G || prev_color.B != color.B) {
-                prev_color = color;
-                RenderTrack();
+                RenderTrack(color);
             }
+
+            prev_color = color;
 
             SetValue(SelectedColorProperty, color);
         }
         #endregion
 
-        protected override void RenderSlider(int width, int height, byte[] buf) {
-            const int block_size = 4;
-            const double light_color = 0.75, dark_color = 0.25;
-
+        protected override void RenderSlider(int width, int height, byte[] buf, object parameter) {
             if (height < 1) {
                 return;
             }
 
+            parameter ??= SelectedColor;
+
+            RGB color = (RGB)parameter;
+
+            const int block_size = 4;
+            const double light_color = 0.75, dark_color = 0.25;
+
             double scale = 1d / (width - 1);
 
-            (double r, double g, double b) = SelectedColor.Normalize;
+            (double r, double g, double b) = color.Normalize;
 
             byte[] buf1 = new byte[checked(width * 4)], buf2 = new byte[checked(width * 4)];
 

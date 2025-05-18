@@ -43,30 +43,29 @@ namespace ColorPicker {
         RGB prev_color = new();
         protected void SetSelectedColor(RGB color, bool user_operation) {
             if (prev_color.R != color.R || prev_color.B != color.B) {
-                prev_color = color;
-
-                SetValue(SelectedColorProperty, color);
-                RenderTrack();
-            }
-            else {
-                prev_color = color;
-
-                SetValue(SelectedColorProperty, color);
+                RenderTrack(color);
             }
 
+            prev_color = color;
+
+            SetValue(SelectedColorProperty, color);
             base.SetValue(SelectedColor.G, user_operation);
 
             RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
         }
         #endregion
 
-        protected override void RenderSlider(int width, int height, byte[] buf) {
+        protected override void RenderSlider(int width, int height, byte[] buf, object parameter) {
             if (height < 1) {
                 return;
             }
 
-            byte r = (byte)double.Clamp(SelectedColor.R * 255 + 0.5, 0, 255);
-            byte b = (byte)double.Clamp(SelectedColor.B * 255 + 0.5, 0, 255);
+            parameter ??= SelectedColor;
+
+            RGB color = (RGB)parameter;
+
+            byte r = (byte)double.Clamp(color.R * 255 + 0.5, 0, 255);
+            byte b = (byte)double.Clamp(color.B * 255 + 0.5, 0, 255);
 
             double scale = 255d / (width - 1);
 

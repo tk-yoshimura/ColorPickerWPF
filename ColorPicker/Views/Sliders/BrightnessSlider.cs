@@ -43,31 +43,30 @@ namespace ColorPicker {
         HSV prev_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation) {
             if (prev_color.H != color.H || prev_color.S != color.S) {
-                prev_color = color;
-
-                SetValue(SelectedColorProperty, color);
-                RenderTrack();
-            }
-            else {
-                prev_color = color;
-
-                SetValue(SelectedColorProperty, color);
+                RenderTrack(color);
             }
 
+            prev_color = color;
+
+            SetValue(SelectedColorProperty, color);
             base.SetValue(SelectedColor.V, user_operation);
 
             HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
         }
         #endregion
 
-        protected override void RenderSlider(int width, int height, byte[] buf) {
+        protected override void RenderSlider(int width, int height, byte[] buf, object parameter) {
             if (height < 1) {
                 return;
             }
 
+            parameter ??= SelectedColor;
+
+            HSV color = (HSV)parameter;
+
             double scale = 1d / (width - 1);
 
-            (double hue, double sat, _) = SelectedColor;
+            (double hue, double sat, _) = color;
 
             unsafe {
                 fixed (byte* c = buf) {
