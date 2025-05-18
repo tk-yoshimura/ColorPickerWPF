@@ -10,8 +10,8 @@
     Title="ColorPickerGUI Demo"
     Width="800"
     Height="500"
-    MinWidth="800"
-    MinHeight="500"
+    MinWidth="400"
+    MinHeight="250"
     mc:Ignorable="d">
     <Window.DataContext>
         <local:MainViewModel />
@@ -196,7 +196,6 @@
                             Grid.Column="1"
                             Margin="4"
                             ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
-                            SelectedIndex="0"
                             SelectedItem="{Binding RGBResolutionMode}" />
                     </Grid>
                 </StackPanel>
@@ -221,7 +220,6 @@
                             Grid.Column="1"
                             Margin="4"
                             ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
-                            SelectedIndex="2"
                             SelectedItem="{Binding HSVResolutionMode}" />
                     </Grid>
                 </StackPanel>

@@ -70,12 +70,7 @@ namespace ColorPicker {
             set {
                 SetValue(ResolutionModeProperty, value);
 
-                MaxValue = value switch {
-                    NumericBoxResolutionMode.Word => 65535,
-                    NumericBoxResolutionMode.Percent => 100,
-                    NumericBoxResolutionMode.Permille => 1000,
-                    _ => 255,
-                };
+                MaxValue = (int)value;
 
                 UpdateValue();
             }
