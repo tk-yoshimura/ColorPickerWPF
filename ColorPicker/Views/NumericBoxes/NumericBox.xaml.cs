@@ -154,6 +154,19 @@ namespace ColorPicker {
             textBox.SelectAll();
         }
 
+        private void TextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            if (sender is not TextBox textbox) { 
+                return;
+            }
+
+            if (textbox.IsFocused) { 
+                return; 
+            }
+
+            textbox.Focus();
+            e.Handled = true;
+        }
+
         private void GridUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             ChangeValue(1);
 

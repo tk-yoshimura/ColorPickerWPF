@@ -104,6 +104,19 @@ namespace ColorPicker {
         private void TextBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) {
             textBox.SelectAll();
         }
+        
+        private void TextBox_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            if (sender is not TextBox textbox) { 
+                return;
+            }
+
+            if (textbox.IsFocused) { 
+                return; 
+            }
+
+            textbox.Focus();
+            e.Handled = true;
+        }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e) {
             bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
