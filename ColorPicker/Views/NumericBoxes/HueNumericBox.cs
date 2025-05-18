@@ -27,21 +27,31 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is HueNumericBox ctrl) {
-                ctrl.SelectedColor = (HSV)e.NewValue;
+                ctrl.SetSelectedColor((HSV)e.NewValue, internal_only: true);
+            }
+        }
+
+        public HSV SelectedColor {
+            get => (HSV)GetValue(SelectedColorProperty);
+            set {
+                SetSelectedColor(value);
             }
         }
 
         private HSV prev_color = new();
-        public HSV SelectedColor {
-            get => (HSV)GetValue(SelectedColorProperty);
-            set {
-                if (prev_color.H != value.H) {
-                    prev_color = value;
-                    UpdateValue(value.H);
+        private void SetSelectedColor(HSV value, bool internal_only = false) {
+            if (prev_color.H != value.H) {
+                prev_color = value;
+                UpdateValue(value.H);
+
+                if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                 }
-                else if (prev_color != value) {
-                    prev_color = value;
+            }
+            else if (prev_color != value) {
+                prev_color = value;
+
+                if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                 }
             }

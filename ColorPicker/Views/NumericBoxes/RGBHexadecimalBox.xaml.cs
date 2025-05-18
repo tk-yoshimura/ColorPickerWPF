@@ -46,17 +46,24 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is RGBHexadecimalBox ctrl) {
-                ctrl.SelectedColor = (RGB)e.NewValue;
+                ctrl.SetSelectedColor((RGB)e.NewValue, internal_only: true);
+            }
+        }
+
+        public RGB SelectedColor {
+            get => (RGB)GetValue(SelectedColorProperty);
+            set {
+                SetSelectedColor(value);
             }
         }
 
         private RGB prev_color = new();
-        public RGB SelectedColor {
-            get => (RGB)GetValue(SelectedColorProperty);
-            set {
-                if (prev_color != value) {
-                    prev_color = value;
-                    UpdateText((value, SelectedAlpha));
+        private void SetSelectedColor(RGB value, bool internal_only = false) {
+            if (prev_color != value) {
+                prev_color = value;
+                UpdateText((value, SelectedAlpha));
+
+                if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                     ValueChanged?.Invoke(this, EventArgs.Empty);
                 }
@@ -79,20 +86,26 @@ namespace ColorPicker {
 
         private static void OnAlphaChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is RGBHexadecimalBox ctrl) {
-                ctrl.SelectedAlpha = (double)e.NewValue;
+                ctrl.SetSelectedAlpha((double)e.NewValue, internal_only: true);
+            }
+        }
+
+        public double SelectedAlpha {
+            get => (double)GetValue(SelectedAlphaProperty);
+            set {
+                SetSelectedAlpha(value);
             }
         }
 
         private double prev_alpha = new();
-        public double SelectedAlpha {
-            get => (double)GetValue(SelectedAlphaProperty);
-            set {
-                if (prev_alpha != value) {
-                    prev_alpha = value;
+        private void SetSelectedAlpha(double value, bool internal_only = false) {
+            if (prev_alpha != value) {
+                prev_alpha = value;
 
-                    UpdateText((SelectedColor, value));
+                UpdateText((SelectedColor, value));
+
+                if (!internal_only) {
                     SetValue(SelectedAlphaProperty, value);
-
                     ValueChanged?.Invoke(this, EventArgs.Empty);
                 }
             }

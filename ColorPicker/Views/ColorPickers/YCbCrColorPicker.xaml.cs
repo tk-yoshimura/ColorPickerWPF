@@ -38,7 +38,7 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is YCbCrColorPicker ctrl) {
-                ctrl.SelectedColor = (YCbCr)e.NewValue;
+                ctrl.SetSelectedColor((YCbCr)e.NewValue, user_operation: false, internal_only: true);
             }
         }
 
@@ -50,23 +50,29 @@ namespace ColorPicker {
         }
 
         YCbCr prev_color = new();
-        protected void SetSelectedColor(YCbCr color, bool user_operation) {
+        protected void SetSelectedColor(YCbCr color, bool user_operation, bool internal_only = false) {
             if (prev_color.Y != color.Y) {
                 prev_color = color;
 
                 RenderPointer(color);
                 RenderCbCr(color);
-                SetValue(SelectedColorProperty, color);
 
-                YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+
+                    YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
             else if (prev_color.Cb != color.Cb || prev_color.Cr != color.Cr) {
                 prev_color = color;
 
                 RenderPointer(color);
-                SetValue(SelectedColorProperty, color);
 
-                YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+
+                    YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
         }
         #endregion

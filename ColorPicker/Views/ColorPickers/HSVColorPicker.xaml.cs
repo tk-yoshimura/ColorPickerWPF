@@ -38,7 +38,7 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is HSVColorPicker ctrl) {
-                ctrl.SelectedColor = (HSV)e.NewValue;
+                ctrl.SetSelectedColor((HSV)e.NewValue, user_operation: false, internal_only: true);
             }
         }
 
@@ -50,24 +50,30 @@ namespace ColorPicker {
         }
 
         HSV prev_color = new();
-        protected void SetSelectedColor(HSV color, bool user_operation) {
+        protected void SetSelectedColor(HSV color, bool user_operation, bool internal_only = false) {
             if (prev_color.H != color.H) {
                 prev_color = color;
 
                 RenderPointer(color);
                 RenderTriangle(color);
-                SetValue(SelectedColorProperty, color);
 
-                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+
+                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                }
 
             }
             else if (prev_color.S != color.S || prev_color.V != color.V) {
                 prev_color = color;
 
                 RenderPointer(color);
-                SetValue(SelectedColorProperty, color);
 
-                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+
+                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
         }
         #endregion

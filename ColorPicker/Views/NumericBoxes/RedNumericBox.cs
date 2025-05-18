@@ -27,21 +27,31 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is RedNumericBox ctrl) {
-                ctrl.SelectedColor = (RGB)e.NewValue;
+                ctrl.SetSelectedColor((RGB)e.NewValue, internal_only: true);
+            }
+        }
+
+        public RGB SelectedColor {
+            get => (RGB)GetValue(SelectedColorProperty);
+            set {
+                SetSelectedColor(value);
             }
         }
 
         private RGB prev_color = new();
-        public RGB SelectedColor {
-            get => (RGB)GetValue(SelectedColorProperty);
-            set {
-                if (prev_color.R != value.R) {
-                    prev_color = value;
-                    UpdateValue(value.R);
+        private void SetSelectedColor(RGB value, bool internal_only = false) {
+            if (prev_color.R != value.R) {
+                prev_color = value;
+                UpdateValue(value.R);
+
+                if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                 }
-                else if (prev_color != value) {
-                    prev_color = value;
+            }
+            else if (prev_color != value) {
+                prev_color = value;
+
+                if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                 }
             }

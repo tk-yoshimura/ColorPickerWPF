@@ -23,7 +23,7 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is AlphaSlider ctrl) {
-                ctrl.SelectedColor = (RGB)e.NewValue;
+                ctrl.SetSelectedColor((RGB)e.NewValue, internal_only: true);
             }
         }
 
@@ -35,13 +35,15 @@ namespace ColorPicker {
         }
 
         private RGB prev_color = new();
-        protected void SetSelectedColor(RGB color) {
+        protected void SetSelectedColor(RGB color, bool internal_only = false) {
             if (prev_color != color) {
                 prev_color = color;
 
                 RenderTrack(color);
 
-                SetValue(SelectedColorProperty, color);
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+                }
             }
         }
         #endregion

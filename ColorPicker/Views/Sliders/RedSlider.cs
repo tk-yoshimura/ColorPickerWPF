@@ -24,7 +24,7 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is RedSlider ctrl) {
-                ctrl.SelectedColor = (RGB)e.NewValue;
+                ctrl.SetSelectedColor((RGB)e.NewValue, user_operation: false, internal_only: true);
             }
         }
 
@@ -41,7 +41,7 @@ namespace ColorPicker {
         }
 
         RGB prev_color = new();
-        protected void SetSelectedColor(RGB color, bool user_operation) {
+        protected void SetSelectedColor(RGB color, bool user_operation, bool internal_only = false) {
             if (prev_color.G != color.G || prev_color.B != color.B) {
                 prev_color = color;
 
@@ -51,17 +51,22 @@ namespace ColorPicker {
                     base.SetValue(SelectedColor.R, user_operation);
                 }
 
-                SetValue(SelectedColorProperty, color);
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
 
-                RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
+                    RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
             else if (prev_color.R != color.R) {
                 prev_color = color;
 
                 base.SetValue(SelectedColor.R, user_operation);
-                SetValue(SelectedColorProperty, color);
 
-                RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+
+                    RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
         }
         #endregion

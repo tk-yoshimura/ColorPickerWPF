@@ -24,7 +24,7 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is BrightnessSlider ctrl) {
-                ctrl.SelectedColor = (HSV)e.NewValue;
+                ctrl.SetSelectedColor((HSV)e.NewValue, user_operation: false, internal_only: true);
             }
         }
 
@@ -41,7 +41,7 @@ namespace ColorPicker {
         }
 
         HSV prev_color = new();
-        protected void SetSelectedColor(HSV color, bool user_operation) {
+        protected void SetSelectedColor(HSV color, bool user_operation, bool internal_only = false) {
             if (prev_color.H != color.H || prev_color.S != color.S) {
                 prev_color = color;
 
@@ -51,17 +51,22 @@ namespace ColorPicker {
                     base.SetValue(SelectedColor.V, user_operation);
                 }
 
-                SetValue(SelectedColorProperty, color);
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
 
-                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
             else if (prev_color.V != color.V) {
                 prev_color = color;
 
                 base.SetValue(SelectedColor.V, user_operation);
-                SetValue(SelectedColorProperty, color);
 
-                HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                if (!internal_only) {
+                    SetValue(SelectedColorProperty, color);
+
+                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                }
             }
         }
         #endregion

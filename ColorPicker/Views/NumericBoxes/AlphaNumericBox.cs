@@ -26,17 +26,24 @@ namespace ColorPicker {
 
         private static void OnAlphaChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is AlphaNumericBox ctrl) {
-                ctrl.SelectedAlpha = (double)e.NewValue;
+                ctrl.SetSelectedAlpha((double)e.NewValue, internal_only: true);
+            }
+        }
+
+        public double SelectedAlpha {
+            get => (double)GetValue(SelectedAlphaProperty);
+            set {
+                SetSelectedAlpha(value);
             }
         }
 
         private double prev_alpha = 0;
-        public double SelectedAlpha {
-            get => (double)GetValue(SelectedAlphaProperty);
-            set {
-                if (prev_alpha != value) {
-                    prev_alpha = value;
-                    UpdateValue(value);
+        private void SetSelectedAlpha(double value, bool internal_only = false) {
+            if (prev_alpha != value) {
+                prev_alpha = value;
+                UpdateValue(value);
+
+                if (!internal_only) {
                     SetValue(SelectedAlphaProperty, value);
                 }
             }
