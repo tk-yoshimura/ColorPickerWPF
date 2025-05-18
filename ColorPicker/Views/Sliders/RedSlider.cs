@@ -48,8 +48,8 @@ namespace ColorPicker {
 
             prev_color = color;
 
-            SetValue(SelectedColorProperty, color);
             base.SetValue(SelectedColor.R, user_operation);
+            SetValue(SelectedColorProperty, color);
 
             RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
         }
