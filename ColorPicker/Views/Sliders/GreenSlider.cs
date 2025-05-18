@@ -81,12 +81,12 @@ namespace ColorPicker {
 
                         Debug.Assert(i + 3 < buf.Length);
                     }
-
-                    for (int y = 1; y < height; y++) {
-                        Array.Copy(buf, 0, buf, y * width * 4, width * 4);
-                    }
                 }
             }
+
+            Parallel.For(1, height, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (y) => {
+                Array.Copy(buf, 0, buf, y * width * 4, width * 4);
+            });
         }
     }
 }
