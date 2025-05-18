@@ -51,7 +51,7 @@ namespace ColorPicker {
         protected virtual void SetValue(double value, bool user_operation) {
             SetValue(ValueProperty, double.Clamp(value, 0, 1));
 
-            RenderPointer();
+            RenderThumb();
 
             SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
 
@@ -110,7 +110,7 @@ namespace ColorPicker {
 
         public virtual void RenderAllImages() {
             RenderTrack();
-            RenderPointer();
+            RenderThumb();
         }
 
         protected bool IsValidSize => TrackPixelWidth >= 50 && TrackPixelHeight >= 2;

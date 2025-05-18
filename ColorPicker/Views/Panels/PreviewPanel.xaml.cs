@@ -124,6 +124,8 @@ namespace ColorPicker {
             Image_Panel.Source = bitmap;
 
             OnPropertyChanged(nameof(Image_Panel));
+
+            Debug.WriteLine($"{nameof(PreviewPanel)} - {nameof(RenderPanel)}");
         }
 
         protected virtual void RenderPanel(int width, int height, byte[] buf) {

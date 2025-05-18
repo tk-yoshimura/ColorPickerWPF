@@ -56,6 +56,8 @@ namespace ColorPicker {
             Image_CbCr.Source = bitmap;
 
             OnPropertyChanged(nameof(Image_CbCr));
+
+            Debug.WriteLine($"{nameof(YCbCrColorPicker)} - {nameof(RenderCbCr)}");
         }
 
         private void RenderPointer() {
@@ -97,6 +99,8 @@ namespace ColorPicker {
             Image_Pointer.Source = bitmap;
 
             OnPropertyChanged(nameof(Image_Pointer));
+
+            Debug.WriteLine($"{nameof(YCbCrColorPicker)} - {nameof(RenderPointer)}");
         }
     }
 }

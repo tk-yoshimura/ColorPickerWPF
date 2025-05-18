@@ -28,6 +28,8 @@ namespace ColorPicker {
             Image_Track.Source = bitmap;
 
             OnPropertyChanged(nameof(Image_Track));
+
+            Debug.WriteLine($"{nameof(GraphicalSlider)} - {nameof(RenderTrack)}");
         }
 
         protected virtual void RenderSlider(int width, int height, byte[] buf) {
@@ -48,7 +50,7 @@ namespace ColorPicker {
             }
         }
 
-        protected void RenderPointer() {
+        protected void RenderThumb() {
             if (!IsValidSize) {
                 return;
             }
@@ -88,6 +90,8 @@ namespace ColorPicker {
             Image_Pointer.Source = bitmap;
 
             OnPropertyChanged(nameof(Image_Pointer));
+
+            Debug.WriteLine($"{nameof(GraphicalSlider)} - {nameof(RenderThumb)}");
         }
     }
 }

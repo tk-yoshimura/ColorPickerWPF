@@ -1,5 +1,6 @@
 ﻿using ColorPicker.ColorSpace;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace ColorPickerGUITest {
@@ -24,6 +25,9 @@ namespace ColorPickerGUITest {
         public RGB SelectedRGB {
             get => selected_rgb;
             set {
+                Debug.WriteLine($"{nameof(MainViewModel)} - {nameof(SelectedRGB)}");
+                Debug.WriteLine($"{selected_rgb} -> {value}");
+
                 selected_rgb = value;
                 selected_hsv = value;
                 selected_ycbcr = value;
@@ -38,6 +42,9 @@ namespace ColorPickerGUITest {
         public HSV SelectedHSV {
             get => selected_hsv;
             set {
+                Debug.WriteLine($"{nameof(MainViewModel)} - {nameof(SelectedHSV)}");
+                Debug.WriteLine($"{selected_hsv} -> {value}");
+
                 selected_rgb = value;
                 selected_hsv = value;
                 selected_ycbcr = (RGB)value;
@@ -52,6 +59,9 @@ namespace ColorPickerGUITest {
         public YCbCr SelectedYCbCr {
             get => selected_ycbcr;
             set {
+                Debug.WriteLine($"{nameof(MainViewModel)} - {nameof(SelectedYCbCr)}");
+                Debug.WriteLine($"{selected_ycbcr} -> {value}");
+
                 selected_rgb = value;
                 selected_hsv = (RGB)value;
                 selected_ycbcr = value;
@@ -66,6 +76,8 @@ namespace ColorPickerGUITest {
         public double SelectedAlpha {
             get => selected_alpha;
             set {
+                Debug.WriteLine($"{nameof(MainViewModel)} - {nameof(SelectedAlpha)}");
+
                 selected_alpha = value;
 
                 OnPropertyChanged(nameof(SelectedAlpha));
