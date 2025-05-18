@@ -55,8 +55,8 @@ namespace ColorPicker {
                 if (prev_value != value) {
                     prev_value = value;
 
-                    UpdateValue(value);
                     SetValue(ValueProperty, value);
+                    UpdateText();
                     ValueChanged?.Invoke(this, EventArgs.Empty);
 
                     OnPropertyChanged(nameof(IsMinimum));
@@ -132,11 +132,11 @@ namespace ColorPicker {
         }
         #endregion
 
-        protected void UpdateValue(int value) {
+        protected void UpdateText() {
             int index = textBox.CaretIndex;
 
             textBox.TextChanged -= TextBox_TextChanged;
-            textBox.Text = $"{value}";
+            textBox.Text = $"{Value}";
             textBox.CaretIndex = index;
             textBox.TextChanged += TextBox_TextChanged;
         }
