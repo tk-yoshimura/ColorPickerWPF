@@ -56,14 +56,14 @@ namespace ColorPicker {
                 
                 SetValue(SelectedColorProperty, color);
                 RenderTriangle();
+                RenderPointer();
             }
-            else {
+            else if (prev_color.S != color.S || prev_color.V != color.V) {
                 prev_color = color;
 
                 SetValue(SelectedColorProperty, color);
+                RenderPointer();
             }
-
-            RenderPointer();
 
             HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
         }

@@ -56,14 +56,14 @@ namespace ColorPicker {
 
                 SetValue(SelectedColorProperty, color);
                 RenderCbCr();
+                RenderPointer();
             }
-            else {
+            else if (prev_color.Cb != color.Cb || prev_color.Cr != color.Cr) {
                 prev_color = color;
 
                 SetValue(SelectedColorProperty, color);
+                RenderPointer();
             }
-
-            RenderPointer();
 
             YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
         }
