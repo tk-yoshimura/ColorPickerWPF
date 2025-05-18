@@ -89,8 +89,9 @@ namespace ColorPicker {
             using (DrawingContext context = visual.RenderOpen()) {
                 context.PushTransform(Utils.ColorPickerUtil.GetVisualScalingTransform(this));
 
-                context.DrawEllipse(null, pen_black, tri_center, 3 * sx, 3 * sy);
-                context.DrawEllipse(null, pen_white, tri_center, 4 * sx, 4 * sy);
+                const double radius1 = 3, radius2 = 4;
+                context.DrawEllipse(null, pen_black, tri_center, radius1 * sx, radius1 * sy);
+                context.DrawEllipse(null, pen_white, tri_center, radius2 * sx, radius2 * sy);
             }
 
             bitmap.Render(visual);
