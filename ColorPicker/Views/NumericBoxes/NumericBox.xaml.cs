@@ -83,6 +83,10 @@ namespace ColorPicker {
         public int MinValue {
             get => (int)GetValue(MinValueProperty);
             set {
+                if (value < 0) {
+                    throw new ArgumentException("Must be non-negative.", nameof(MinValue));
+                }
+
                 SetValue(MinValueProperty, value);
 
                 OnPropertyChanged(nameof(IsMinimum));
@@ -112,6 +116,10 @@ namespace ColorPicker {
         public int MaxValue {
             get => (int)GetValue(MaxValueProperty);
             set {
+                if (value < 0) {
+                    throw new ArgumentException("Must be non-negative.", nameof(MaxValue));
+                }
+
                 SetValue(MaxValueProperty, value);
 
                 OnPropertyChanged(nameof(IsMaximum));
