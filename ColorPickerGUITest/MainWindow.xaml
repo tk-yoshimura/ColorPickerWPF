@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ColorPickerGUITest"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="ColorPickerGUI Demo"
     Width="800"
     Height="500"
@@ -15,6 +16,18 @@
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
+
+    <Window.Resources>
+        <ObjectDataProvider
+            x:Key="EnumDataSource"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="colorpicker:NumericBoxResolutionMode" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -111,14 +124,17 @@
                     <colorpicker:RedNumericBox
                         Height="20"
                         Margin="0,2"
+                        ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedColor="{Binding SelectedRGB}" />
                     <colorpicker:GreenNumericBox
                         Height="20"
                         Margin="0,2"
+                        ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedColor="{Binding SelectedRGB}" />
                     <colorpicker:BlueNumericBox
                         Height="20"
                         Margin="0,2"
+                        ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedColor="{Binding SelectedRGB}" />
 
                     <TextBlock>HSV</TextBlock>
@@ -129,16 +145,19 @@
                     <colorpicker:SaturationNumericBox
                         Height="20"
                         Margin="0,2"
+                        ResolutionMode="{Binding HSVResolutionMode}"
                         SelectedColor="{Binding SelectedHSV}" />
                     <colorpicker:BrightnessNumericBox
                         Height="20"
                         Margin="0,2"
+                        ResolutionMode="{Binding HSVResolutionMode}"
                         SelectedColor="{Binding SelectedHSV}" />
 
                     <TextBlock>Alpha</TextBlock>
                     <colorpicker:AlphaNumericBox
                         Height="20"
                         Margin="0,2"
+                        ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedAlpha="{Binding SelectedAlpha}" />
 
                     <TextBlock>Hex</TextBlock>
@@ -165,6 +184,21 @@
                         Height="20"
                         SliderValueChanged="GraphicalSlider_SliderValueChanged"
                         Value="{Binding SelectedValue}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0">RGBA Resolution</TextBlock>
+                        <ComboBox
+                            Grid.Column="1"
+                            Margin="4"
+                            ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
+                            SelectedIndex="0"
+                            SelectedItem="{Binding RGBResolutionMode}" />
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel
@@ -175,6 +209,21 @@
                         Height="20"
                         SliderValueChanged="GraphicalSlider_SliderValueChanged"
                         Value="{Binding SelectedValue}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0">HSV Resolution</TextBlock>
+                        <ComboBox
+                            Grid.Column="1"
+                            Margin="4"
+                            ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
+                            SelectedIndex="2"
+                            SelectedItem="{Binding HSVResolutionMode}" />
+                    </Grid>
                 </StackPanel>
 
 

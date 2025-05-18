@@ -6,7 +6,7 @@
 namespace ColorPicker {
     public class AlphaNumericBox : NumericBox {
         public AlphaNumericBox() : base() {
-            MaxValue = 255;
+            ResolutionMode = NumericBoxResolutionMode.Byte;
 
             ValueChanged += NumericBox_ValueChanged;
         }
@@ -34,16 +34,55 @@ namespace ColorPicker {
             get => (double)GetValue(SelectedAlphaProperty);
             set {
                 SetValue(SelectedAlphaProperty, value);
+                UpdateValue();
+            }
+        }
 
-                ValueChanged -= NumericBox_ValueChanged;
-                Value = (int)(SelectedAlpha * 255 + 0.5);
-                ValueChanged += NumericBox_ValueChanged;
+        protected void UpdateValue() {
+            ValueChanged -= NumericBox_ValueChanged;
+            Value = (int)(SelectedAlpha * MaxValue + 0.5);
+            ValueChanged += NumericBox_ValueChanged;
+        }
+        #endregion
+
+        #region ResolutionMode
+        protected static readonly DependencyProperty ResolutionModeProperty =
+            DependencyProperty.Register(
+                nameof(ResolutionMode),
+                typeof(NumericBoxResolutionMode),
+                typeof(AlphaNumericBox),
+                new FrameworkPropertyMetadata(
+                    NumericBoxResolutionMode.Byte,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnResolutionModeChanged
+                )
+            );
+
+        private static void OnResolutionModeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+            if (obj is AlphaNumericBox ctrl) {
+                ctrl.ResolutionMode = (NumericBoxResolutionMode)e.NewValue;
+            }
+        }
+
+        public NumericBoxResolutionMode ResolutionMode {
+            get => (NumericBoxResolutionMode)GetValue(ResolutionModeProperty);
+            set {
+                SetValue(ResolutionModeProperty, value);
+
+                MaxValue = value switch {
+                    NumericBoxResolutionMode.Word => 65535,
+                    NumericBoxResolutionMode.Percent => 100,
+                    NumericBoxResolutionMode.Permille => 1000,
+                    _ => 255,
+                };
+
+                UpdateValue();
             }
         }
         #endregion
 
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
-            SelectedAlpha = Value / 255d;
+            SelectedAlpha = Value / (double)MaxValue;
         }
     }
 }

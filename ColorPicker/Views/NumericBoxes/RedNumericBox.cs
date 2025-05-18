@@ -7,7 +7,7 @@ using System.Windows;
 namespace ColorPicker {
     public class RedNumericBox : NumericBox {
         public RedNumericBox() : base() {
-            MaxValue = 255;
+            ResolutionMode = NumericBoxResolutionMode.Byte;
 
             ValueChanged += NumericBox_ValueChanged;
         }
@@ -35,16 +35,55 @@ namespace ColorPicker {
             get => (RGB)GetValue(SelectedColorProperty);
             set {
                 SetValue(SelectedColorProperty, value);
+                UpdateValue();
+            }
+        }
 
-                ValueChanged -= NumericBox_ValueChanged;
-                Value = (int)(SelectedColor.R * 255 + 0.5);
-                ValueChanged += NumericBox_ValueChanged;
+        protected void UpdateValue() {
+            ValueChanged -= NumericBox_ValueChanged;
+            Value = (int)(SelectedColor.R * MaxValue + 0.5);
+            ValueChanged += NumericBox_ValueChanged;
+        }
+        #endregion
+
+        #region ResolutionMode
+        protected static readonly DependencyProperty ResolutionModeProperty =
+            DependencyProperty.Register(
+                nameof(ResolutionMode),
+                typeof(NumericBoxResolutionMode),
+                typeof(RedNumericBox),
+                new FrameworkPropertyMetadata(
+                    NumericBoxResolutionMode.Byte,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnResolutionModeChanged
+                )
+            );
+
+        private static void OnResolutionModeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+            if (obj is RedNumericBox ctrl) {
+                ctrl.ResolutionMode = (NumericBoxResolutionMode)e.NewValue;
+            }
+        }
+
+        public NumericBoxResolutionMode ResolutionMode {
+            get => (NumericBoxResolutionMode)GetValue(ResolutionModeProperty);
+            set {
+                SetValue(ResolutionModeProperty, value);
+
+                MaxValue = value switch {
+                    NumericBoxResolutionMode.Word => 65535,
+                    NumericBoxResolutionMode.Percent => 100,
+                    NumericBoxResolutionMode.Permille => 1000,
+                    _ => 255,
+                };
+
+                UpdateValue();
             }
         }
         #endregion
 
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
-            SelectedColor = new(Value / 255d, SelectedColor.G, SelectedColor.B);
+            SelectedColor = new(Value / (double)MaxValue, SelectedColor.G, SelectedColor.B);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ColorPicker.ColorSpace;
+﻿using ColorPicker;
+using ColorPicker.ColorSpace;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -91,6 +92,26 @@ namespace ColorPickerGUITest {
                 selected_grayscale = value;
 
                 OnPropertyChanged(nameof(SelectedGrayscale));
+            }
+        }
+
+        private NumericBoxResolutionMode rgb_resolution_mode = NumericBoxResolutionMode.Byte;
+        public NumericBoxResolutionMode RGBResolutionMode {
+            get => rgb_resolution_mode;
+            set {
+                rgb_resolution_mode = value;
+
+                OnPropertyChanged(nameof(RGBResolutionMode));
+            }
+        }
+
+        private NumericBoxResolutionMode hsv_resolution_mode = NumericBoxResolutionMode.Percent;
+        public NumericBoxResolutionMode HSVResolutionMode {
+            get => hsv_resolution_mode;
+            set {
+                hsv_resolution_mode = value;
+
+                OnPropertyChanged(nameof(HSVResolutionMode));
             }
         }
     }
