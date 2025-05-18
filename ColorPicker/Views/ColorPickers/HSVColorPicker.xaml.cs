@@ -52,14 +52,16 @@ namespace ColorPicker {
         HSV prev_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation) {
             if (prev_color.H != color.H) {
+                prev_color = color;
+                
                 SetValue(SelectedColorProperty, color);
                 RenderTriangle();
             }
             else {
+                prev_color = color;
+
                 SetValue(SelectedColorProperty, color);
             }
-
-            prev_color = color;
 
             RenderPointer();
 

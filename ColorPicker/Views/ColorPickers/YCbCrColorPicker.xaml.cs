@@ -52,14 +52,16 @@ namespace ColorPicker {
         YCbCr prev_color = new();
         protected void SetSelectedColor(YCbCr color, bool user_operation) {
             if (prev_color.Y != color.Y) {
+                prev_color = color;
+
                 SetValue(SelectedColorProperty, color);
                 RenderCbCr();
             }
             else {
+                prev_color = color;
+
                 SetValue(SelectedColorProperty, color);
             }
-
-            prev_color = color;
 
             RenderPointer();
 

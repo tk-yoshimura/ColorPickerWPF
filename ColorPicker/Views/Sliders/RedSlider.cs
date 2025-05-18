@@ -43,15 +43,18 @@ namespace ColorPicker {
         RGB prev_color = new();
         protected void SetSelectedColor(RGB color, bool user_operation) {
             if (prev_color.G != color.G || prev_color.B != color.B) {
+                prev_color = color;
+                
                 SetValue(SelectedColorProperty, color);
                 RenderTrack();
             }
             else {
+                prev_color = color;
+
                 SetValue(SelectedColorProperty, color);
             }
 
             base.SetValue(SelectedColor.R, user_operation);
-            prev_color = color;
 
             RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
         }
