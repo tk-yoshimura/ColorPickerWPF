@@ -53,16 +53,16 @@ namespace ColorPicker {
         protected void SetSelectedColor(HSV color, bool user_operation) {
             if (prev_color.H != color.H) {
                 prev_color = color;
-                
+
+                RenderPointer(color);
+                RenderTriangle(color);
                 SetValue(SelectedColorProperty, color);
-                RenderTriangle();
-                RenderPointer();
             }
             else if (prev_color.S != color.S || prev_color.V != color.V) {
                 prev_color = color;
 
+                RenderPointer(color);
                 SetValue(SelectedColorProperty, color);
-                RenderPointer();
             }
 
             HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
@@ -87,8 +87,8 @@ namespace ColorPicker {
 
         public void RenderAllImages() {
             RenderRing();
-            RenderTriangle();
-            RenderPointer();
+            RenderTriangle(SelectedColor);
+            RenderPointer(SelectedColor);
         }
 
         protected bool IsValidSize => PixelSize >= 50;

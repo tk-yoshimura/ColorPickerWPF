@@ -44,7 +44,7 @@ namespace ColorPicker {
         protected void SetSelectedColor(RGB color, bool user_operation) {
             if (prev_color.R != color.R || prev_color.B != color.B) {
                 prev_color = color;
-                
+
                 SetValue(SelectedColorProperty, color);
                 RenderTrack();
             }

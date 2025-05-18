@@ -50,7 +50,7 @@ namespace ColorPicker {
             }
         }
 
-        protected void RenderThumb() {
+        protected void RenderThumb(double value) {
             if (!IsValidSize) {
                 return;
             }
@@ -68,7 +68,7 @@ namespace ColorPicker {
 
             (double sx, double sy) = ColorPickerUtil.GetVisualScalingFactor(this);
 
-            double x = Value * side + TrackMarginWidth * sx + 0.5;
+            double x = value * side + TrackMarginWidth * sx + 0.5;
             double y = TrackPixelHeight + TrackMarginWidth * sy;
 
             using (DrawingContext context = visual.RenderOpen()) {

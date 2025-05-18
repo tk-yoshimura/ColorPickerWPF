@@ -51,8 +51,8 @@ namespace ColorPicker {
         double prev_value = 0d;
         protected virtual void SetValue(double value, bool user_operation) {
             if (prev_value != value) {
+                RenderThumb(value);
                 prev_value = value;
-                RenderThumb();
             }
 
             SetValue(ValueProperty, double.Clamp(value, 0, 1));
@@ -111,8 +111,8 @@ namespace ColorPicker {
         }
 
         public virtual void RenderAllImages() {
+            RenderThumb(Value);
             RenderTrack();
-            RenderThumb();
         }
 
         protected bool IsValidSize => TrackPixelWidth >= 50 && TrackPixelHeight >= 2;

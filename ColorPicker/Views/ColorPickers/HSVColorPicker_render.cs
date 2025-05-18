@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using ColorPicker.ColorSpace;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -99,7 +100,7 @@ namespace ColorPicker {
             Debug.WriteLine($"{nameof(HSVColorPicker)} - {nameof(RenderRing)}");
         }
 
-        private void RenderTriangle() {
+        private void RenderTriangle(HSV color) {
             if (!IsValidSize) {
                 return;
             }
@@ -123,7 +124,7 @@ namespace ColorPicker {
                 return double.Min(double.Max(s + bias, 0), double.Max(l - s + bias, 0));
             }
 
-            double d = double.Floor(SelectedColor.H), f = SelectedColor.H - d;
+            double d = double.Floor(color.H), f = color.H - d;
             int cr_i = (int)d;
 
             unsafe {
@@ -227,7 +228,7 @@ namespace ColorPicker {
             Debug.WriteLine($"{nameof(HSVColorPicker)} - {nameof(RenderTriangle)}");
         }
 
-        private void RenderPointer() {
+        private void RenderPointer(HSV color) {
             if (!IsValidSize) {
                 return;
             }
@@ -239,7 +240,7 @@ namespace ColorPicker {
 
             RenderTargetBitmap bitmap = new(size, size, dpi_x, dpi_y, PixelFormats.Pbgra32);
 
-            (double h, double s, double v) = SelectedColor;
+            (double h, double s, double v) = color;
 
             double ring_radius = radius * (outer_ring + inner_ring) / 2;
 

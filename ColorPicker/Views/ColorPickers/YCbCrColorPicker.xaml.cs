@@ -54,15 +54,15 @@ namespace ColorPicker {
             if (prev_color.Y != color.Y) {
                 prev_color = color;
 
+                RenderPointer(color);
+                RenderCbCr(color);
                 SetValue(SelectedColorProperty, color);
-                RenderCbCr();
-                RenderPointer();
             }
             else if (prev_color.Cb != color.Cb || prev_color.Cr != color.Cr) {
                 prev_color = color;
 
+                RenderPointer(color);
                 SetValue(SelectedColorProperty, color);
-                RenderPointer();
             }
 
             YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
@@ -103,8 +103,8 @@ namespace ColorPicker {
         }
 
         public void RenderAllImages() {
-            RenderCbCr();
-            RenderPointer();
+            RenderCbCr(SelectedColor);
+            RenderPointer(SelectedColor);
         }
 
         protected bool IsValidSize => PickerPixelSize >= 50;

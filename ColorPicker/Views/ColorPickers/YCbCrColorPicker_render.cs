@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace ColorPicker {
     public partial class YCbCrColorPicker {
-        private void RenderCbCr() {
+        private void RenderCbCr(YCbCr color) {
             if (!IsValidSize) {
                 return;
             }
@@ -21,7 +21,7 @@ namespace ColorPicker {
 
             byte[] buf = new byte[checked(size * size * 4)];
 
-            double cr_y = SelectedColor.Y;
+            double cr_y = color.Y;
 
             unsafe {
                 fixed (byte* c = buf) {
@@ -60,7 +60,7 @@ namespace ColorPicker {
             Debug.WriteLine($"{nameof(YCbCrColorPicker)} - {nameof(RenderCbCr)}");
         }
 
-        private void RenderPointer() {
+        private void RenderPointer(YCbCr color) {
             if (!IsValidSize) {
                 return;
             }
@@ -72,7 +72,7 @@ namespace ColorPicker {
 
             RenderTargetBitmap bitmap = new(PixelSize, PixelSize, dpi_x, dpi_y, PixelFormats.Pbgra32);
 
-            (_, double cb, double cr) = SelectedColor;
+            (_, double cb, double cr) = color;
 
             DrawingVisual visual = new();
 

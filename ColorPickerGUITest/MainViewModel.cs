@@ -50,8 +50,8 @@ namespace ColorPickerGUITest {
                 selected_hsv = value;
                 selected_ycbcr = (RGB)value;
 
-                OnPropertyChanged(nameof(SelectedRGB));
                 OnPropertyChanged(nameof(SelectedHSV));
+                OnPropertyChanged(nameof(SelectedRGB));
                 OnPropertyChanged(nameof(SelectedYCbCr));
             }
         }
@@ -67,9 +67,9 @@ namespace ColorPickerGUITest {
                 selected_hsv = (RGB)value;
                 selected_ycbcr = value;
 
+                OnPropertyChanged(nameof(SelectedYCbCr));
                 OnPropertyChanged(nameof(SelectedRGB));
                 OnPropertyChanged(nameof(SelectedHSV));
-                OnPropertyChanged(nameof(SelectedYCbCr));
             }
         }
 
