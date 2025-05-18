@@ -67,66 +67,34 @@ namespace ColorPicker {
         #endregion
 
         #region MinValue
-        protected static readonly DependencyProperty MinValueProperty =
-            DependencyProperty.Register(
-                nameof(MinValue),
-                typeof(int),
-                typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    0,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                    OnMinValueChanged
-                )
-            );
-
-        private static void OnMinValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
-            if (obj is NumericBox ctrl) {
-                ctrl.MinValue = (int)e.NewValue;
-            }
-        }
-
+        int min_value = 0;
         public int MinValue {
-            get => (int)GetValue(MinValueProperty);
+            get => min_value;
             set {
                 if (value < 0) {
                     throw new ArgumentException("Must be non-negative.", nameof(MinValue));
                 }
 
-                SetValue(MinValueProperty, value);
+                min_value = value;
 
+                OnPropertyChanged(nameof(MinValue));
                 OnPropertyChanged(nameof(IsMinimum));
             }
         }
         #endregion
 
         #region MaxValue
-        protected static readonly DependencyProperty MaxValueProperty =
-            DependencyProperty.Register(
-                nameof(MaxValue),
-                typeof(int),
-                typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    10000,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                    OnMaxValueChanged
-                )
-            );
-
-        private static void OnMaxValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
-            if (obj is NumericBox ctrl) {
-                ctrl.MaxValue = (int)e.NewValue;
-            }
-        }
-
+        int max_value = 10000;
         public int MaxValue {
-            get => (int)GetValue(MaxValueProperty);
+            get => max_value;
             set {
                 if (value < 0) {
                     throw new ArgumentException("Must be non-negative.", nameof(MaxValue));
                 }
 
-                SetValue(MaxValueProperty, value);
+                max_value = value;
 
+                OnPropertyChanged(nameof(MaxValue));
                 OnPropertyChanged(nameof(IsMaximum));
             }
         }

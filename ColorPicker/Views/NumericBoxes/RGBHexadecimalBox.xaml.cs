@@ -113,29 +113,13 @@ namespace ColorPicker {
         #endregion
 
         #region EncodingMode
-        protected static readonly DependencyProperty EncodingModeProperty =
-            DependencyProperty.Register(
-                nameof(EncodingMode),
-                typeof(HexadecimalBoxEncodingMode),
-                typeof(RGBHexadecimalBox),
-                new FrameworkPropertyMetadata(
-                    HexadecimalBoxEncodingMode.RGB,
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                    OnEncodingModeChanged
-                )
-            );
-
-        private static void OnEncodingModeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
-            if (obj is RGBHexadecimalBox ctrl) {
-                ctrl.EncodingMode = (HexadecimalBoxEncodingMode)e.NewValue;
-            }
-        }
-
+        private HexadecimalBoxEncodingMode encoding_mode = HexadecimalBoxEncodingMode.RGB;
         public HexadecimalBoxEncodingMode EncodingMode {
-            get => (HexadecimalBoxEncodingMode)GetValue(EncodingModeProperty);
+            get => encoding_mode;
             set {
-                SetValue(EncodingModeProperty, value);
+                encoding_mode = value;
 
+                OnPropertyChanged(nameof(EncodingMode));
                 OnPropertyChanged(nameof(IsColorREF));
             }
         }
