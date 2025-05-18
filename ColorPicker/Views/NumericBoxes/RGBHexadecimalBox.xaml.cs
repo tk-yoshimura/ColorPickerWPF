@@ -17,7 +17,11 @@ namespace ColorPicker {
         public RGBHexadecimalBox() {
             InitializeComponent();
 
+            UpdateText();
+
             DataObject.AddPastingHandler(textBox, OnPaste);
+
+            OnPropertyChanged(nameof(IsColorREF));
         }
 
         public event EventHandler<EventArgs> ValueChanged;
@@ -58,15 +62,90 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region SelectedAlpha
+        protected static readonly DependencyProperty SelectedAlphaProperty =
+            DependencyProperty.Register(
+                nameof(SelectedAlpha),
+                typeof(double),
+                typeof(RGBHexadecimalBox),
+                new FrameworkPropertyMetadata(
+                    0d,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnAlphaChanged
+                )
+            );
+
+        private static void OnAlphaChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+            if (obj is RGBHexadecimalBox ctrl) {
+                ctrl.SelectedAlpha = (double)e.NewValue;
+            }
+        }
+
+        public double SelectedAlpha {
+            get => (double)GetValue(SelectedAlphaProperty);
+            set {
+                SetValue(SelectedAlphaProperty, value);
+
+                UpdateText();
+
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        #endregion
+
+        #region EncodingMode
+        protected static readonly DependencyProperty EncodingModeProperty =
+            DependencyProperty.Register(
+                nameof(EncodingMode),
+                typeof(HexadecimalBoxEncodingMode),
+                typeof(RGBHexadecimalBox),
+                new FrameworkPropertyMetadata(
+                    HexadecimalBoxEncodingMode.RGB,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnEncodingModeChanged
+                )
+            );
+
+        private static void OnEncodingModeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+            if (obj is RGBHexadecimalBox ctrl) {
+                ctrl.EncodingMode = (HexadecimalBoxEncodingMode)e.NewValue;
+            }
+        }
+
+        public HexadecimalBoxEncodingMode EncodingMode {
+            get => (HexadecimalBoxEncodingMode)GetValue(EncodingModeProperty);
+            set {
+                SetValue(EncodingModeProperty, value);
+
+                OnPropertyChanged(nameof(IsColorREF));
+            }
+        }
+        #endregion
+
         protected void UpdateText() {
             Color color = (Color)SelectedColor;
+            int alpha = (int)double.Clamp(SelectedAlpha * 255, 0, 255);
 
             int index = textBox.CaretIndex;
 
             textBox.TextChanged -= TextBox_TextChanged;
-            textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}";
+
+            switch (EncodingMode) {
+                case HexadecimalBoxEncodingMode.RGB:
+                    textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}";
+                    break;
+                case HexadecimalBoxEncodingMode.RGBA:
+                    textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}{alpha:X2}";
+                    break;
+                case HexadecimalBoxEncodingMode.ARGB:
+                    textBox.Text = $"{alpha:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+                    break;
+            }
+
             textBox.CaretIndex = index;
             textBox.TextChanged += TextBox_TextChanged;
+
+            OnPropertyChanged(nameof(IsColorREF));
         }
 
         private static Regex NonHexadecimalRegex { get; } = new Regex("[^0-9A-Fa-f]+");
@@ -78,8 +157,12 @@ namespace ColorPicker {
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
             string text = ((TextBox)sender).Text;
 
-            if (TryParseColor(text, out RGB color)) {
+            if (TryParseColor(text, out RGB color, out double alpha)) {
                 SelectedColor = color;
+
+                if (EncodingMode != HexadecimalBoxEncodingMode.RGB) {
+                    SelectedAlpha = alpha;
+                }
             }
             else {
                 int index = textBox.CaretIndex;
@@ -93,8 +176,12 @@ namespace ColorPicker {
         private void TextBox_LostFocus(object sender, RoutedEventArgs e) {
             string text = ((TextBox)sender).Text;
 
-            if (TryParseColor(text, out RGB color)) {
+            if (TryParseColor(text, out RGB color, out double alpha)) {
                 SelectedColor = color;
+
+                if (EncodingMode != HexadecimalBoxEncodingMode.RGB) {
+                    SelectedAlpha = alpha;
+                }
             }
             else {
                 UpdateText();
@@ -135,23 +222,51 @@ namespace ColorPicker {
             }
         }
 
-        protected static bool TryParseColor(string text, out RGB color) {
+        protected bool TryParseColor(string text, out RGB color, out double alpha) {
             text = text.Trim();
 
-            if (NonHexadecimalRegex.IsMatch(text) || text.Length != 6) {
+            if (NonHexadecimalRegex.IsMatch(text) || text.Length != ExpectedLength) {
                 color = new();
+                alpha = 0;
                 return false;
             }
 
             int hex = Convert.ToInt32(text, 16);
 
-            int r = (hex >> 16) & 0xFF, g = (hex >> 8) & 0xFF, b = hex & 0xFF;
+            if (EncodingMode == HexadecimalBoxEncodingMode.RGB) {
+                int r = (hex >> 16) & 0xFF, g = (hex >> 8) & 0xFF, b = hex & 0xFF;
 
-            color = new RGB(r / 255d, g / 255d, b / 255d);
+                color = new RGB(r / 255d, g / 255d, b / 255d);
+                alpha = 1;
 
-            return true;
+                return true;
+            }
+            else {
+                int r, g, b, a;
+
+                if (EncodingMode == HexadecimalBoxEncodingMode.RGBA) {
+                    r = (hex >> 24) & 0xFF;
+                    g = (hex >> 16) & 0xFF;
+                    b = (hex >> 8) & 0xFF;
+                    a = hex & 0xFF;
+                }
+                else {
+                    a = (hex >> 24) & 0xFF;
+                    r = (hex >> 16) & 0xFF;
+                    g = (hex >> 8) & 0xFF;
+                    b = hex & 0xFF;
+                }
+
+                color = new RGB(r / 255d, g / 255d, b / 255d);
+                alpha = a / 255d;
+
+                return true;
+            }
         }
 
-        public bool IsColorREF => textBox is not null && textBox.Text.Length == 6;
+        public bool IsColorREF =>
+            textBox is not null && textBox.Text.Length == ExpectedLength;
+
+        private int ExpectedLength => EncodingMode == HexadecimalBoxEncodingMode.RGB ? 6 : 8;
     }
 }

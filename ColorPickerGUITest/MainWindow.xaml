@@ -9,7 +9,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="ColorPickerGUI Demo"
     Width="800"
-    Height="500"
+    Height="520"
     MinWidth="400"
     MinHeight="250"
     mc:Ignorable="d">
@@ -123,47 +123,61 @@
                     <TextBlock>RGB</TextBlock>
                     <colorpicker:RedNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedColor="{Binding SelectedRGB}" />
                     <colorpicker:GreenNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedColor="{Binding SelectedRGB}" />
                     <colorpicker:BlueNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedColor="{Binding SelectedRGB}" />
 
                     <TextBlock>HSV</TextBlock>
                     <colorpicker:HueNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         SelectedColor="{Binding SelectedHSV}" />
                     <colorpicker:SaturationNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         ResolutionMode="{Binding HSVResolutionMode}"
                         SelectedColor="{Binding SelectedHSV}" />
                     <colorpicker:BrightnessNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         ResolutionMode="{Binding HSVResolutionMode}"
                         SelectedColor="{Binding SelectedHSV}" />
 
                     <TextBlock>Alpha</TextBlock>
                     <colorpicker:AlphaNumericBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
                         ResolutionMode="{Binding RGBResolutionMode}"
                         SelectedAlpha="{Binding SelectedAlpha}" />
 
                     <TextBlock>Hex</TextBlock>
                     <colorpicker:RGBHexadecimalBox
                         Height="20"
-                        Margin="0,2"
+                        Margin="0,1"
+                        EncodingMode="RGB"
+                        SelectedAlpha="{Binding SelectedAlpha}"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:RGBHexadecimalBox
+                        Height="20"
+                        Margin="0,1"
+                        EncodingMode="RGBA"
+                        SelectedAlpha="{Binding SelectedAlpha}"
+                        SelectedColor="{Binding SelectedRGB}" />
+                    <colorpicker:RGBHexadecimalBox
+                        Height="20"
+                        Margin="0,1"
+                        EncodingMode="ARGB"
+                        SelectedAlpha="{Binding SelectedAlpha}"
                         SelectedColor="{Binding SelectedRGB}" />
                 </StackPanel>
 
