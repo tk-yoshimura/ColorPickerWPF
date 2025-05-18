@@ -23,7 +23,7 @@ namespace ColorPicker {
 
             double cr_y = color.Y;
 
-            Parallel.For(0, size, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (y) => {
+            Parallel.For(0, size, new ParallelOptions() { MaxDegreeOfParallelism = 8 }, (y) => {
                 unsafe {
                     fixed (byte* c = buf) {
                         double cr = (y - radius) * side_inv;

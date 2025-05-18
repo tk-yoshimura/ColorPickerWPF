@@ -132,7 +132,7 @@ namespace ColorPicker {
                 f = 1 - f;
             }
 
-            Parallel.For(0, size, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (y) => {
+            Parallel.For(0, size, new ParallelOptions() { MaxDegreeOfParallelism = 8 }, (y) => {
                 unsafe {
                     fixed (byte* c = buf) {
                         double r, g, b;
