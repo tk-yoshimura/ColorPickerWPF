@@ -22,8 +22,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(TextBoxBorderBrushProperty);
             set {
                 SetValue(TextBoxBorderBrushProperty, value);
-
-                OnPropertyChanged(nameof(TextBoxBorderBrush));
             }
         }
         #endregion
@@ -44,8 +42,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(SelectionBrushProperty);
             set {
                 SetValue(SelectionBrushProperty, value);
-
-                OnPropertyChanged(nameof(SelectionBrush));
             }
         }
         #endregion
@@ -66,8 +62,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(ButtonBorderBrushProperty);
             set {
                 SetValue(ButtonBorderBrushProperty, value);
-
-                OnPropertyChanged(nameof(ButtonBorderBrush));
             }
         }
         #endregion
@@ -88,8 +82,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(TriangleFillBrushProperty);
             set {
                 SetValue(TriangleFillBrushProperty, value);
-
-                OnPropertyChanged(nameof(TriangleFillBrush));
             }
         }
         #endregion
@@ -110,8 +102,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(ButtonMouseOverBrushProperty);
             set {
                 SetValue(ButtonMouseOverBrushProperty, value);
-
-                OnPropertyChanged(nameof(ButtonMouseOverBrush));
             }
         }
         #endregion
@@ -132,8 +122,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(ButtonMouseLeaveBrushProperty);
             set {
                 SetValue(ButtonMouseLeaveBrushProperty, value);
-
-                OnPropertyChanged(nameof(ButtonMouseLeaveBrush));
             }
         }
         #endregion
@@ -154,8 +142,6 @@ namespace ColorPicker {
             get => (Thickness)GetValue(TriangleMarginProperty);
             set {
                 SetValue(TriangleMarginProperty, value);
-
-                OnPropertyChanged(nameof(TriangleMargin));
             }
         }
         #endregion

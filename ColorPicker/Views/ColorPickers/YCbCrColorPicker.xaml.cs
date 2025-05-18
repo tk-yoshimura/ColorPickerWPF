@@ -64,8 +64,6 @@ namespace ColorPicker {
             RenderPointer();
 
             YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
-
-            OnPropertyChanged(nameof(SelectedColor));
         }
         #endregion
 

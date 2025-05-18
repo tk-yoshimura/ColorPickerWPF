@@ -54,8 +54,6 @@ namespace ColorPicker {
             prev_color = color;
 
             HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
-
-            OnPropertyChanged(nameof(SelectedColor));
         }
         #endregion
 

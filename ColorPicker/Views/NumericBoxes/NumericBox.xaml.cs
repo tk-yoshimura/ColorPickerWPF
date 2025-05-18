@@ -55,7 +55,6 @@ namespace ColorPicker {
 
                 ValueChanged?.Invoke(this, EventArgs.Empty);
 
-                OnPropertyChanged(nameof(Value));
                 OnPropertyChanged(nameof(IsMinimum));
                 OnPropertyChanged(nameof(IsMaximum));
             }
@@ -86,7 +85,6 @@ namespace ColorPicker {
             set {
                 SetValue(MinValueProperty, value);
 
-                OnPropertyChanged(nameof(MinValue));
                 OnPropertyChanged(nameof(IsMinimum));
             }
         }
@@ -116,7 +114,6 @@ namespace ColorPicker {
             set {
                 SetValue(MaxValueProperty, value);
 
-                OnPropertyChanged(nameof(MaxValue));
                 OnPropertyChanged(nameof(IsMaximum));
             }
         }

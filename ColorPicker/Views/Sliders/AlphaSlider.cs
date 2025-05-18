@@ -37,8 +37,6 @@ namespace ColorPicker {
         protected void SetSelectedColor(RGB color) {
             SetValue(SelectedColorProperty, color);
             RenderTrack();
-
-            OnPropertyChanged(nameof(SelectedColor));
         }
         #endregion
 

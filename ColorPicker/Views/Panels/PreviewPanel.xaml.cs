@@ -47,8 +47,6 @@ namespace ColorPicker {
             set {
                 SetValue(AlphaProperty, value);
                 RenderPanel();
-
-                OnPropertyChanged(nameof(Alpha));
             }
         }
 
@@ -75,8 +73,6 @@ namespace ColorPicker {
             set {
                 SetValue(ColorProperty, value);
                 RenderPanel();
-
-                OnPropertyChanged(nameof(Color));
             }
         }
 

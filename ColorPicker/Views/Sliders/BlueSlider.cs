@@ -54,8 +54,6 @@ namespace ColorPicker {
             prev_color = color;
 
             RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
-
-            OnPropertyChanged(nameof(SelectedColor));
         }
         #endregion
 

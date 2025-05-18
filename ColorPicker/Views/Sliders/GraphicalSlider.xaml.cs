@@ -54,8 +54,6 @@ namespace ColorPicker {
             RenderThumb();
 
             SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
-
-            OnPropertyChanged(nameof(Value));
         }
         #endregion
 

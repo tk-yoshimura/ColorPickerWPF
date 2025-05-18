@@ -22,8 +22,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(BorderBrushProperty);
             set {
                 SetValue(BorderBrushProperty, value);
-
-                OnPropertyChanged(nameof(BorderBrush));
             }
         }
         #endregion
@@ -44,8 +42,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(SelectionBrushProperty);
             set {
                 SetValue(SelectionBrushProperty, value);
-
-                OnPropertyChanged(nameof(SelectionBrush));
             }
         }
         #endregion
@@ -66,8 +62,6 @@ namespace ColorPicker {
             get => (Brush)GetValue(InvalidHexBrushProperty);
             set {
                 SetValue(InvalidHexBrushProperty, value);
-
-                OnPropertyChanged(nameof(InvalidHexBrush));
             }
         }
         #endregion
