@@ -7,7 +7,7 @@ using System.Windows.Media;
 namespace ColorPicker {
     public partial class NumericBox {
         #region TextBoxBorderBrush
-        public static readonly DependencyProperty TextBoxBorderBrushProperty =
+        protected static readonly DependencyProperty TextBoxBorderBrushProperty =
             DependencyProperty.Register(
                 nameof(TextBoxBorderBrush),
                 typeof(Brush),
@@ -27,7 +27,7 @@ namespace ColorPicker {
         #endregion
 
         #region SelectionBrush
-        public static readonly DependencyProperty SelectionBrushProperty =
+        protected static readonly DependencyProperty SelectionBrushProperty =
             DependencyProperty.Register(
                 nameof(SelectionBrush),
                 typeof(Brush),
@@ -47,7 +47,7 @@ namespace ColorPicker {
         #endregion
 
         #region ButtonBorderBrush
-        public static readonly DependencyProperty ButtonBorderBrushProperty =
+        protected static readonly DependencyProperty ButtonBorderBrushProperty =
             DependencyProperty.Register(
                 nameof(ButtonBorderBrush),
                 typeof(Brush),
@@ -67,7 +67,7 @@ namespace ColorPicker {
         #endregion
 
         #region TriangleFillBrush
-        public static readonly DependencyProperty TriangleFillBrushProperty =
+        protected static readonly DependencyProperty TriangleFillBrushProperty =
             DependencyProperty.Register(
                 nameof(TriangleFillBrush),
                 typeof(Brush),
@@ -87,7 +87,7 @@ namespace ColorPicker {
         #endregion
 
         #region ButtonMouseOverBrush
-        public static readonly DependencyProperty ButtonMouseOverBrushProperty =
+        protected static readonly DependencyProperty ButtonMouseOverBrushProperty =
             DependencyProperty.Register(
                 nameof(ButtonMouseOverBrush),
                 typeof(Brush),
@@ -107,7 +107,7 @@ namespace ColorPicker {
         #endregion
 
         #region ButtonMouseLeaveBrush
-        public static readonly DependencyProperty ButtonMouseLeaveBrushProperty =
+        protected static readonly DependencyProperty ButtonMouseLeaveBrushProperty =
             DependencyProperty.Register(
                 nameof(ButtonMouseLeaveBrush),
                 typeof(Brush),
@@ -127,7 +127,7 @@ namespace ColorPicker {
         #endregion
 
         #region TriangleMargin
-        public static readonly DependencyProperty TriangleMarginProperty =
+        protected static readonly DependencyProperty TriangleMarginProperty =
             DependencyProperty.Register(
                 nameof(TriangleMargin),
                 typeof(Thickness),

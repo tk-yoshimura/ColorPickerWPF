@@ -24,7 +24,7 @@ namespace ColorPicker {
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        public static readonly DependencyProperty AlphaProperty =
+        protected static readonly DependencyProperty AlphaProperty =
             DependencyProperty.Register(
                 nameof(Alpha),
                 typeof(double),
@@ -50,7 +50,7 @@ namespace ColorPicker {
             }
         }
 
-        public static readonly DependencyProperty ColorProperty =
+        protected static readonly DependencyProperty ColorProperty =
             DependencyProperty.Register(
                 nameof(Color),
                 typeof(RGB),

@@ -10,7 +10,7 @@ namespace ColorPicker {
         public event EventHandler<HSVColorChangedEventArgs> HSVColorChanged;
 
         #region SelectedColor
-        public static readonly DependencyProperty SelectedColorProperty =
+        protected static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
                 typeof(HSV),

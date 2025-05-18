@@ -12,7 +12,7 @@ namespace ColorPicker {
         }
 
         #region SelectedAlpha
-        public static readonly DependencyProperty SelectedAlphaProperty =
+        protected static readonly DependencyProperty SelectedAlphaProperty =
             DependencyProperty.Register(
                 nameof(SelectedAlpha),
                 typeof(double),

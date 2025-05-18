@@ -23,7 +23,7 @@ namespace ColorPicker {
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #region Value
-        public static readonly DependencyProperty ValueProperty =
+        protected static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(
                 nameof(Value),
                 typeof(double),

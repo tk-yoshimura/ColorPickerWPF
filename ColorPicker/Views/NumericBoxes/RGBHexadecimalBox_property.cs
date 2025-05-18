@@ -7,7 +7,7 @@ namespace ColorPicker {
     /// </summary>
     public partial class RGBHexadecimalBox {
         #region BorderBrush
-        public static new readonly DependencyProperty BorderBrushProperty =
+        protected static new readonly DependencyProperty BorderBrushProperty =
             DependencyProperty.Register(
                 nameof(BorderBrush),
                 typeof(Brush),
@@ -27,7 +27,7 @@ namespace ColorPicker {
         #endregion
 
         #region SelectionBrush
-        public static readonly DependencyProperty SelectionBrushProperty =
+        protected static readonly DependencyProperty SelectionBrushProperty =
             DependencyProperty.Register(
                 nameof(SelectionBrush),
                 typeof(Brush),
@@ -47,7 +47,7 @@ namespace ColorPicker {
         #endregion
 
         #region InvalidHexBrush
-        public static readonly DependencyProperty InvalidHexBrushProperty =
+        protected static readonly DependencyProperty InvalidHexBrushProperty =
             DependencyProperty.Register(
                 nameof(InvalidHexBrush),
                 typeof(Brush),

@@ -28,7 +28,7 @@ namespace ColorPicker {
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #region Value
-        public static readonly DependencyProperty ValueProperty =
+        protected static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(
                 nameof(Value),
                 typeof(int),
@@ -62,7 +62,7 @@ namespace ColorPicker {
         #endregion
 
         #region MinValue
-        public static readonly DependencyProperty MinValueProperty =
+        protected static readonly DependencyProperty MinValueProperty =
             DependencyProperty.Register(
                 nameof(MinValue),
                 typeof(int),
@@ -95,7 +95,7 @@ namespace ColorPicker {
         #endregion
 
         #region MaxValue
-        public static readonly DependencyProperty MaxValueProperty =
+        protected static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register(
                 nameof(MaxValue),
                 typeof(int),

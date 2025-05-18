@@ -9,7 +9,7 @@ namespace ColorPicker {
     public class AlphaSlider : GraphicalSlider {
 
         #region SelectedColor
-        public static readonly DependencyProperty SelectedColorProperty =
+        protected static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
                 typeof(RGB),

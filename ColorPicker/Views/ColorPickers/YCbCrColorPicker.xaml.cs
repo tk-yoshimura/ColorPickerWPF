@@ -24,7 +24,7 @@ namespace ColorPicker {
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #region SelectedColor
-        public static readonly DependencyProperty SelectedColorProperty =
+        protected static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(
                 nameof(SelectedColor),
                 typeof(YCbCr),
