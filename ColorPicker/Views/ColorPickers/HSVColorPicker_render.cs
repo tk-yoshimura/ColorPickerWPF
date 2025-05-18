@@ -191,7 +191,7 @@ namespace ColorPicker {
 
                             double alpha = double.Min(1, a);
 
-                            (double sat, double val) = TriangleCoordToSV((u, v));
+                            (double sat, double val) = TriangleCoordToSV(u, v);
 
                             r = g = b = val;
                             *cs *= 1 - sat;

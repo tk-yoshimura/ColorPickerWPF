@@ -1,4 +1,5 @@
 ﻿using ColorPicker.Utils;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -64,8 +65,13 @@ namespace ColorPicker {
         }
 
         private static (double sat, double val) TriangleCoordToSV((double u, double v) coord) {
-            double val = double.Min(1, coord.u + coord.v);
-            double sat = double.Min(1, (val > 0) ? (coord.v / val) : 0);
+            return TriangleCoordToSV(coord.u, coord.v);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static (double sat, double val) TriangleCoordToSV(double u, double v) {
+            double val = double.Min(1d, u + v);
+            double sat = double.Min(1d, (val > 0d) ? (v / val) : 0d);
 
             return (sat, val);
         }
