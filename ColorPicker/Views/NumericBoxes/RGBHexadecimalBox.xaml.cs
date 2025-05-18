@@ -56,8 +56,10 @@ namespace ColorPicker {
             set {
                 if (prev_color != value) {
                     prev_color = value;
+
                     UpdateText((value, SelectedAlpha));
                     SetValue(SelectedColorProperty, value);
+
                     ValueChanged?.Invoke(this, EventArgs.Empty);
                 }
             }

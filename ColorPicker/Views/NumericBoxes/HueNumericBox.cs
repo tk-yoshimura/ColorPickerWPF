@@ -48,9 +48,7 @@ namespace ColorPicker {
         }
 
         protected void UpdateValue(double val) {
-            ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(val * 60d + 0.5);
-            ValueChanged += NumericBox_ValueChanged;
+            base.UpdateValue((int)(val * 60d + 0.5));
         }
         #endregion
 
