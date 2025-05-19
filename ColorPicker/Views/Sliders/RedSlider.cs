@@ -43,13 +43,15 @@ namespace ColorPicker {
         RGB prev_color = new();
         protected void SetSelectedColor(RGB color, bool user_operation, bool internal_only = false) {
             if (prev_color.G != color.G || prev_color.B != color.B) {
-                prev_color = color;
+                if (prev_color.R != color.R) {
+                    prev_color = color;
+                    base.SetValue(color.R, user_operation);
+                }
+                else {
+                    prev_color = color;
+                }
 
                 RenderTrack(color);
-
-                if (prev_color.R != color.R) {
-                    base.SetValue(SelectedColor.R, user_operation);
-                }
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
@@ -60,7 +62,7 @@ namespace ColorPicker {
             else if (prev_color.R != color.R) {
                 prev_color = color;
 
-                base.SetValue(SelectedColor.R, user_operation);
+                base.SetValue(color.R, user_operation);
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
