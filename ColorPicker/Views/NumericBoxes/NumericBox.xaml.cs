@@ -160,15 +160,26 @@ namespace ColorPicker {
         }
 
         private void GridUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            ButtonsFocusIn();
+
             ChangeValue(1);
 
             StartupTimer();
         }
 
         private void GridDown_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            ButtonsFocusIn();
+
             ChangeValue(-1);
 
             StartupTimer();
+        }
+
+        private void ButtonsFocusIn() {
+            if (!textBox.IsFocused) {
+                textBox.Focus();
+                textBox.CaretIndex = textBox.Text.Length;
+            }
         }
 
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
