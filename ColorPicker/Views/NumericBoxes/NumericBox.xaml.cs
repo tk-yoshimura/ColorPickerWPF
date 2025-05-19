@@ -50,7 +50,7 @@ namespace ColorPicker {
         public int Value {
             get => (int)GetValue(ValueProperty);
             set {
-                value = SetValue(value);
+                SetValue(value);
             }
         }
 

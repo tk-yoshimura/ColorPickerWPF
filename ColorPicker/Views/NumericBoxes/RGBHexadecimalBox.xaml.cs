@@ -179,20 +179,10 @@ namespace ColorPicker {
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e) {
-            string text = ((TextBox)sender).Text;
-
-            if (TryParseColor(text, out RGB color, out double alpha)) {
-                SelectedColor = color;
-
-                if (EncodingMode != HexadecimalBoxEncodingMode.RGB) {
-                    SelectedAlpha = alpha;
-                }
-            }
-            else {
+            if (!IsColorREF) {
                 UpdateText((SelectedColor, SelectedAlpha));
+                OnPropertyChanged(nameof(IsColorREF));
             }
-
-            OnPropertyChanged(nameof(IsColorREF));
         }
 
         private void TextBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e) {
