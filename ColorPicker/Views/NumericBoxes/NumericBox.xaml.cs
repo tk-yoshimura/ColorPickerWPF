@@ -54,13 +54,13 @@ namespace ColorPicker {
             }
         }
 
-        private int SetValue(int value, bool internal_only = false) {
+        protected int SetValue(int value, bool internal_only = false) {
             value = int.Clamp(value, MinValue, MaxValue);
 
             if (prev_value != value) {
                 prev_value = value;
 
-                UpdateText($"{value}");
+                UpdateValue(value);
 
                 if (!internal_only) {
                     SetValue(ValueProperty, value);
@@ -109,11 +109,11 @@ namespace ColorPicker {
         }
         #endregion
 
-        protected void UpdateText(string text) {
+        private void UpdateValue(int val) {
             int index = textBox.CaretIndex;
 
             textBox.TextChanged -= TextBox_TextChanged;
-            textBox.Text = text;
+            textBox.Text = $"{val}";
             textBox.CaretIndex = index;
             textBox.TextChanged += TextBox_TextChanged;
         }
