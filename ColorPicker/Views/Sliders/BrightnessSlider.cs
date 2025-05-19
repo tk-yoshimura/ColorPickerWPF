@@ -35,9 +35,9 @@ namespace ColorPicker {
             }
         }
 
-        protected override void SetValue(double value, bool user_operation) {
-            base.SetValue(value, user_operation);
-            SetSelectedColor(new HSV(SelectedColor.H, SelectedColor.S, Value), user_operation);
+        protected override void SetValue(double value, bool user_operation, bool internal_only = false) {
+            SetSelectedColor(new HSV(SelectedColor.H, SelectedColor.S, value), user_operation, internal_only);
+            base.SetValue(value, user_operation, internal_only);
         }
 
         HSV prev_color = new();

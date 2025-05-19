@@ -42,7 +42,7 @@ namespace ColorPicker {
 
         private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is NumericBox ctrl) {
-                ctrl.Value = (int)e.NewValue;
+                ctrl.SetValue((int)e.NewValue, internal_only: true);
             }
         }
 
@@ -50,19 +50,28 @@ namespace ColorPicker {
         public int Value {
             get => (int)GetValue(ValueProperty);
             set {
-                value = int.Clamp(value, MinValue, MaxValue);
+                value = SetValue(value);
+            }
+        }
 
-                if (prev_value != value) {
-                    prev_value = value;
+        private int SetValue(int value, bool internal_only = false) {
+            value = int.Clamp(value, MinValue, MaxValue);
 
-                    UpdateText($"{value}");
+            if (prev_value != value) {
+                prev_value = value;
+
+                UpdateText($"{value}");
+
+                if (!internal_only) {
                     SetValue(ValueProperty, value);
                     ValueChanged?.Invoke(this, EventArgs.Empty);
-
-                    OnPropertyChanged(nameof(IsMinimum));
-                    OnPropertyChanged(nameof(IsMaximum));
                 }
+
+                OnPropertyChanged(nameof(IsMinimum));
+                OnPropertyChanged(nameof(IsMaximum));
             }
+
+            return value;
         }
         #endregion
 

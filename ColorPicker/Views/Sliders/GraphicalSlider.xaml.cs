@@ -37,7 +37,7 @@ namespace ColorPicker {
 
         private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is GraphicalSlider ctrl) {
-                ctrl.Value = (double)e.NewValue;
+                ctrl.SetValue((double)e.NewValue, user_operation: false, internal_only: true);
             }
         }
 
@@ -49,14 +49,19 @@ namespace ColorPicker {
         }
 
         double prev_value = 0d;
-        protected virtual void SetValue(double value, bool user_operation) {
+        protected virtual void SetValue(double value, bool user_operation, bool internal_only = false) {
+            value = double.Clamp(value, 0, 1);
+
             if (prev_value != value) {
                 prev_value = value;
 
                 RenderThumb(value);
-                SetValue(ValueProperty, double.Clamp(value, 0, 1));
 
-                SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
+                if (!internal_only) {
+                    SetValue(ValueProperty, value);
+
+                    SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
+                }
             }
         }
         #endregion

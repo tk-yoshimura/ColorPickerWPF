@@ -35,9 +35,9 @@ namespace ColorPicker {
             }
         }
 
-        protected override void SetValue(double value, bool user_operation) {
-            base.SetValue(value, user_operation);
-            SetSelectedColor(new RGB(SelectedColor.R, Value, SelectedColor.B), user_operation);
+        protected override void SetValue(double value, bool user_operation, bool internal_only = false) {
+            SetSelectedColor(new RGB(SelectedColor.R, value, SelectedColor.B), user_operation, internal_only);
+            base.SetValue(value, user_operation, internal_only);
         }
 
         RGB prev_color = new();
