@@ -54,7 +54,7 @@
                 <Polygon
                     Margin="{Binding TriangleMargin, ElementName=this}"
                     Fill="{Binding TriangleFillBrush, ElementName=this}"
-                    Points="0,10 5,0 10,10"
+                    Points="0,10 5,0 10,10 8,10 5,4, 2,10"
                     Stretch="Fill" />
 
                 <Grid.Style>
@@ -85,7 +85,7 @@
                 <Polygon
                     Margin="{Binding TriangleMargin, ElementName=this}"
                     Fill="{Binding TriangleFillBrush, ElementName=this}"
-                    Points="0,0 5,10 10,0"
+                    Points="0,0 5,10 10,0 8,0 5,6 2,0"
                     Stretch="Fill" />
 
                 <Grid.Style>
