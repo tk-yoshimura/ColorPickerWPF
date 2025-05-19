@@ -38,15 +38,22 @@ namespace ColorPicker {
 
         private static void OnAlphaChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is PreviewPanel ctrl) {
-                ctrl.Alpha = (double)e.NewValue;
+                ctrl.SetAlpha((double)e.NewValue, internal_only: true);
             }
         }
 
         public double Alpha {
             get => (double)GetValue(AlphaProperty);
             set {
+                SetAlpha(value);
+            }
+        }
+
+        private void SetAlpha(double value, bool internal_only = false) {
+            RenderPanel(Color, value);
+
+            if (!internal_only) {
                 SetValue(AlphaProperty, value);
-                RenderPanel();
             }
         }
 
@@ -64,15 +71,22 @@ namespace ColorPicker {
 
         private static void OnColorChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             if (obj is PreviewPanel ctrl) {
-                ctrl.Color = (RGB)e.NewValue;
+                ctrl.SetColor((RGB)e.NewValue, internal_only: true);
             }
         }
 
         public RGB Color {
             get => (RGB)GetValue(ColorProperty);
             set {
+                SetColor(value);
+            }
+        }
+
+        private void SetColor(RGB value, bool internal_only = false) {
+            RenderPanel(value, Alpha);
+
+            if (!internal_only) {
                 SetValue(ColorProperty, value);
-                RenderPanel();
             }
         }
 
@@ -84,30 +98,30 @@ namespace ColorPicker {
             get => block_size;
             set {
                 block_size = value;
-                RenderPanel();
+                RenderPanel(Color, Alpha);
 
                 OnPropertyChanged(nameof(BlockSize));
             }
         }
 
         private void Panel_Loaded(object sender, RoutedEventArgs e) {
-            RenderPanel();
+            RenderPanel(Color, Alpha);
         }
 
         private void Panel_SizeChanged(object sender, SizeChangedEventArgs e) {
-            RenderPanel();
+            RenderPanel(Color, Alpha);
         }
 
         protected bool IsValidSize => PanelWidth >= 1 && PanelHeight >= 1;
 
-        protected void RenderPanel() {
+        protected void RenderPanel(RGB color, double alpha) {
             if (!IsValidSize) {
                 return;
             }
 
             byte[] buf = new byte[checked(PanelWidth * PanelHeight * 4)];
 
-            RenderPanel(PanelWidth, PanelHeight, buf);
+            RenderPanel(PanelWidth, PanelHeight, buf, color, alpha);
 
             PixelFormat pixel_format = PixelFormats.Pbgra32;
             int stride = checked(PanelWidth * pixel_format.BitsPerPixel + 7) / 8;
@@ -124,7 +138,7 @@ namespace ColorPicker {
             Debug.WriteLine($"{nameof(PreviewPanel)} - {nameof(RenderPanel)}");
         }
 
-        protected virtual void RenderPanel(int width, int height, byte[] buf) {
+        protected virtual void RenderPanel(int width, int height, byte[] buf, RGB color, double alpha) {
             const double light_color = 0.75, dark_color = 0.25;
 
             if (height < 1) {
@@ -134,8 +148,9 @@ namespace ColorPicker {
             int block_size = BlockSize;
             double scale = 1d / (width - 1);
 
-            (double r, double g, double b) = Color.Normalize;
-            double alpha = double.Clamp(Alpha, 0, 1), alpha_c = 1 - alpha;
+            (double r, double g, double b) = color.Normalize;
+            alpha = double.Clamp(alpha, 0, 1);
+            double alpha_c = 1 - alpha;
 
             byte[] buf0 = new byte[4], buf1 = new byte[4], buf2 = new byte[4];
 
