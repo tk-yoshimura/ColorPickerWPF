@@ -128,26 +128,31 @@ namespace ColorPicker {
         protected void UpdateText(RGBA rgba) {
             Color color = (Color)rgba;
 
-            int index = textBox.CaretIndex;
-
-            textBox.TextChanged -= TextBox_TextChanged;
+            string str = string.Empty;
 
             switch (EncodingMode) {
                 case HexadecimalBoxEncodingMode.RGB:
-                    textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}";
+                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}";
                     break;
                 case HexadecimalBoxEncodingMode.RGBA:
-                    textBox.Text = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
+                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
                     break;
                 case HexadecimalBoxEncodingMode.ARGB:
-                    textBox.Text = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+                    str = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
                     break;
             }
 
-            textBox.CaretIndex = index;
-            textBox.TextChanged += TextBox_TextChanged;
+            UpdateText(str);
 
             OnPropertyChanged(nameof(IsColorREF));
+        }
+
+        private void UpdateText(string str) {
+            int index = textBox.CaretIndex;
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.Text = str;
+            textBox.TextChanged += TextBox_TextChanged;
+            textBox.CaretIndex = index;
         }
 
         private static Regex NonHexadecimalRegex { get; } = new Regex("[^0-9A-Fa-f]+");
@@ -167,9 +172,7 @@ namespace ColorPicker {
                 }
             }
             else {
-                int index = textBox.CaretIndex;
-                textBox.Text = textBox.Text.ToUpper();
-                textBox.CaretIndex = index;
+                UpdateText(textBox.Text.ToUpper());
             }
 
             OnPropertyChanged(nameof(IsColorREF));
