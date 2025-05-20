@@ -51,8 +51,6 @@ namespace ColorPicker {
 
         YCbCr current_color = new();
         protected void SetSelectedColor(YCbCr color, bool user_operation, bool internal_only = false) {
-            color = color.Quantization();
-            
             if (current_color.Y != color.Y) {
                 current_color = color;
 
