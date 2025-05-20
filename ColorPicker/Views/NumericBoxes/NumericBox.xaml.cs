@@ -63,20 +63,26 @@ namespace ColorPicker {
         }
 
         protected int SetValue(int value, bool internal_only = false) {
-            value = int.Clamp(value, MinValue, MaxValue);
+            int new_value = int.Clamp(value, MinValue, MaxValue);
 
-            if (current_value != value) {
-                current_value = value;
+            if (current_value != new_value || value != new_value) {
+                bool is_minimum = IsMinimum, is_maximum = IsMaximum;
 
-                UpdateValue(value);
+                current_value = new_value;
+
+                UpdateValue(new_value);
 
                 if (!internal_only) {
-                    SetValue(ValueProperty, value);
+                    SetValue(ValueProperty, new_value);
                     ValueChanged?.Invoke(this, EventArgs.Empty);
                 }
 
-                OnPropertyChanged(nameof(IsMinimum));
-                OnPropertyChanged(nameof(IsMaximum));
+                if (is_minimum != IsMinimum) {
+                    OnPropertyChanged(nameof(IsMinimum));
+                }
+                if (is_maximum != IsMaximum) {
+                    OnPropertyChanged(nameof(IsMaximum));
+                }
             }
 
             return value;
