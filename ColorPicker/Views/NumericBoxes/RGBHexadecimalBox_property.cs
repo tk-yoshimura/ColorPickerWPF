@@ -12,10 +12,7 @@ namespace ColorPicker {
                 nameof(BorderBrush),
                 typeof(Brush),
                 typeof(RGBHexadecimalBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.Gray),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.Gray))
             );
 
         public new Brush BorderBrush {
@@ -32,10 +29,7 @@ namespace ColorPicker {
                 nameof(SelectionBrush),
                 typeof(Brush),
                 typeof(RGBHexadecimalBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Color.FromRgb(0, 120, 215)),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Color.FromRgb(0, 120, 215)))
             );
 
         public Brush SelectionBrush {
@@ -52,10 +46,7 @@ namespace ColorPicker {
                 nameof(InvalidHexBrush),
                 typeof(Brush),
                 typeof(RGBHexadecimalBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.Gray),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.Gray))
             );
 
         public Brush InvalidHexBrush {

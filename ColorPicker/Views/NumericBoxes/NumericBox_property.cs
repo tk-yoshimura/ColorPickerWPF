@@ -12,10 +12,7 @@ namespace ColorPicker {
                 nameof(TextBoxBorderBrush),
                 typeof(Brush),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.Gray),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.Gray))
             );
 
         public Brush TextBoxBorderBrush {
@@ -32,10 +29,7 @@ namespace ColorPicker {
                 nameof(SelectionBrush),
                 typeof(Brush),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Color.FromRgb(0, 120, 215)),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Color.FromRgb(0, 120, 215)))
             );
 
         public Brush SelectionBrush {
@@ -52,10 +46,7 @@ namespace ColorPicker {
                 nameof(ButtonBorderBrush),
                 typeof(Brush),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.LightGray),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.LightGray))
             );
 
         public Brush ButtonBorderBrush {
@@ -72,10 +63,7 @@ namespace ColorPicker {
                 nameof(ChevronFillBrush),
                 typeof(Brush),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.Gray),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.Gray))
             );
 
         public Brush ChevronFillBrush {
@@ -92,10 +80,7 @@ namespace ColorPicker {
                 nameof(ButtonMouseOverBrush),
                 typeof(Brush),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.LightGray),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.LightGray))
             );
 
         public Brush ButtonMouseOverBrush {
@@ -112,10 +97,7 @@ namespace ColorPicker {
                 nameof(ButtonMouseLeaveBrush),
                 typeof(Brush),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new SolidColorBrush(Colors.Transparent),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new SolidColorBrush(Colors.Transparent))
             );
 
         public Brush ButtonMouseLeaveBrush {
@@ -132,10 +114,7 @@ namespace ColorPicker {
                 nameof(ChevronMargin),
                 typeof(Thickness),
                 typeof(NumericBox),
-                new FrameworkPropertyMetadata(
-                    new Thickness(4, 2, 4, 2),
-                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault
-                )
+                new PropertyMetadata(new Thickness(4, 2, 4, 2))
             );
 
         public Thickness ChevronMargin {
