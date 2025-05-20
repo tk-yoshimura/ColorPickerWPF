@@ -199,7 +199,7 @@ namespace ColorPicker {
         }
 
         protected void ChangeValue(int diff) {
-            Value += diff;
+            Value = current_value + diff;
         }
 
         private int mouse_press_duration = 0;
