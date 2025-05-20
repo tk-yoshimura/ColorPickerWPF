@@ -29,7 +29,7 @@ xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
 
 ```csharp
 private void HSVColorPicker_HSVColorChanged(object sender, HSVColorChangedEventArgs e) {
-    StatusBar.Text = $"{e.HSV} user - {e.UserOperation}";
+    StatusBar.Text = $"{e.Color} user - {e.UserOperation}";
 }
 ```
 
