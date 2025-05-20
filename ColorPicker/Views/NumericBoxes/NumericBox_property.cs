@@ -6,6 +6,7 @@ using System.Windows.Media;
 
 namespace ColorPicker {
     public partial class NumericBox {
+
         #region TextBoxBorderBrush
         protected static readonly DependencyProperty TextBoxBorderBrushProperty =
             DependencyProperty.Register(

@@ -7,6 +7,7 @@ using System.Windows;
 
 namespace ColorPicker {
     public class GreenSlider : GraphicalSlider {
+
         public event EventHandler<RGBColorChangedEventArgs> RGBColorChanged;
 
         #region SelectedColor
@@ -73,6 +74,7 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region Render
         protected override void RenderSlider(int width, int height, byte[] buf, object parameter) {
             if (height < 1) {
                 return;
@@ -106,5 +108,6 @@ namespace ColorPicker {
                 Array.Copy(buf, 0, buf, y * width * 4, width * 4);
             });
         }
+        #endregion
     }
 }

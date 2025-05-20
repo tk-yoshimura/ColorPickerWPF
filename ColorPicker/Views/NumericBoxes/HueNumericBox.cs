@@ -6,6 +6,7 @@ using System.Windows;
 
 namespace ColorPicker {
     public class HueNumericBox : NumericBox {
+
         public HueNumericBox() : base() {
             MaxValue = 360;
 
@@ -64,8 +65,10 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region NumericBox events
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedColor = new(Value / double.BitIncrement(60d), SelectedColor.S, SelectedColor.V);
         }
+        #endregion
     }
 }

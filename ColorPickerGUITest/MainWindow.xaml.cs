@@ -15,7 +15,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.HSV}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -23,7 +23,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.YCbCr}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -39,7 +39,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.RGB}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -47,7 +47,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.RGB}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -55,7 +55,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.RGB}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -71,7 +71,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.HSV}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -79,7 +79,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.HSV}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 
@@ -87,7 +87,7 @@ namespace ColorPickerGUITest {
             if (e.UserOperation) {
                 Debug.WriteLine("\n-------------");
 
-                StatusBar.Text = $"{e.HSV}";
+                StatusBar.Text = $"{e.Color}";
             }
         }
 

@@ -7,6 +7,8 @@ using System.Windows.Input;
 
 namespace ColorPicker {
     public partial class YCbCrColorPicker {
+
+        #region CheckHit
         private (double cb, double cr) Coord(Point pt) {
             int side = PickerPixelSize - 1;
             double radius = side * 0.5, side_inv = 1d / side;
@@ -16,7 +18,9 @@ namespace ColorPicker {
 
             return (cb, cr);
         }
+        #endregion
 
+        #region Operation
         private void AcceptOperation(Point pt) {
             (double cb, double cr) = Coord(pt);
             cb = double.Clamp(cb, -0.5, 0.5);
@@ -28,7 +32,9 @@ namespace ColorPicker {
 
             SetSelectedColor(new ColorSpace.YCbCr(SelectedColor.Y, cb, cr), user_operation: true);
         }
+        #endregion
 
+        #region Mouse events
         private void Grid_ColorPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
             AcceptOperation(pt);
@@ -65,5 +71,6 @@ namespace ColorPicker {
                 el.ReleaseMouseCapture();
             }
         }
+        #endregion
     }
 }

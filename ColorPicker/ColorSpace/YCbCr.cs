@@ -34,9 +34,9 @@ namespace ColorPicker.ColorSpace {
         }
 
         public YCbCr(double y, double cb, double cr) {
-            this.y = double.Clamp(double.IsNaN(y) ? 0 : y, 0, 1);
-            this.cb = double.Clamp(double.IsNaN(cb) ? 0 : cb, -0.5, 0.5);
-            this.cr = double.Clamp(double.IsNaN(cr) ? 0 : cr, -0.5, 0.5);
+            this.y = double.Clamp(double.IsNaN(y) ? 0d : y, 0d, 1d);
+            this.cb = double.Clamp(double.IsNaN(cb) ? 0d : cb, -0.5, 0.5);
+            this.cr = double.Clamp(double.IsNaN(cr) ? 0d : cr, -0.5, 0.5);
         }
 
         public double Y {
@@ -44,7 +44,7 @@ namespace ColorPicker.ColorSpace {
                 return y;
             }
             set {
-                y = double.Clamp(double.IsNaN(value) ? 0 : value, 0, 1);
+                y = double.Clamp(double.IsNaN(value) ? 0d : value, 0d, 1d);
             }
         }
 
@@ -53,7 +53,7 @@ namespace ColorPicker.ColorSpace {
                 return cb;
             }
             set {
-                cb = double.Clamp(double.IsNaN(value) ? 0 : value, -0.5, 0.5);
+                cb = double.Clamp(double.IsNaN(value) ? 0d : value, -0.5, 0.5);
             }
         }
 
@@ -62,7 +62,7 @@ namespace ColorPicker.ColorSpace {
                 return cr;
             }
             set {
-                cr = double.Clamp(double.IsNaN(value) ? 0 : value, -0.5, 0.5);
+                cr = double.Clamp(double.IsNaN(value) ? 0d : value, -0.5, 0.5);
             }
         }
 

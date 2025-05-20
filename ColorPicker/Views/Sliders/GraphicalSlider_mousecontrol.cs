@@ -7,6 +7,8 @@ using System.Windows.Input;
 
 namespace ColorPicker {
     public partial class GraphicalSlider {
+
+        #region CheckHit
         private double Coord(Point pt) {
             int side = TrackPixelWidth - 1;
             double side_inv = 1d / side;
@@ -15,7 +17,9 @@ namespace ColorPicker {
 
             return x;
         }
+        #endregion
 
+        #region Operation
         private void AcceptOperation(Point pt) {
             double x = Coord(pt);
             x = double.Clamp(x, 0, 1);
@@ -26,7 +30,9 @@ namespace ColorPicker {
 
             SetValue(x, user_operation: true);
         }
+        #endregion
 
+        #region Mouse events
         private void Grid_Slider_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             Point pt = e.GetDPIScaledPosition(Grid_Slider);
             AcceptOperation(pt);
@@ -63,5 +69,6 @@ namespace ColorPicker {
                 el.ReleaseMouseCapture();
             }
         }
+        #endregion
     }
 }

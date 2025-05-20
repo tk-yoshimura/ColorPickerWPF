@@ -6,6 +6,7 @@ using System.Windows;
 
 namespace ColorPicker {
     public class SaturationNumericBox : NumericBox {
+
         public SaturationNumericBox() : base() {
             ResolutionMode = NumericBoxResolutionMode.Percent;
 
@@ -95,8 +96,10 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region NumericBox events
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedColor = new(SelectedColor.H, Value / (double)MaxValue, SelectedColor.V);
         }
+        #endregion
     }
 }

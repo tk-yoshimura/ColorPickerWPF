@@ -18,11 +18,12 @@ namespace ColorPickerColorSpaceTest {
             Assert.AreEqual(1, rgb2.B);
             Assert.AreEqual(1, rgb2.A);
 
-            RGBA rgb3 = new();
-            rgb3.R = 0.1;
-            rgb3.G = 0.2;
-            rgb3.B = 0.3;
-            rgb3.A = 0.4;
+            RGBA rgb3 = new() {
+                R = 0.1,
+                G = 0.2,
+                B = 0.3,
+                A = 0.4
+            };
 
             Assert.AreEqual(0.1, rgb3.R);
             Assert.AreEqual(0.2, rgb3.G);

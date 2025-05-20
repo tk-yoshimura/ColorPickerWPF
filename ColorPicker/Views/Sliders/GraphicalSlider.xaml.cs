@@ -11,16 +11,19 @@ namespace ColorPicker {
     /// Interaction logic for GraphicalSlider.xaml
     /// </summary>
     public partial class GraphicalSlider : UserControl, INotifyPropertyChanged {
+
         public GraphicalSlider() {
             InitializeComponent();
         }
 
+        #region EventHandler
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<SliderValueChangedEventArgs> SliderValueChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        #endregion
 
         #region Value
         protected static readonly DependencyProperty ValueProperty =
@@ -66,41 +69,7 @@ namespace ColorPicker {
         }
         #endregion
 
-        private double track_margin_width = 4;
-        public double TrackMarginWidth {
-            get => track_margin_width;
-            set {
-                if (value < 0) {
-                    throw new ArgumentException("Must be non-negative.", nameof(TrackMarginWidth));
-                }
-
-                track_margin_width = value;
-                RenderAllImages();
-
-                OnPropertyChanged(nameof(TrackMarginWidth));
-                OnPropertyChanged(nameof(TrackMargin));
-            }
-        }
-
-        private Size thumb_size = new(8, 8);
-        public Size ThumbSize {
-            get => thumb_size;
-            set {
-                thumb_size = value;
-                RenderAllImages();
-
-                OnPropertyChanged(nameof(ThumbSize));
-            }
-        }
-
-        public Thickness TrackMargin => new(TrackMarginWidth, 0, TrackMarginWidth, TrackMarginWidth);
-
-        protected int PixelWidth => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelWidth));
-        protected int PixelHeight => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelHeight));
-
-        protected int TrackPixelWidth => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelWidth - TrackMarginWidth * Utils.ColorPickerUtil.GetVisualScalingFactor(this).scaleX * 2));
-        protected int TrackPixelHeight => checked((int)(Utils.ColorPickerUtil.GetPixelSize(this).pixelHeight - TrackMarginWidth * Utils.ColorPickerUtil.GetVisualScalingFactor(this).scaleY));
-
+        #region Slider events
         private void Slider_Loaded(object sender, RoutedEventArgs e) {
             RenderAllImages();
 
@@ -114,12 +83,6 @@ namespace ColorPicker {
             OnPropertyChanged(nameof(TrackPixelWidth));
             OnPropertyChanged(nameof(TrackPixelHeight));
         }
-
-        public virtual void RenderAllImages() {
-            RenderThumb(Value);
-            RenderTrack();
-        }
-
-        protected bool IsValidSize => TrackPixelWidth >= 50 && TrackPixelHeight >= 2;
+        #endregion
     }
 }

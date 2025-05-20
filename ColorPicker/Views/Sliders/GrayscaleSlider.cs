@@ -5,6 +5,8 @@
 
 namespace ColorPicker {
     public class GrayscaleSlider : GraphicalSlider {
+
+        #region Render
         protected override void RenderSlider(int width, int height, byte[] buf, object parameter = null) {
             if (height < 1) {
                 return;
@@ -31,5 +33,6 @@ namespace ColorPicker {
                 }
             }
         }
+        #endregion
     }
 }

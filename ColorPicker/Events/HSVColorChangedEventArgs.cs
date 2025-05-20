@@ -5,12 +5,12 @@
 
 namespace ColorPicker {
     public class HSVColorChangedEventArgs : EventArgs {
-        public HSV HSV { private set; get; }
+        public HSV Color { private set; get; }
 
         public bool UserOperation { private set; get; }
 
-        public HSVColorChangedEventArgs(HSV hsv, bool user_operation) {
-            this.HSV = hsv;
+        public HSVColorChangedEventArgs(HSV color, bool user_operation) {
+            this.Color = color;
             this.UserOperation = user_operation;
         }
     }

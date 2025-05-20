@@ -5,12 +5,12 @@
 
 namespace ColorPicker {
     public class RGBColorChangedEventArgs : EventArgs {
-        public RGB RGB { private set; get; }
+        public RGB Color { private set; get; }
 
         public bool UserOperation { private set; get; }
 
-        public RGBColorChangedEventArgs(RGB RGB, bool user_operation) {
-            this.RGB = RGB;
+        public RGBColorChangedEventArgs(RGB color, bool user_operation) {
+            this.Color = color;
             this.UserOperation = user_operation;
         }
     }

@@ -12,16 +12,19 @@ namespace ColorPicker {
     /// Interaction logic for YCbCrColorPicker.xaml
     /// </summary>
     public partial class YCbCrColorPicker : UserControl, INotifyPropertyChanged {
+
         public YCbCrColorPicker() {
             InitializeComponent();
         }
 
+        #region EventHandler
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<YCbCrColorChangedEventArgs> YCbCrColorChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        #endregion
 
         #region SelectedColor
         protected static readonly DependencyProperty SelectedColorProperty =
@@ -77,27 +80,7 @@ namespace ColorPicker {
         }
         #endregion
 
-        private int margin_width = 4;
-        public int MarginWidth {
-            get => margin_width;
-            set {
-                if (value < 0) {
-                    throw new ArgumentException("Must be non-negative.", nameof(MarginWidth));
-                }
-
-                margin_width = value;
-                RenderAllImages();
-
-                OnPropertyChanged(nameof(MarginWidth));
-            }
-        }
-
-        public int Size => checked((int)double.Min(ActualWidth, ActualHeight));
-
-        public int PixelSize => checked((int)Utils.ColorPickerUtil.GetPixelMinSize(this));
-
-        protected int PickerPixelSize => checked((int)(Utils.ColorPickerUtil.GetPixelMinSize(this) - MarginWidth * Utils.ColorPickerUtil.GetVisualScalingFactor(this).scaleX * 2));
-
+        #region ColorPicker events
         private void ColorPicker_Loaded(object sender, RoutedEventArgs e) {
             RenderAllImages();
 
@@ -109,12 +92,6 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(Size));
         }
-
-        public void RenderAllImages() {
-            RenderCbCr(SelectedColor);
-            RenderPointer(SelectedColor);
-        }
-
-        protected bool IsValidSize => PickerPixelSize >= 50;
+        #endregion
     }
 }

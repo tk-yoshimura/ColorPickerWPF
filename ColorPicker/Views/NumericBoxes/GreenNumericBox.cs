@@ -6,6 +6,7 @@ using System.Windows;
 
 namespace ColorPicker {
     public class GreenNumericBox : NumericBox {
+
         public GreenNumericBox() : base() {
             ResolutionMode = NumericBoxResolutionMode.Byte;
 
@@ -95,8 +96,10 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region NumericBox events
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedColor = new(SelectedColor.R, Value / (double)MaxValue, SelectedColor.B);
         }
+        #endregion
     }
 }

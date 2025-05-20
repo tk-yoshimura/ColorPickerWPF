@@ -21,9 +21,9 @@ namespace ColorPicker.ColorSpace {
 
         public static explicit operator Color(RGB rgb) {
             Color color = Color.FromRgb(
-                (byte)double.Clamp(rgb.R * 255 + 0.5, 0, 255),
-                (byte)double.Clamp(rgb.G * 255 + 0.5, 0, 255),
-                (byte)double.Clamp(rgb.B * 255 + 0.5, 0, 255)
+                (byte)double.Clamp(rgb.R * 255 + 0.5, 0d, 255d),
+                (byte)double.Clamp(rgb.G * 255 + 0.5, 0d, 255d),
+                (byte)double.Clamp(rgb.B * 255 + 0.5, 0d, 255d)
             );
 
             return color;
@@ -31,9 +31,9 @@ namespace ColorPicker.ColorSpace {
 
         public static explicit operator RGB(Color color) {
             RGB rgb = new(
-                color.R / 255.0,
-                color.G / 255.0,
-                color.B / 255.0
+                color.R / 255d,
+                color.G / 255d,
+                color.B / 255d
             );
 
             return rgb;
@@ -79,9 +79,9 @@ namespace ColorPicker.ColorSpace {
 
         public readonly RGB Normalize =>
             new(
-                double.Clamp(R, 0, 1),
-                double.Clamp(G, 0, 1),
-                double.Clamp(B, 0, 1)
+                double.Clamp(R, 0d, 1d),
+                double.Clamp(G, 0d, 1d),
+                double.Clamp(B, 0d, 1d)
             );
 
         public override readonly bool Equals(object obj) {

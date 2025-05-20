@@ -7,7 +7,7 @@ namespace ColorPicker.Utils {
         public static (double dpiX, double dpiY) GetVisualDPI(Visual visual) {
             (double scaleX, double scaleY) = GetVisualScalingFactor(visual);
 
-            const double dpi_base = 96;
+            const double dpi_base = 96d;
 
             return (scaleX * dpi_base, scaleY * dpi_base);
         }

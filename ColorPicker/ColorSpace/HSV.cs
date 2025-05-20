@@ -9,9 +9,9 @@ namespace ColorPicker.ColorSpace {
         private double h, s, v;
 
         public HSV(double h, double s, double v) {
-            this.h = CyclicRemainder(double.IsNaN(h) ? 0 : h, 6);
-            this.s = double.Clamp(double.IsNaN(s) ? 0 : s, 0, 1);
-            this.v = double.Clamp(double.IsNaN(v) ? 0 : v, 0, 1);
+            this.h = CyclicRemainder(double.IsNaN(h) ? 0d : h, 6d);
+            this.s = double.Clamp(double.IsNaN(s) ? 0d : s, 0d, 1d);
+            this.v = double.Clamp(double.IsNaN(v) ? 0d : v, 0d, 1d);
         }
 
         public double H {
@@ -19,7 +19,7 @@ namespace ColorPicker.ColorSpace {
                 return h;
             }
             set {
-                h = CyclicRemainder(double.IsNaN(value) ? 0 : value, 6);
+                h = CyclicRemainder(double.IsNaN(value) ? 0d : value, 6d);
             }
         }
 
@@ -28,7 +28,7 @@ namespace ColorPicker.ColorSpace {
                 return s;
             }
             set {
-                s = double.Clamp(double.IsNaN(value) ? 0 : value, 0, 1);
+                s = double.Clamp(double.IsNaN(value) ? 0d : value, 0d, 1d);
             }
         }
 
@@ -37,7 +37,7 @@ namespace ColorPicker.ColorSpace {
                 return v;
             }
             set {
-                v = double.Clamp(double.IsNaN(value) ? 0 : value, 0, 1);
+                v = double.Clamp(double.IsNaN(value) ? 0d : value, 0d, 1d);
             }
         }
 
@@ -51,18 +51,18 @@ namespace ColorPicker.ColorSpace {
                 double min_c = double.Min(double.Min(r, g), b);
 
                 h = max_c - min_c;
-                s = max_c > 0 ? h / max_c : 0;
+                s = max_c > 0d ? h / max_c : 0d;
                 v = max_c;
 
                 if (h > 0) {
                     if (max_c == r) {
-                        h = (g - b) / h + (g >= b ? 0.0 : 6.0);
+                        h = (g - b) / h + (g >= b ? 0d : 6d);
                     }
                     else if (max_c == g) {
-                        h = (b - r) / h + 2.0;
+                        h = (b - r) / h + 2d;
                     }
                     else {
-                        h = (r - g) / h + 4.0;
+                        h = (r - g) / h + 4d;
                     }
                 }
             }
@@ -70,35 +70,35 @@ namespace ColorPicker.ColorSpace {
             readonly get {
                 double r = v, g = v, b = v;
 
-                if (s > 0) {
+                if (s > 0d) {
                     double d = double.Floor(h);
                     double f = h - d;
                     int i = (int)d;
 
                     switch (i) {
                         case 0:
-                            g *= 1 - s * (1 - f);
-                            b *= 1 - s;
+                            g *= 1d - s * (1d - f);
+                            b *= 1d - s;
                             break;
                         case 1:
-                            r *= 1 - s * f;
-                            b *= 1 - s;
+                            r *= 1d - s * f;
+                            b *= 1d - s;
                             break;
                         case 2:
-                            r *= 1 - s;
-                            b *= 1 - s * (1 - f);
+                            r *= 1d - s;
+                            b *= 1d - s * (1d - f);
                             break;
                         case 3:
-                            r *= 1 - s;
-                            g *= 1 - s * f;
+                            r *= 1d - s;
+                            g *= 1d - s * f;
                             break;
                         case 4:
-                            r *= 1 - s * (1 - f);
-                            g *= 1 - s;
+                            r *= 1d - s * (1d - f);
+                            g *= 1d - s;
                             break;
                         default:
-                            g *= 1 - s;
-                            b *= 1 - s * f;
+                            g *= 1d - s;
+                            b *= 1d - s * f;
                             break;
                     }
                 }
@@ -147,7 +147,7 @@ namespace ColorPicker.ColorSpace {
 
         private static double CyclicRemainder(double value, double cycle) {
             value %= cycle;
-            if (value < 0) {
+            if (double.IsNegative(value)) {
                 value += cycle;
             }
 

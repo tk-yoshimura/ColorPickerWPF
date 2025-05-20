@@ -14,6 +14,7 @@ namespace ColorPicker {
     /// Interaction logic for NumericBox.xaml
     /// </summary>
     public partial class NumericBox : UserControl, INotifyPropertyChanged {
+
         private readonly DispatcherTimer timer_buttons, timer_display;
 
         public NumericBox() {
@@ -34,12 +35,14 @@ namespace ColorPicker {
             Unloaded += (s, e) => StopTimerDisplay();
         }
 
+        #region EventHandler
         public event EventHandler<EventArgs> ValueChanged;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        #endregion
 
         #region Value
         protected static readonly DependencyProperty ValueProperty =
@@ -99,6 +102,19 @@ namespace ColorPicker {
 
             return value;
         }
+
+        private void UpdateValue(int val) {
+            int index = textBox.CaretIndex;
+
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.Text = $"{val}";
+            textBox.CaretIndex = index;
+            textBox.TextChanged += TextBox_TextChanged;
+        }
+
+        protected void ChangeValue(int diff) {
+            Value = current_value + diff;
+        }
         #endregion
 
         #region MinValue
@@ -116,6 +132,8 @@ namespace ColorPicker {
                 OnPropertyChanged(nameof(IsMinimum));
             }
         }
+
+        public bool IsMinimum => current_value <= MinValue;
         #endregion
 
         #region MaxValue
@@ -133,20 +151,11 @@ namespace ColorPicker {
                 OnPropertyChanged(nameof(IsMaximum));
             }
         }
+
+        public bool IsMaximum => current_value >= MaxValue;
         #endregion
 
-        private void UpdateValue(int val) {
-            int index = textBox.CaretIndex;
-
-            textBox.TextChanged -= TextBox_TextChanged;
-            textBox.Text = $"{val}";
-            textBox.CaretIndex = index;
-            textBox.TextChanged += TextBox_TextChanged;
-        }
-
-        public bool IsMinimum => current_value <= MinValue;
-        public bool IsMaximum => current_value >= MaxValue;
-
+        #region TextBox events
         private static Regex NonNumericRegex { get; } = new Regex("[^0-9]+");
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) {
             string text = ((TextBox)sender).Text + e.Text;
@@ -185,6 +194,23 @@ namespace ColorPicker {
             e.Handled = true;
         }
 
+        private void OnPaste(object sender, DataObjectPastingEventArgs e) {
+            bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
+            if (!is_text) {
+                e.CancelCommand();
+                return;
+            }
+
+            string text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
+
+            if (string.IsNullOrWhiteSpace(text) || NonNumericRegex.IsMatch(text)) {
+                e.CancelCommand();
+                return;
+            }
+        }
+        #endregion
+
+        #region UpDown Bottons events
         private void GridUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             ButtonsFocusIn();
 
@@ -201,6 +227,7 @@ namespace ColorPicker {
             StartupTimerButtons();
         }
 
+
         private void ButtonsFocusIn() {
             if (!textBox.IsFocused) {
                 textBox.Focus();
@@ -211,15 +238,21 @@ namespace ColorPicker {
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
             StopTimerButtons();
         }
+        #endregion
 
+        #region NumericBox events
         private void NumericBox_MouseWheel(object sender, MouseWheelEventArgs e) {
             ChangeValue(int.Sign(e.Delta));
         }
 
-        protected void ChangeValue(int diff) {
-            Value = current_value + diff;
+        private void NumericBox_LostFocus(object sender, RoutedEventArgs e) {
+            if (string.IsNullOrEmpty(textBox.Text)) {
+                textBox.Text = $"{MinValue}";
+            }
         }
+        #endregion
 
+        #region TimerButtons
         private int mouse_press_duration = 0;
         protected void StartupTimerButtons() {
             if (timer_buttons.IsEnabled) {
@@ -259,13 +292,9 @@ namespace ColorPicker {
 
             mouse_press_duration++;
         }
+        #endregion
 
-        private void NumericBox_LostFocus(object sender, RoutedEventArgs e) {
-            if (string.IsNullOrEmpty(textBox.Text)) {
-                textBox.Text = $"{MinValue}";
-            }
-        }
-
+        #region TimerDisplay
         protected void StartupTimerDisplay() {
             if (timer_display.IsEnabled) {
                 return;
@@ -286,21 +315,6 @@ namespace ColorPicker {
             UpdateValue(current_value);
             StopTimerDisplay();
         }
-
-
-        private void OnPaste(object sender, DataObjectPastingEventArgs e) {
-            bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
-            if (!is_text) {
-                e.CancelCommand();
-                return;
-            }
-
-            string text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
-
-            if (string.IsNullOrWhiteSpace(text) || NonNumericRegex.IsMatch(text)) {
-                e.CancelCommand();
-                return;
-            }
-        }
+        #endregion
     }
 }

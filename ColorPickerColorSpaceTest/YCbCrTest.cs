@@ -25,10 +25,11 @@ namespace ColorPickerColorSpaceTest {
             Assert.AreEqual(0.5, ycbcr4.Cb);
             Assert.AreEqual(0.5, ycbcr4.Cr);
 
-            YCbCr ycbcr5 = new();
-            ycbcr5.Y = 0.1;
-            ycbcr5.Cb = 0.2;
-            ycbcr5.Cr = 0.3;
+            YCbCr ycbcr5 = new() {
+                Y = 0.1,
+                Cb = 0.2,
+                Cr = 0.3
+            };
 
             Assert.AreEqual(0.1, ycbcr5.Y);
             Assert.AreEqual(0.2, ycbcr5.Cb);

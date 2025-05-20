@@ -5,12 +5,12 @@
 
 namespace ColorPicker {
     public class YCbCrColorChangedEventArgs : EventArgs {
-        public YCbCr YCbCr { private set; get; }
+        public YCbCr Color { private set; get; }
 
         public bool UserOperation { private set; get; }
 
-        public YCbCrColorChangedEventArgs(YCbCr ycbcr, bool user_operation) {
-            this.YCbCr = ycbcr;
+        public YCbCrColorChangedEventArgs(YCbCr color, bool user_operation) {
+            this.Color = color;
             this.UserOperation = user_operation;
         }
     }

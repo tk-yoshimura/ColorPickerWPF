@@ -6,6 +6,7 @@ namespace ColorPicker {
     /// Interaction logic for RGBHexadecimalBox.xaml
     /// </summary>
     public partial class RGBHexadecimalBox {
+
         #region BorderBrush
         protected static new readonly DependencyProperty BorderBrushProperty =
             DependencyProperty.Register(

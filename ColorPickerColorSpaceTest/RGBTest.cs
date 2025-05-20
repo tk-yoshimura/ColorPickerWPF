@@ -16,10 +16,11 @@ namespace ColorPickerColorSpaceTest {
             Assert.AreEqual(1, rgb2.G);
             Assert.AreEqual(1, rgb2.B);
 
-            RGB rgb3 = new();
-            rgb3.R = 0.1;
-            rgb3.G = 0.2;
-            rgb3.B = 0.3;
+            RGB rgb3 = new() {
+                R = 0.1,
+                G = 0.2,
+                B = 0.3
+            };
 
             Assert.AreEqual(0.1, rgb3.R);
             Assert.AreEqual(0.2, rgb3.G);
@@ -29,7 +30,7 @@ namespace ColorPickerColorSpaceTest {
 
         [TestMethod]
         public void CastTest() {
-            RGB rgb1 = new RGB(0.1, 0.2, 0.3);
+            RGB rgb1 = new(0.1, 0.2, 0.3);
 
             Color cr1 = (Color)rgb1;
 
@@ -44,7 +45,7 @@ namespace ColorPickerColorSpaceTest {
             Assert.AreEqual(51 / 255d, rgb2.G);
             Assert.AreEqual(77 / 255d, rgb2.B);
 
-            RGB rgb3 = new RGB(-0.1, -0.2, 1.3);
+            RGB rgb3 = new(-0.1, -0.2, 1.3);
 
             Color cr2 = (Color)rgb3;
 

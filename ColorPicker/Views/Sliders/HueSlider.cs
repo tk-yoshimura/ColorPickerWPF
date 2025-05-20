@@ -7,6 +7,7 @@ using System.Windows;
 
 namespace ColorPicker {
     public class HueSlider : GraphicalSlider {
+
         private static readonly double scale6_dec = double.BitDecrement(6);
 
         public event EventHandler<HSVColorChangedEventArgs> HSVColorChanged;
@@ -67,6 +68,7 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region Render
         protected override void RenderSlider(int width, int height, byte[] buf, object parameter = null) {
             if (height < 1) {
                 return;
@@ -120,5 +122,6 @@ namespace ColorPicker {
                 Array.Copy(buf, 0, buf, y * width * 4, width * 4);
             });
         }
+        #endregion
     }
 }

@@ -15,6 +15,7 @@ namespace ColorPicker {
     /// Interaction logic for RGBHexadecimalBox.xaml
     /// </summary>
     public partial class RGBHexadecimalBox : UserControl, INotifyPropertyChanged {
+
         private readonly DispatcherTimer timer_display;
 
         public RGBHexadecimalBox() {
@@ -147,36 +148,7 @@ namespace ColorPicker {
         }
         #endregion
 
-        protected void UpdateColor(RGBA rgba) {
-            Color color = (Color)rgba;
-
-            string str = string.Empty;
-
-            switch (EncodingMode) {
-                case HexadecimalBoxEncodingMode.RGB:
-                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}";
-                    break;
-                case HexadecimalBoxEncodingMode.RGBA:
-                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
-                    break;
-                case HexadecimalBoxEncodingMode.ARGB:
-                    str = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
-                    break;
-            }
-
-            UpdateText(str);
-
-            OnPropertyChanged(nameof(IsColorREF));
-        }
-
-        private void UpdateText(string str) {
-            int index = textBox.CaretIndex;
-            textBox.TextChanged -= TextBox_TextChanged;
-            textBox.Text = str;
-            textBox.TextChanged += TextBox_TextChanged;
-            textBox.CaretIndex = index;
-        }
-
+        #region TextBox events
         private static Regex NonHexadecimalRegex { get; } = new Regex("[^0-9A-Fa-f]+");
         private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) {
             string text = ((TextBox)sender).Text + e.Text;
@@ -224,6 +196,23 @@ namespace ColorPicker {
             e.Handled = true;
         }
 
+        private void OnPaste(object sender, DataObjectPastingEventArgs e) {
+            bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
+            if (!is_text) {
+                e.CancelCommand();
+                return;
+            }
+
+            string text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
+
+            if (string.IsNullOrWhiteSpace(text) || NonHexadecimalRegex.IsMatch(text)) {
+                e.CancelCommand();
+                return;
+            }
+        }
+        #endregion
+
+        #region TimerDisplay
         protected void StartupTimerDisplay() {
             if (timer_display.IsEnabled) {
                 return;
@@ -244,20 +233,36 @@ namespace ColorPicker {
             UpdateColor((current_color, current_alpha));
             StopTimerDisplay();
         }
+        #endregion
 
-        private void OnPaste(object sender, DataObjectPastingEventArgs e) {
-            bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
-            if (!is_text) {
-                e.CancelCommand();
-                return;
+        protected void UpdateColor(RGBA rgba) {
+            Color color = (Color)rgba;
+
+            string str = string.Empty;
+
+            switch (EncodingMode) {
+                case HexadecimalBoxEncodingMode.RGB:
+                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}";
+                    break;
+                case HexadecimalBoxEncodingMode.RGBA:
+                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
+                    break;
+                case HexadecimalBoxEncodingMode.ARGB:
+                    str = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+                    break;
             }
 
-            string text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
+            UpdateText(str);
 
-            if (string.IsNullOrWhiteSpace(text) || NonHexadecimalRegex.IsMatch(text)) {
-                e.CancelCommand();
-                return;
-            }
+            OnPropertyChanged(nameof(IsColorREF));
+        }
+
+        private void UpdateText(string str) {
+            int index = textBox.CaretIndex;
+            textBox.TextChanged -= TextBox_TextChanged;
+            textBox.Text = str;
+            textBox.TextChanged += TextBox_TextChanged;
+            textBox.CaretIndex = index;
         }
 
         protected bool TryParseColor(string text, out RGB color, out double alpha) {

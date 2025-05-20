@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace ColorPicker {
     public partial class HSVColorPicker {
+
         const double outer_ring = 0.995;
         const double inner_ring = 0.85;
         const double triangle_vertex = 0.81;
@@ -285,6 +286,12 @@ namespace ColorPicker {
             OnPropertyChanged(nameof(ImagePointer));
 
             Debug.WriteLine($"{nameof(HSVColorPicker)} - {nameof(RenderPointer)}");
+        }
+
+        public void RenderAllImages() {
+            RenderRing();
+            RenderTriangle(SelectedColor);
+            RenderPointer(SelectedColor);
         }
     }
 }

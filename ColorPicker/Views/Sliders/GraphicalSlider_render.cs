@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace ColorPicker {
     public partial class GraphicalSlider {
+
         protected void RenderTrack(object parameter = null) {
             if (!IsValidSize) {
                 return;
@@ -92,6 +93,11 @@ namespace ColorPicker {
             OnPropertyChanged(nameof(ImagePointer));
 
             Debug.WriteLine($"{nameof(GraphicalSlider)} - {nameof(RenderThumb)}");
+        }
+
+        public virtual void RenderAllImages() {
+            RenderThumb(Value);
+            RenderTrack();
         }
     }
 }

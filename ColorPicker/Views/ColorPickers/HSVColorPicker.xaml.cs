@@ -12,16 +12,19 @@ namespace ColorPicker {
     /// Interaction logic for HSVColorPicker.xaml
     /// </summary>
     public partial class HSVColorPicker : UserControl, INotifyPropertyChanged {
+
         public HSVColorPicker() {
             InitializeComponent();
         }
 
+        #region EventHandler
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<HSVColorChangedEventArgs> HSVColorChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        #endregion
 
         #region SelectedColor
         protected static readonly DependencyProperty SelectedColorProperty =
@@ -78,10 +81,7 @@ namespace ColorPicker {
         }
         #endregion
 
-        public int Size => checked((int)double.Min(ActualWidth, ActualHeight));
-
-        public int PixelSize => checked((int)Utils.ColorPickerUtil.GetPixelMinSize(this));
-
+        #region ColorPicker events
         private void ColorPicker_Loaded(object sender, RoutedEventArgs e) {
             RenderAllImages();
 
@@ -93,13 +93,6 @@ namespace ColorPicker {
 
             OnPropertyChanged(nameof(Size));
         }
-
-        public void RenderAllImages() {
-            RenderRing();
-            RenderTriangle(SelectedColor);
-            RenderPointer(SelectedColor);
-        }
-
-        protected bool IsValidSize => PixelSize >= 50;
+        #endregion
     }
 }

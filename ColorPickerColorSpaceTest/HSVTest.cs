@@ -30,10 +30,11 @@ namespace ColorPickerColorSpaceTest {
             Assert.AreEqual(0.5, hsv5.S);
             Assert.AreEqual(0.5, hsv5.V);
 
-            HSV hsv6 = new();
-            hsv6.H = 0.1;
-            hsv6.S = 0.2;
-            hsv6.V = 0.3;
+            HSV hsv6 = new() {
+                H = 0.1,
+                S = 0.2,
+                V = 0.3
+            };
 
             HSV hsv7 = new(-7, 0.5, 0.5);
             Assert.AreEqual(5, hsv7.H);

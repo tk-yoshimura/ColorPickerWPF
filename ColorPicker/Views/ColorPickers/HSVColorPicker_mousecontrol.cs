@@ -8,9 +8,11 @@ using System.Windows.Input;
 
 namespace ColorPicker {
     public partial class HSVColorPicker {
+
         enum OperationPlace { None, Circle, Triangle };
         OperationPlace operation_place = OperationPlace.None;
 
+        #region CheckHit
         private bool CheckHitCircleArea(Point pt) {
             if (!IsValidSize) {
                 return false;
@@ -75,7 +77,9 @@ namespace ColorPicker {
 
             return (sat, val);
         }
+        #endregion
 
+        #region Operation
         private void AcceptOperation(Point pt) {
             if (operation_place == OperationPlace.Circle) {
                 (_, double phase) = CircleCoord(pt);
@@ -98,7 +102,9 @@ namespace ColorPicker {
                 SetSelectedColor(new ColorSpace.HSV(SelectedColor.H, sat, val), user_operation: true);
             }
         }
+        #endregion
 
+        #region Mouse events
         private void Grid_ColorPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
 
@@ -155,5 +161,6 @@ namespace ColorPicker {
                 el.ReleaseMouseCapture();
             }
         }
+        #endregion
     }
 }

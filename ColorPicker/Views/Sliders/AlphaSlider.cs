@@ -48,6 +48,7 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region Render
         protected override void RenderSlider(int width, int height, byte[] buf, object parameter) {
             if (height < 1) {
                 return;
@@ -111,5 +112,6 @@ namespace ColorPicker {
                 }
             }
         }
+        #endregion
     }
 }

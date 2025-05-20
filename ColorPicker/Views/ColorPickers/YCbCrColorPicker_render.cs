@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace ColorPicker {
     public partial class YCbCrColorPicker {
+
         private void RenderCbCr(YCbCr color) {
             if (!IsValidSize) {
                 return;
@@ -102,6 +103,11 @@ namespace ColorPicker {
             OnPropertyChanged(nameof(ImagePointer));
 
             Debug.WriteLine($"{nameof(YCbCrColorPicker)} - {nameof(RenderPointer)}");
+        }
+
+        public void RenderAllImages() {
+            RenderCbCr(SelectedColor);
+            RenderPointer(SelectedColor);
         }
     }
 }

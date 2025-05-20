@@ -6,6 +6,7 @@ using System.Windows;
 
 namespace ColorPicker {
     public class BrightnessNumericBox : NumericBox {
+
         public BrightnessNumericBox() : base() {
             ResolutionMode = NumericBoxResolutionMode.Percent;
 
@@ -95,8 +96,10 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region NumericBox events
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedColor = new(SelectedColor.H, SelectedColor.S, Value / (double)MaxValue);
         }
+        #endregion
     }
 }

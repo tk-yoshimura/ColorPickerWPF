@@ -5,6 +5,7 @@
 
 namespace ColorPicker {
     public class AlphaNumericBox : NumericBox {
+
         public AlphaNumericBox() : base() {
             ResolutionMode = NumericBoxResolutionMode.Byte;
 
@@ -87,8 +88,10 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region NumericBox events
         private void NumericBox_ValueChanged(object sender, EventArgs e) {
             SelectedAlpha = Value / (double)MaxValue;
         }
+        #endregion
     }
 }
