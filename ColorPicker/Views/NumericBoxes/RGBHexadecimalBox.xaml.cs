@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 // Copyright (c) T.Yoshimura 2025
 // https://github.com/tk-yoshimura
@@ -14,12 +15,20 @@ namespace ColorPicker {
     /// Interaction logic for RGBHexadecimalBox.xaml
     /// </summary>
     public partial class RGBHexadecimalBox : UserControl, INotifyPropertyChanged {
+        private readonly DispatcherTimer timer_display;
+
         public RGBHexadecimalBox() {
             InitializeComponent();
 
-            UpdateText((SelectedColor, SelectedAlpha));
+            UpdateColor((SelectedColor, SelectedAlpha));
 
             DataObject.AddPastingHandler(textBox, OnPaste);
+
+            timer_display = new DispatcherTimer() {
+                Interval = TimeSpan.FromSeconds(0.01)
+            };
+            timer_display.Tick += TimerDisplay_Tick;
+            Unloaded += (s, e) => StopTimerDisplay();
 
             OnPropertyChanged(nameof(IsColorREF));
         }
@@ -61,7 +70,14 @@ namespace ColorPicker {
         private void SetSelectedColor(RGB color, bool internal_only = false) {
             if (current_color != color) {
                 current_color = color;
-                UpdateText((color, SelectedAlpha));
+
+                if (textBox.IsFocused) {
+                    UpdateColor((color, SelectedAlpha));
+                }
+                else {
+                    StopTimerDisplay();
+                    StartupTimerDisplay();
+                }
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
@@ -102,7 +118,13 @@ namespace ColorPicker {
             if (current_alpha != value) {
                 current_alpha = value;
 
-                UpdateText((SelectedColor, value));
+                if (textBox.IsFocused) {
+                    UpdateColor((SelectedColor, value));
+                }
+                else {
+                    StopTimerDisplay();
+                    StartupTimerDisplay();
+                }
 
                 if (!internal_only) {
                     SetValue(SelectedAlphaProperty, value);
@@ -125,7 +147,7 @@ namespace ColorPicker {
         }
         #endregion
 
-        protected void UpdateText(RGBA rgba) {
+        protected void UpdateColor(RGBA rgba) {
             Color color = (Color)rgba;
 
             string str = string.Empty;
@@ -180,7 +202,7 @@ namespace ColorPicker {
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e) {
             if (!IsColorREF) {
-                UpdateText((SelectedColor, SelectedAlpha));
+                UpdateColor((SelectedColor, SelectedAlpha));
                 OnPropertyChanged(nameof(IsColorREF));
             }
         }
@@ -200,6 +222,27 @@ namespace ColorPicker {
 
             textbox.Focus();
             e.Handled = true;
+        }
+
+        protected void StartupTimerDisplay() {
+            if (timer_display.IsEnabled) {
+                return;
+            }
+
+            timer_display.Start();
+        }
+
+        protected void StopTimerDisplay() {
+            if (!timer_display.IsEnabled) {
+                return;
+            }
+
+            timer_display.Stop();
+        }
+
+        private void TimerDisplay_Tick(object sender, EventArgs e) {
+            UpdateColor((current_color, current_alpha));
+            StopTimerDisplay();
         }
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e) {

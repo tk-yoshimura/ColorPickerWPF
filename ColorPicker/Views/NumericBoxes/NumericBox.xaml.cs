@@ -14,7 +14,7 @@ namespace ColorPicker {
     /// Interaction logic for NumericBox.xaml
     /// </summary>
     public partial class NumericBox : UserControl, INotifyPropertyChanged {
-        private readonly DispatcherTimer timer_buttons;
+        private readonly DispatcherTimer timer_buttons, timer_display;
 
         public NumericBox() {
             InitializeComponent();
@@ -26,6 +26,12 @@ namespace ColorPicker {
             };
             timer_buttons.Tick += TimerButtons_Tick;
             Unloaded += (s, e) => StopTimerButtons();
+
+            timer_display = new DispatcherTimer() {
+                Interval = TimeSpan.FromSeconds(0.01)
+            };
+            timer_display.Tick += TimerDisplay_Tick;
+            Unloaded += (s, e) => StopTimerDisplay();
         }
 
         public event EventHandler<EventArgs> ValueChanged;
@@ -70,7 +76,13 @@ namespace ColorPicker {
 
                 current_value = new_value;
 
-                UpdateValue(new_value);
+                if (textBox.IsFocused) {
+                    UpdateValue(new_value);
+                }
+                else {
+                    StopTimerDisplay();
+                    StartupTimerDisplay();
+                }
 
                 if (!internal_only) {
                     SetValue(ValueProperty, new_value);
@@ -253,6 +265,28 @@ namespace ColorPicker {
                 textBox.Text = $"{MinValue}";
             }
         }
+
+        protected void StartupTimerDisplay() {
+            if (timer_display.IsEnabled) {
+                return;
+            }
+
+            timer_display.Start();
+        }
+
+        protected void StopTimerDisplay() {
+            if (!timer_display.IsEnabled) {
+                return;
+            }
+
+            timer_display.Stop();
+        }
+
+        private void TimerDisplay_Tick(object sender, EventArgs e) {
+            UpdateValue(current_value);
+            StopTimerDisplay();
+        }
+
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e) {
             bool is_text = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
