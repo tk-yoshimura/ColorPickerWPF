@@ -21,9 +21,9 @@ namespace ColorPicker.ColorSpace {
 
         public static explicit operator Color(RGB rgb) {
             Color color = Color.FromRgb(
-                (byte)double.Clamp(rgb.R * 255 + 0.5, 0d, 255d),
-                (byte)double.Clamp(rgb.G * 255 + 0.5, 0d, 255d),
-                (byte)double.Clamp(rgb.B * 255 + 0.5, 0d, 255d)
+                (byte)double.Clamp(rgb.R * 255d + 0.5, 0d, 255d),
+                (byte)double.Clamp(rgb.G * 255d + 0.5, 0d, 255d),
+                (byte)double.Clamp(rgb.B * 255d + 0.5, 0d, 255d)
             );
 
             return color;
@@ -75,6 +75,34 @@ namespace ColorPicker.ColorSpace {
 
         public static bool operator !=(RGB cr1, RGB cr2) {
             return !(cr1 == cr2);
+        }
+
+        public static RGB operator +(RGB cr) {
+            return cr;
+        }
+
+        public static RGB operator -(RGB cr) {
+            return new(-cr.R, -cr.G, -cr.B);
+        }
+
+        public static RGB operator +(RGB cr1, RGB cr2) {
+            return new(cr1.R + cr2.R, cr1.G + cr2.G, cr1.B + cr2.B);
+        }
+
+        public static RGB operator -(RGB cr1, RGB cr2) {
+            return new(cr1.R - cr2.R, cr1.G - cr2.G, cr1.B - cr2.B);
+        }
+
+        public static RGB operator *(RGB cr, double r) {
+            return new(cr.R * r, cr.G * r, cr.B * r);
+        }
+
+        public static RGB operator *(double r, RGB cr) {
+            return cr * r;
+        }
+
+        public static RGB operator /(RGB cr, double r) {
+            return new(cr.R / r, cr.G / r, cr.B / r);
         }
 
         public readonly RGB Normalize =>
