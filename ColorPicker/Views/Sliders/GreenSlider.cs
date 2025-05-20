@@ -56,7 +56,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
 
-                    RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
+                    RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(color, user_operation));
                 }
             }
             else if (prev_color.G != color.G) {
@@ -67,7 +67,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
 
-                    RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(SelectedColor, user_operation));
+                    RGBColorChanged?.Invoke(this, new RGBColorChangedEventArgs(color, user_operation));
                 }
             }
         }

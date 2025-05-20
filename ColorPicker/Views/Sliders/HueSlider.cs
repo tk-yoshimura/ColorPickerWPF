@@ -52,7 +52,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
 
-                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(color, user_operation));
                 }
             }
             else if (prev_color != color) {
@@ -61,7 +61,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
 
-                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(SelectedColor, user_operation));
+                    HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(color, user_operation));
                 }
             }
         }

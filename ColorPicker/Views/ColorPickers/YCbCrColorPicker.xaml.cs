@@ -60,7 +60,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
 
-                    YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                    YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(color, user_operation));
                 }
             }
             else if (prev_color.Cb != color.Cb || prev_color.Cr != color.Cr) {
@@ -71,7 +71,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
 
-                    YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(SelectedColor, user_operation));
+                    YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(color, user_operation));
                 }
             }
         }

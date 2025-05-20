@@ -60,7 +60,7 @@ namespace ColorPicker {
                 if (!internal_only) {
                     SetValue(ValueProperty, value);
 
-                    SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(Value, user_operation));
+                    SliderValueChanged?.Invoke(this, new SliderValueChangedEventArgs(value, user_operation));
                 }
             }
         }

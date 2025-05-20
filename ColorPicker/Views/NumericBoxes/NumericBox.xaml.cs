@@ -14,10 +14,18 @@ namespace ColorPicker {
     /// Interaction logic for NumericBox.xaml
     /// </summary>
     public partial class NumericBox : UserControl, INotifyPropertyChanged {
+        private readonly DispatcherTimer timer_buttons;
+
         public NumericBox() {
             InitializeComponent();
 
             DataObject.AddPastingHandler(textBox, OnPaste);
+
+            timer_buttons = new DispatcherTimer() {
+                Interval = TimeSpan.FromSeconds(0.04)
+            };
+            timer_buttons.Tick += TimerButtons_Tick;
+            Unloaded += (s, e) => StopTimerButtons();
         }
 
         public event EventHandler<EventArgs> ValueChanged;
@@ -164,7 +172,7 @@ namespace ColorPicker {
 
             ChangeValue(1);
 
-            StartupTimer();
+            StartupTimerButtons();
         }
 
         private void GridDown_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
@@ -172,7 +180,7 @@ namespace ColorPicker {
 
             ChangeValue(-1);
 
-            StartupTimer();
+            StartupTimerButtons();
         }
 
         private void ButtonsFocusIn() {
@@ -183,7 +191,7 @@ namespace ColorPicker {
         }
 
         private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-            StopTimer();
+            StopTimerButtons();
         }
 
         private void NumericBox_MouseWheel(object sender, MouseWheelEventArgs e) {
@@ -194,41 +202,29 @@ namespace ColorPicker {
             Value += diff;
         }
 
-        private DispatcherTimer timer = null;
         private int mouse_press_duration = 0;
-        protected void StartupTimer() {
-            if (timer is not null) {
+        protected void StartupTimerButtons() {
+            if (timer_buttons.IsEnabled) {
                 return;
             }
 
-            lock (this) {
-                timer = new DispatcherTimer() {
-                    Interval = TimeSpan.FromSeconds(0.04)
-                };
-                timer.Tick += Timer_Tick;
-                timer.Start();
-
-                Unloaded += (s, e) => StopTimer();
-            }
+            timer_buttons.Start();
         }
 
-        protected void StopTimer() {
-            if (timer is null) {
+        protected void StopTimerButtons() {
+            if (!timer_buttons.IsEnabled) {
                 return;
             }
 
-            lock (this) {
-                timer.Stop();
-                timer = null;
-                mouse_press_duration = 0;
-            }
+            timer_buttons.Stop();
+            mouse_press_duration = 0;
         }
 
-        private void Timer_Tick(object sender, EventArgs e) {
+        private void TimerButtons_Tick(object sender, EventArgs e) {
             const int startup_times = 5;
 
             if ((!GridUp.IsMouseOver && !GridDown.IsMouseOver) || Mouse.LeftButton != MouseButtonState.Pressed) {
-                StopTimer();
+                StopTimerButtons();
                 return;
             }
 
