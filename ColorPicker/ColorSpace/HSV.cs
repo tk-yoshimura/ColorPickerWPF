@@ -9,13 +9,9 @@ namespace ColorPicker.ColorSpace {
         private double h, s, v;
 
         public HSV(double h, double s, double v) {
-            h %= 6.0;
-            if (h < 0) h += 6;
-            this.h = double.IsNaN(h) ? 0 : h;
-
-            this.s = s > 0 ? s > 1 ? 1 : s : 0;
-
-            this.v = v > 0 ? v > 1 ? 1 : v : 0;
+            this.h = CyclicRemainder(double.IsNaN(h) ? 0 : h, 6);
+            this.s = double.Clamp(double.IsNaN(s) ? 0 : s, 0, 1);
+            this.v = double.Clamp(double.IsNaN(v) ? 0 : v, 0, 1);
         }
 
         public double H {
@@ -23,9 +19,7 @@ namespace ColorPicker.ColorSpace {
                 return h;
             }
             set {
-                value %= 6.0;
-                if (value < 0) value += 6;
-                h = double.IsNaN(value) ? 0 : value;
+                h = CyclicRemainder(double.IsNaN(value) ? 0 : value, 6);
             }
         }
 
@@ -34,7 +28,7 @@ namespace ColorPicker.ColorSpace {
                 return s;
             }
             set {
-                s = value > 0 ? value > 1 ? 1 : value : 0;
+                s = double.Clamp(double.IsNaN(value) ? 0 : value, 0, 1);
             }
         }
 
@@ -43,7 +37,7 @@ namespace ColorPicker.ColorSpace {
                 return v;
             }
             set {
-                v = value > 0 ? value > 1 ? 1 : value : 0;
+                v = double.Clamp(double.IsNaN(value) ? 0 : value, 0, 1);
             }
         }
 
@@ -149,6 +143,15 @@ namespace ColorPicker.ColorSpace {
 
         public override readonly string ToString() {
             return $"h={H:0.000} s={S:0.000} v={V:0.000}";
+        }
+
+        private static double CyclicRemainder(double value, double cycle) { 
+            value %= cycle;
+            if (value < 0) {
+                value += cycle;
+            }
+
+            return value;
         }
     }
 }
