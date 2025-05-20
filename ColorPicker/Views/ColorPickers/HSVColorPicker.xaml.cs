@@ -49,10 +49,10 @@ namespace ColorPicker {
             }
         }
 
-        HSV prev_color = new();
+        HSV current_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation, bool internal_only = false) {
-            if (prev_color.H != color.H) {
-                prev_color = color;
+            if (current_color.H != color.H) {
+                current_color = color;
 
                 RenderPointer(color);
                 RenderTriangle(color);
@@ -64,8 +64,8 @@ namespace ColorPicker {
                 }
 
             }
-            else if (prev_color.S != color.S || prev_color.V != color.V) {
-                prev_color = color;
+            else if (current_color.S != color.S || current_color.V != color.V) {
+                current_color = color;
 
                 RenderPointer(color);
 

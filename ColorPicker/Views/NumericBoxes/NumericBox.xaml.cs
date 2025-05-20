@@ -54,7 +54,7 @@ namespace ColorPicker {
             }
         }
 
-        private int prev_value = 0;
+        private int current_value = 0;
         public int Value {
             get => (int)GetValue(ValueProperty);
             set {
@@ -65,8 +65,8 @@ namespace ColorPicker {
         protected int SetValue(int value, bool internal_only = false) {
             value = int.Clamp(value, MinValue, MaxValue);
 
-            if (prev_value != value) {
-                prev_value = value;
+            if (current_value != value) {
+                current_value = value;
 
                 UpdateValue(value);
 
@@ -126,8 +126,8 @@ namespace ColorPicker {
             textBox.TextChanged += TextBox_TextChanged;
         }
 
-        public bool IsMinimum => Value <= MinValue;
-        public bool IsMaximum => Value >= MaxValue;
+        public bool IsMinimum => current_value <= MinValue;
+        public bool IsMaximum => current_value >= MaxValue;
 
         private static Regex NonNumericRegex { get; } = new Regex("[^0-9]+");
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) {

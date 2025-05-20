@@ -57,10 +57,10 @@ namespace ColorPicker {
             }
         }
 
-        private RGB prev_color = new();
+        private RGB current_color = new();
         private void SetSelectedColor(RGB value, bool internal_only = false) {
-            if (prev_color != value) {
-                prev_color = value;
+            if (current_color != value) {
+                current_color = value;
                 UpdateText((value, SelectedAlpha));
 
                 if (!internal_only) {
@@ -97,10 +97,10 @@ namespace ColorPicker {
             }
         }
 
-        private double prev_alpha = new();
+        private double current_alpha = new();
         private void SetSelectedAlpha(double value, bool internal_only = false) {
-            if (prev_alpha != value) {
-                prev_alpha = value;
+            if (current_alpha != value) {
+                current_alpha = value;
 
                 UpdateText((SelectedColor, value));
 

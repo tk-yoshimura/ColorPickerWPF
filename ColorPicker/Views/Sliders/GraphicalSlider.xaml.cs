@@ -48,12 +48,12 @@ namespace ColorPicker {
             }
         }
 
-        double prev_value = 0d;
+        double current_value = 0d;
         protected virtual void SetValue(double value, bool user_operation, bool internal_only = false) {
             value = double.Clamp(value, 0, 1);
 
-            if (prev_value != value) {
-                prev_value = value;
+            if (current_value != value) {
+                current_value = value;
 
                 RenderThumb(value);
 

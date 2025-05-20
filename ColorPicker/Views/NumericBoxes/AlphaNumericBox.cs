@@ -37,10 +37,10 @@ namespace ColorPicker {
             }
         }
 
-        private double prev_alpha = 0;
+        private double current_alpha = 0;
         private void SetSelectedAlpha(double value, bool internal_only = false) {
-            if (prev_alpha != value) {
-                prev_alpha = value;
+            if (current_alpha != value) {
+                current_alpha = value;
                 UpdateValue(value);
 
                 if (!internal_only) {
@@ -51,7 +51,7 @@ namespace ColorPicker {
 
         protected void UpdateValue(double val) {
             ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(val * MaxValue + 0.5);
+            SetValue((int)(val * MaxValue + 0.5), internal_only: true);
             ValueChanged += NumericBox_ValueChanged;
         }
         #endregion

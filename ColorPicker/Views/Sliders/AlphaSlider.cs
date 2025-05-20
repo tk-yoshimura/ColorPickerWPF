@@ -34,10 +34,10 @@ namespace ColorPicker {
             }
         }
 
-        private RGB prev_color = new();
+        private RGB current_color = new();
         protected void SetSelectedColor(RGB color, bool internal_only = false) {
-            if (prev_color != color) {
-                prev_color = color;
+            if (current_color != color) {
+                current_color = color;
 
                 RenderTrack(color);
 

@@ -38,18 +38,18 @@ namespace ColorPicker {
             }
         }
 
-        private HSV prev_color = new();
+        private HSV current_color = new();
         private void SetSelectedColor(HSV value, bool internal_only = false) {
-            if (prev_color.S != value.S) {
-                prev_color = value;
+            if (current_color.S != value.S) {
+                current_color = value;
                 UpdateValue(value.S);
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                 }
             }
-            else if (prev_color != value) {
-                prev_color = value;
+            else if (current_color != value) {
+                current_color = value;
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
@@ -59,7 +59,7 @@ namespace ColorPicker {
 
         protected void UpdateValue(double val) {
             ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(val * MaxValue + 0.5);
+            SetValue((int)(val * MaxValue + 0.5), internal_only: true);
             ValueChanged += NumericBox_ValueChanged;
         }
         #endregion

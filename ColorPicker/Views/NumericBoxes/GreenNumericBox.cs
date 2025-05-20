@@ -38,18 +38,18 @@ namespace ColorPicker {
             }
         }
 
-        private RGB prev_color = new();
+        private RGB current_color = new();
         private void SetSelectedColor(RGB value, bool internal_only = false) {
-            if (prev_color.G != value.G) {
-                prev_color = value;
+            if (current_color.G != value.G) {
+                current_color = value;
                 UpdateValue(value.G);
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
                 }
             }
-            else if (prev_color != value) {
-                prev_color = value;
+            else if (current_color != value) {
+                current_color = value;
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, value);
@@ -59,7 +59,7 @@ namespace ColorPicker {
 
         protected void UpdateValue(double val) {
             ValueChanged -= NumericBox_ValueChanged;
-            Value = (int)(val * MaxValue + 0.5);
+            SetValue((int)(val * MaxValue + 0.5), internal_only: true);
             ValueChanged += NumericBox_ValueChanged;
         }
         #endregion

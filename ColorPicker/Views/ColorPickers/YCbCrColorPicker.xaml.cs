@@ -49,10 +49,10 @@ namespace ColorPicker {
             }
         }
 
-        YCbCr prev_color = new();
+        YCbCr current_color = new();
         protected void SetSelectedColor(YCbCr color, bool user_operation, bool internal_only = false) {
-            if (prev_color.Y != color.Y) {
-                prev_color = color;
+            if (current_color.Y != color.Y) {
+                current_color = color;
 
                 RenderPointer(color);
                 RenderCbCr(color);
@@ -63,8 +63,8 @@ namespace ColorPicker {
                     YCbCrColorChanged?.Invoke(this, new YCbCrColorChangedEventArgs(color, user_operation));
                 }
             }
-            else if (prev_color.Cb != color.Cb || prev_color.Cr != color.Cr) {
-                prev_color = color;
+            else if (current_color.Cb != color.Cb || current_color.Cr != color.Cr) {
+                current_color = color;
 
                 RenderPointer(color);
 

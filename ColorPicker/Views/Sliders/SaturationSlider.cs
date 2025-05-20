@@ -40,15 +40,15 @@ namespace ColorPicker {
             base.SetValue(value, user_operation, internal_only);
         }
 
-        HSV prev_color = new();
+        HSV current_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation, bool internal_only = false) {
-            if (prev_color.H != color.H || prev_color.V != color.V) {
-                if (prev_color.S != color.S) {
-                    prev_color = color;
+            if (current_color.H != color.H || current_color.V != color.V) {
+                if (current_color.S != color.S) {
+                    current_color = color;
                     base.SetValue(color.S, user_operation);
                 }
                 else {
-                    prev_color = color;
+                    current_color = color;
                 }
 
                 RenderTrack(color);
@@ -59,8 +59,8 @@ namespace ColorPicker {
                     HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(color, user_operation));
                 }
             }
-            else if (prev_color.S != color.S) {
-                prev_color = color;
+            else if (current_color.S != color.S) {
+                current_color = color;
 
                 base.SetValue(color.S, user_operation);
 

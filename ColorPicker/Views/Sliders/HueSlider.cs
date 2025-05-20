@@ -42,10 +42,10 @@ namespace ColorPicker {
             base.SetValue(value, user_operation, internal_only);
         }
 
-        HSV prev_color = new();
+        HSV current_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation, bool internal_only = false) {
-            if (prev_color.H != color.H) {
-                prev_color = color;
+            if (current_color.H != color.H) {
+                current_color = color;
 
                 base.SetValue(color.H / scale6_dec, user_operation);
 
@@ -55,8 +55,8 @@ namespace ColorPicker {
                     HSVColorChanged?.Invoke(this, new HSVColorChangedEventArgs(color, user_operation));
                 }
             }
-            else if (prev_color != color) {
-                prev_color = color;
+            else if (current_color != color) {
+                current_color = color;
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
