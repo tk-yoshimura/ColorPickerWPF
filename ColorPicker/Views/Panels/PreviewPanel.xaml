@@ -19,7 +19,7 @@
     SizeChanged="Panel_SizeChanged"
     mc:Ignorable="d">
     <Grid UseLayoutRounding="True">
-        <Image x:Name="Image_Panel" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="ImagePanel" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />

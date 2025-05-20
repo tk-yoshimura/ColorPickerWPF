@@ -41,13 +41,13 @@
             MouseMove="Grid_ColorPicker_MouseMove"
             UseLayoutRounding="True">
             <Image
-                x:Name="Image_CbCr"
+                x:Name="ImageCbCr"
                 Margin="{Binding MarginWidth, ElementName=this}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Stretch="None" />
             <Image
-                x:Name="Image_Pointer"
+                x:Name="ImagePointer"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Stretch="None" />

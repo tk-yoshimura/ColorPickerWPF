@@ -94,9 +94,9 @@ namespace ColorPicker {
 
             bitmap.Freeze();
 
-            Image_Ring.Source = bitmap;
+            ImageRing.Source = bitmap;
 
-            OnPropertyChanged(nameof(Image_Ring));
+            OnPropertyChanged(nameof(ImageRing));
 
             Debug.WriteLine($"{nameof(HSVColorPicker)} - {nameof(RenderRing)}");
         }
@@ -217,9 +217,9 @@ namespace ColorPicker {
 
             bitmap.Freeze();
 
-            Image_Triangle.Source = bitmap;
+            ImageTriangle.Source = bitmap;
 
-            OnPropertyChanged(nameof(Image_Triangle));
+            OnPropertyChanged(nameof(ImageTriangle));
 
             Debug.WriteLine($"{nameof(HSVColorPicker)} - {nameof(RenderTriangle)}");
         }
@@ -280,9 +280,9 @@ namespace ColorPicker {
             bitmap.Render(visual);
             bitmap.Freeze();
 
-            Image_Pointer.Source = bitmap;
+            ImagePointer.Source = bitmap;
 
-            OnPropertyChanged(nameof(Image_Pointer));
+            OnPropertyChanged(nameof(ImagePointer));
 
             Debug.WriteLine($"{nameof(HSVColorPicker)} - {nameof(RenderPointer)}");
         }

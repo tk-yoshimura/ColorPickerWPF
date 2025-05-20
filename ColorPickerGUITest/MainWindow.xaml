@@ -249,8 +249,8 @@
                         Foreground="Red"
                         SelectionBrush="Green"
                         TextBoxBorderBrush="Orange"
-                        TriangleFillBrush="Pink"
-                        TriangleMargin="5,1"
+                        ChevronFillBrush="Pink"
+                        ChevronMargin="5,1"
                         Value="5000" />
 
                     <colorpicker:RGBHexadecimalBox

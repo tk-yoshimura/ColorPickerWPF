@@ -27,14 +27,14 @@
         UseLayoutRounding="True">
 
         <Image
-            x:Name="Image_Track"
+            x:Name="ImageTrack"
             Margin="{Binding TrackMargin, ElementName=this}"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Stretch="None"
             UseLayoutRounding="True" />
         <Image
-            x:Name="Image_Pointer"
+            x:Name="ImagePointer"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Stretch="None" />

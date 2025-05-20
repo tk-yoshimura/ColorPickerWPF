@@ -40,17 +40,17 @@
             MouseMove="Grid_ColorPicker_MouseMove"
             UseLayoutRounding="True">
             <Image
-                x:Name="Image_Ring"
+                x:Name="ImageRing"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Stretch="None" />
             <Image
-                x:Name="Image_Triangle"
+                x:Name="ImageTriangle"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Stretch="None" />
             <Image
-                x:Name="Image_Pointer"
+                x:Name="ImagePointer"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Stretch="None" />

@@ -66,10 +66,10 @@ namespace ColorPicker {
         }
         #endregion
 
-        #region TriangleFillBrush
-        protected static readonly DependencyProperty TriangleFillBrushProperty =
+        #region ChevronFillBrush
+        protected static readonly DependencyProperty ChevronFillBrushProperty =
             DependencyProperty.Register(
-                nameof(TriangleFillBrush),
+                nameof(ChevronFillBrush),
                 typeof(Brush),
                 typeof(NumericBox),
                 new FrameworkPropertyMetadata(
@@ -78,10 +78,10 @@ namespace ColorPicker {
                 )
             );
 
-        public Brush TriangleFillBrush {
-            get => (Brush)GetValue(TriangleFillBrushProperty);
+        public Brush ChevronFillBrush {
+            get => (Brush)GetValue(ChevronFillBrushProperty);
             set {
-                SetValue(TriangleFillBrushProperty, value);
+                SetValue(ChevronFillBrushProperty, value);
             }
         }
         #endregion
@@ -126,10 +126,10 @@ namespace ColorPicker {
         }
         #endregion
 
-        #region TriangleMargin
-        protected static readonly DependencyProperty TriangleMarginProperty =
+        #region ChevronMargin
+        protected static readonly DependencyProperty ChevronMarginProperty =
             DependencyProperty.Register(
-                nameof(TriangleMargin),
+                nameof(ChevronMargin),
                 typeof(Thickness),
                 typeof(NumericBox),
                 new FrameworkPropertyMetadata(
@@ -138,10 +138,10 @@ namespace ColorPicker {
                 )
             );
 
-        public Thickness TriangleMargin {
-            get => (Thickness)GetValue(TriangleMarginProperty);
+        public Thickness ChevronMargin {
+            get => (Thickness)GetValue(ChevronMarginProperty);
             set {
-                SetValue(TriangleMarginProperty, value);
+                SetValue(ChevronMarginProperty, value);
             }
         }
         #endregion

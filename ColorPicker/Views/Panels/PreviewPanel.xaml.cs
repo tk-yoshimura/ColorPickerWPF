@@ -131,9 +131,9 @@ namespace ColorPicker {
 
             bitmap.Freeze();
 
-            Image_Panel.Source = bitmap;
+            ImagePanel.Source = bitmap;
 
-            OnPropertyChanged(nameof(Image_Panel));
+            OnPropertyChanged(nameof(ImagePanel));
 
             Debug.WriteLine($"{nameof(PreviewPanel)} - {nameof(RenderPanel)}");
         }

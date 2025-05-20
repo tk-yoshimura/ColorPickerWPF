@@ -25,9 +25,9 @@ namespace ColorPicker {
 
             bitmap.Freeze();
 
-            Image_Track.Source = bitmap;
+            ImageTrack.Source = bitmap;
 
-            OnPropertyChanged(nameof(Image_Track));
+            OnPropertyChanged(nameof(ImageTrack));
 
             Debug.WriteLine($"{nameof(GraphicalSlider)} - {nameof(RenderTrack)}");
         }
@@ -87,9 +87,9 @@ namespace ColorPicker {
             bitmap.Render(visual);
             bitmap.Freeze();
 
-            Image_Pointer.Source = bitmap;
+            ImagePointer.Source = bitmap;
 
-            OnPropertyChanged(nameof(Image_Pointer));
+            OnPropertyChanged(nameof(ImagePointer));
 
             Debug.WriteLine($"{nameof(GraphicalSlider)} - {nameof(RenderThumb)}");
         }

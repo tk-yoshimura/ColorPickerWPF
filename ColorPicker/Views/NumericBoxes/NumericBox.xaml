@@ -52,8 +52,8 @@
                 MouseLeftButtonDown="GridUp_MouseLeftButtonDown">
                 <Rectangle Stroke="{Binding ButtonBorderBrush, ElementName=this}" />
                 <Polygon
-                    Margin="{Binding TriangleMargin, ElementName=this}"
-                    Fill="{Binding TriangleFillBrush, ElementName=this}"
+                    Margin="{Binding ChevronMargin, ElementName=this}"
+                    Fill="{Binding ChevronFillBrush, ElementName=this}"
                     Points="0,10 5,0 10,10 8,10 5,4, 2,10"
                     Stretch="Fill" />
 
@@ -83,8 +83,8 @@
                 MouseLeftButtonDown="GridDown_MouseLeftButtonDown">
                 <Rectangle Stroke="{Binding ButtonBorderBrush, ElementName=this}" />
                 <Polygon
-                    Margin="{Binding TriangleMargin, ElementName=this}"
-                    Fill="{Binding TriangleFillBrush, ElementName=this}"
+                    Margin="{Binding ChevronMargin, ElementName=this}"
+                    Fill="{Binding ChevronFillBrush, ElementName=this}"
                     Points="0,0 5,10 10,0 8,0 5,6 2,0"
                     Stretch="Fill" />
 
