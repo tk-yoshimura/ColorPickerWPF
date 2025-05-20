@@ -12,6 +12,7 @@
     d:DesignHeight="20"
     d:DesignWidth="100"
     Background="White"
+    UseLayoutRounding="True"
     mc:Ignorable="d">
     <Grid>
         <TextBox
