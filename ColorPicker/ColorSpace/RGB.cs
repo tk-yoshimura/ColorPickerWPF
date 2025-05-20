@@ -84,11 +84,11 @@ namespace ColorPicker.ColorSpace {
                 double.Clamp(B, 0, 1)
             );
 
-        public override bool Equals(object obj) {
+        public override readonly bool Equals(object obj) {
             return (obj is RGB cr) && (this == cr);
         }
 
-        public override int GetHashCode() {
+        public override readonly int GetHashCode() {
             return R.GetHashCode() ^ G.GetHashCode() ^ B.GetHashCode();
         }
 

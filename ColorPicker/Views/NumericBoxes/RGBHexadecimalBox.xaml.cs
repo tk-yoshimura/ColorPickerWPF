@@ -58,13 +58,13 @@ namespace ColorPicker {
         }
 
         private RGB current_color = new();
-        private void SetSelectedColor(RGB value, bool internal_only = false) {
-            if (current_color != value) {
-                current_color = value;
-                UpdateText((value, SelectedAlpha));
+        private void SetSelectedColor(RGB color, bool internal_only = false) {
+            if (current_color != color) {
+                current_color = color;
+                UpdateText((color, SelectedAlpha));
 
                 if (!internal_only) {
-                    SetValue(SelectedColorProperty, value);
+                    SetValue(SelectedColorProperty, color);
                     ValueChanged?.Invoke(this, EventArgs.Empty);
                 }
             }

@@ -39,20 +39,20 @@ namespace ColorPicker {
         }
 
         private HSV current_color = new();
-        private void SetSelectedColor(HSV value, bool internal_only = false) {
-            if (current_color.V != value.V) {
-                current_color = value;
-                UpdateValue(value.V);
+        private void SetSelectedColor(HSV color, bool internal_only = false) {
+            if (current_color.V != color.V) {
+                current_color = color;
+                UpdateValue(color.V);
 
                 if (!internal_only) {
-                    SetValue(SelectedColorProperty, value);
+                    SetValue(SelectedColorProperty, color);
                 }
             }
-            else if (current_color != value) {
-                current_color = value;
+            else if (current_color != color) {
+                current_color = color;
 
                 if (!internal_only) {
-                    SetValue(SelectedColorProperty, value);
+                    SetValue(SelectedColorProperty, color);
                 }
             }
         }

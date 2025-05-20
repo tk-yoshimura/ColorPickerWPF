@@ -110,11 +110,11 @@ namespace ColorPicker.ColorSpace {
             return !(cr1 == cr2);
         }
 
-        public override bool Equals(object obj) {
+        public override readonly bool Equals(object obj) {
             return (obj is YCbCr cr) && (this == cr);
         }
 
-        public override int GetHashCode() {
+        public override readonly int GetHashCode() {
             return Y.GetHashCode() ^ Cb.GetHashCode() ^ Cr.GetHashCode();
         }
 

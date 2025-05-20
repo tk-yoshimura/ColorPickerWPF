@@ -51,6 +51,8 @@ namespace ColorPicker {
 
         HSV current_color = new();
         protected void SetSelectedColor(HSV color, bool user_operation, bool internal_only = false) {
+            color = color.Quantization();
+            
             if (current_color.H != color.H) {
                 current_color = color;
 

@@ -39,20 +39,20 @@ namespace ColorPicker {
         }
 
         private RGB current_color = new();
-        private void SetSelectedColor(RGB value, bool internal_only = false) {
-            if (current_color.B != value.B) {
-                current_color = value;
-                UpdateValue(value.B);
+        private void SetSelectedColor(RGB color, bool internal_only = false) {
+            if (current_color.B != color.B) {
+                current_color = color;
+                UpdateValue(color.B);
 
                 if (!internal_only) {
-                    SetValue(SelectedColorProperty, value);
+                    SetValue(SelectedColorProperty, color);
                 }
             }
-            else if (current_color != value) {
-                current_color = value;
+            else if (current_color != color) {
+                current_color = color;
 
                 if (!internal_only) {
-                    SetValue(SelectedColorProperty, value);
+                    SetValue(SelectedColorProperty, color);
                 }
             }
         }
