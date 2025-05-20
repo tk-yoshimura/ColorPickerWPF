@@ -54,5 +54,25 @@ namespace ColorPickerColorSpaceTest {
             Assert.AreEqual(255, cr2.B);
             Assert.AreEqual(255, cr2.A);
         }
+
+        [TestMethod()]
+        public void OperatorTest() {
+            RGB color1 = (1, 2, 3);
+            RGB color2 = (4, 5, 6);
+            RGB color3 = (1, 2, 3);
+
+            Assert.AreEqual(new RGB(1, 2, 3), +color1);
+            Assert.AreEqual(new RGB(-1, -2, -3), -color1);
+            Assert.AreEqual(new RGB(5, 7, 9), color1 + color2);
+            Assert.AreEqual(new RGB(-3, -3, -3), color1 - color2);
+            Assert.AreEqual(new RGB(3, 3, 3), color2 - color1);
+            Assert.AreEqual(new RGB(2, 4, 6), color1 * 2d);
+            Assert.AreEqual(new RGB(2, 4, 6), 2d * color1);
+            Assert.AreEqual(new RGB(0.5, 1, 1.5), color1 / 2d);
+
+            Assert.IsTrue(color1 == color3);
+            Assert.IsFalse(color2 == color3);
+            Assert.IsTrue(color1 != color2);
+        }
     }
 }
