@@ -145,7 +145,7 @@ namespace ColorPicker.ColorSpace {
             return $"h={H:0.000} s={S:0.000} v={V:0.000}";
         }
 
-        private static double CyclicRemainder(double value, double cycle) { 
+        private static double CyclicRemainder(double value, double cycle) {
             value %= cycle;
             if (value < 0) {
                 value += cycle;

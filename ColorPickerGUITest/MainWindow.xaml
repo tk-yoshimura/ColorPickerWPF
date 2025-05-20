@@ -246,11 +246,11 @@
                         ButtonBorderBrush="Aqua"
                         ButtonMouseLeaveBrush="Brown"
                         ButtonMouseOverBrush="BlueViolet"
+                        ChevronFillBrush="Pink"
+                        ChevronMargin="5,1"
                         Foreground="Red"
                         SelectionBrush="Green"
                         TextBoxBorderBrush="Orange"
-                        ChevronFillBrush="Pink"
-                        ChevronMargin="5,1"
                         Value="5000" />
 
                     <colorpicker:RGBHexadecimalBox
