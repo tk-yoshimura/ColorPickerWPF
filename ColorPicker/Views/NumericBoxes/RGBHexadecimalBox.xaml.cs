@@ -34,12 +34,14 @@ namespace ColorPicker {
             OnPropertyChanged(nameof(IsColorREF));
         }
 
+        #region EventHandler
         public event EventHandler<EventArgs> ValueChanged;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        #endregion
 
         #region SelectedColor
         protected static readonly DependencyProperty SelectedColorProperty =
@@ -135,6 +137,30 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region Value
+        protected void UpdateColor(RGBA rgba) {
+            Color color = (Color)rgba;
+
+            string str = string.Empty;
+
+            switch (EncodingMode) {
+                case HexadecimalBoxEncodingMode.RGB:
+                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}";
+                    break;
+                case HexadecimalBoxEncodingMode.RGBA:
+                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
+                    break;
+                case HexadecimalBoxEncodingMode.ARGB:
+                    str = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+                    break;
+            }
+
+            UpdateText(str);
+
+            OnPropertyChanged(nameof(IsColorREF));
+        }
+        #endregion
+
         #region EncodingMode
         private HexadecimalBoxEncodingMode encoding_mode = HexadecimalBoxEncodingMode.RGB;
         public HexadecimalBoxEncodingMode EncodingMode {
@@ -210,52 +236,6 @@ namespace ColorPicker {
                 return;
             }
         }
-        #endregion
-
-        #region TimerDisplay
-        protected void StartupTimerDisplay() {
-            if (timer_display.IsEnabled) {
-                return;
-            }
-
-            timer_display.Start();
-        }
-
-        protected void StopTimerDisplay() {
-            if (!timer_display.IsEnabled) {
-                return;
-            }
-
-            timer_display.Stop();
-        }
-
-        private void TimerDisplay_Tick(object sender, EventArgs e) {
-            UpdateColor((current_color, current_alpha));
-            StopTimerDisplay();
-        }
-        #endregion
-
-        protected void UpdateColor(RGBA rgba) {
-            Color color = (Color)rgba;
-
-            string str = string.Empty;
-
-            switch (EncodingMode) {
-                case HexadecimalBoxEncodingMode.RGB:
-                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}";
-                    break;
-                case HexadecimalBoxEncodingMode.RGBA:
-                    str = $"{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
-                    break;
-                case HexadecimalBoxEncodingMode.ARGB:
-                    str = $"{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
-                    break;
-            }
-
-            UpdateText(str);
-
-            OnPropertyChanged(nameof(IsColorREF));
-        }
 
         private void UpdateText(string str) {
             int index = textBox.CaretIndex;
@@ -306,10 +286,36 @@ namespace ColorPicker {
                 return true;
             }
         }
+        #endregion
 
+        #region TimerDisplay
+        protected void StartupTimerDisplay() {
+            if (timer_display.IsEnabled) {
+                return;
+            }
+
+            timer_display.Start();
+        }
+
+        protected void StopTimerDisplay() {
+            if (!timer_display.IsEnabled) {
+                return;
+            }
+
+            timer_display.Stop();
+        }
+
+        private void TimerDisplay_Tick(object sender, EventArgs e) {
+            UpdateColor((current_color, current_alpha));
+            StopTimerDisplay();
+        }
+        #endregion
+
+        #region Property
         public bool IsColorREF =>
             textBox is not null && textBox.Text.Length == ExpectedLength;
 
         private int ExpectedLength => EncodingMode == HexadecimalBoxEncodingMode.RGB ? 6 : 8;
+        #endregion
     }
 }
