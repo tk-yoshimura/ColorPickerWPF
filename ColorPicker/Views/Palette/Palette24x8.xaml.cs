@@ -11,6 +11,7 @@ namespace ColorPicker {
     /// Interaction logic for Palette24x8.xaml
     /// </summary>
     public partial class Palette24x8 : UserControl {
+
         public Palette24x8() : this(cols: 24, rows: 8) { }
 
         public Palette24x8(int cols, int rows) {
