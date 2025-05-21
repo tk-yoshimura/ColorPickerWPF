@@ -33,19 +33,19 @@ namespace ColorPickerColorSpaceTest {
                 (RGB)Color.FromRgb(0xEE, 0x00, 0x26),
             ];
 
-            for (double t = 0; t <= 0.75; t += 0.25) {
+            foreach (double t in new[] { 0, 0.25, 0.45, 0.6 }) {
                 foreach (RGB color in colors) {
                     Color cr = (Color)((1 - t) * color + t * new RGB(1d, 1d, 1d));
 
-                    Console.WriteLine($"0x{cr.R:X2}, 0x{cr.G:X2}, 0x{cr.B:X2}");
+                    Console.WriteLine($"Color.FromRgb(0x{cr.R:X2}, 0x{cr.G:X2}, 0x{cr.B:X2}),");
                 }
             }
 
-            for (double t = 0.25; t <= 0.75; t += 0.25) {
+            foreach (double t in new[] { 0.25, 0.45, 0.6 }) {
                 foreach (RGB color in colors) {
                     Color cr = (Color)((1 - t) * color);
 
-                    Console.WriteLine($"0x{cr.R:X2}, 0x{cr.G:X2}, 0x{cr.B:X2}");
+                    Console.WriteLine($"Color.FromRgb(0x{cr.R:X2}, 0x{cr.G:X2}, 0x{cr.B:X2}),");
                 }
             }
 
@@ -54,7 +54,7 @@ namespace ColorPickerColorSpaceTest {
 
                 Color cr = (Color)new RGB(t, t, t);
 
-                Console.WriteLine($"0x{cr.R:X2}, 0x{cr.G:X2}, 0x{cr.B:X2}");
+                Console.WriteLine($"Color.FromRgb(0x{cr.R:X2}, 0x{cr.G:X2}, 0x{cr.B:X2}),");
             }
         }
     }
