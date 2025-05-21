@@ -14,6 +14,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPickerColorSpaceTest",
 		{50B702C5-A2F5-097D-81EB-FC37D67C6C60} = {50B702C5-A2F5-097D-81EB-FC37D67C6C60}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorPickerPaletteTest", "ColorPickerPaletteTest\ColorPickerPaletteTest.csproj", "{73CC82D9-A97B-4662-AF38-BDD440742198}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50B702C5-A2F5-097D-81EB-FC37D67C6C60} = {50B702C5-A2F5-097D-81EB-FC37D67C6C60}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +37,10 @@ Global
 		{34488B20-4212-472E-B85D-62262BA10835}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34488B20-4212-472E-B85D-62262BA10835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34488B20-4212-472E-B85D-62262BA10835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73CC82D9-A97B-4662-AF38-BDD440742198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73CC82D9-A97B-4662-AF38-BDD440742198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73CC82D9-A97B-4662-AF38-BDD440742198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73CC82D9-A97B-4662-AF38-BDD440742198}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

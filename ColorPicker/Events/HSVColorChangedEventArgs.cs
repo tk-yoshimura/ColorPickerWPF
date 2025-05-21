@@ -14,6 +14,4 @@ namespace ColorPicker {
             this.UserOperation = user_operation;
         }
     }
-
-    public delegate void HSVColorChangedHandler(object sender, HSVColorChangedEventArgs cce);
 }

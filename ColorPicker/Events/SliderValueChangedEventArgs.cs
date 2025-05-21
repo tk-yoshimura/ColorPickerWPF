@@ -12,6 +12,4 @@ namespace ColorPicker {
             this.UserOperation = user_operation;
         }
     }
-
-    public delegate void SliderValueChangedHandler(object sender, SliderValueChangedEventArgs cce);
 }
