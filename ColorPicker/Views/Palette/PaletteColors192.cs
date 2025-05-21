@@ -5,7 +5,7 @@ using System.Windows.Media;
 // https://github.com/tk-yoshimura
 
 namespace ColorPicker {
-    public static class PaletteColors {
+    public static class PaletteColors192 {
         public static readonly ReadOnlyCollection<Color> Colors = new([
             Color.FromRgb(0xFD, 0x1B, 0x1B),
             Color.FromRgb(0xFE, 0x41, 0x18),

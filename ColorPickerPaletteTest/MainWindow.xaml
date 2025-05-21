@@ -29,8 +29,17 @@
                 </Grid.RowDefinitions>
 
                 <colorpicker:Palette24x8
+                    Grid.Row="0"
+                    Grid.Column="0"
                     Width="480"
                     Height="160"
+                    PaletteClicked="Palette_PaletteClicked" />
+
+                <colorpicker:Palette12x16
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="240"
+                    Height="320"
                     PaletteClicked="Palette_PaletteClicked" />
             </Grid>
         </Grid>

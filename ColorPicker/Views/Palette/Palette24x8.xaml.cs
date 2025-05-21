@@ -27,11 +27,11 @@ namespace ColorPicker {
 
         #region GeneratePalette
         protected void GeneratePalette(int cols, int rows) {
-            if (cols < 0 || rows < 0 || checked(cols * rows) != PaletteColors.Colors.Count) {
+            if (cols < 0 || rows < 0 || checked(cols * rows) != PaletteColors192.Colors.Count) {
                 throw new ArgumentException("Mismatch palette colors", $"{cols}, {rows}");
             }
 
-            ReadOnlyCollection<Color> colors = PaletteColors.Colors;
+            ReadOnlyCollection<Color> colors = PaletteColors192.Colors;
 
             GridPalette.ColumnDefinitions.Clear();
 
