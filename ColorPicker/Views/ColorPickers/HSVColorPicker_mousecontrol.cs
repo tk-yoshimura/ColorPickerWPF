@@ -20,7 +20,8 @@ namespace ColorPicker {
 
             (double norm, _) = CircleCoord(pt);
 
-            bool inside = norm >= inner_ring && norm <= outer_ring;
+            const double margin = 0.25;
+            bool inside = norm >= inner_ring - margin && norm <= outer_ring + margin;
 
             return inside;
         }
@@ -108,11 +109,11 @@ namespace ColorPicker {
         private void Grid_ColorPicker_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             Point pt = e.GetDPIScaledPosition(Grid_ColorPicker);
 
-            if (CheckHitCircleArea(pt)) {
-                operation_place = OperationPlace.Circle;
-            }
-            else if (CheckHitTriangleArea(pt)) {
+            if (CheckHitTriangleArea(pt)) {
                 operation_place = OperationPlace.Triangle;
+            }
+            else if (CheckHitCircleArea(pt)) {
+                operation_place = OperationPlace.Circle;
             }
             else {
                 operation_place = OperationPlace.None;
