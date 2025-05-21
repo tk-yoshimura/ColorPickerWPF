@@ -7,14 +7,11 @@ using System.Windows.Media;
 
 namespace ColorPicker {
     /// <summary>
-    /// Interaction logic for Palette24x8.xaml
+    /// Interaction logic for Palette.xaml
     /// </summary>
-    public partial class Palette24x8 : UserControl {
+    public partial class Palette : UserControl {
 
-        public Palette24x8()
-            : this(cols: 24, rows: 8, PaletteColors192.Colors) { }
-
-        protected Palette24x8(int cols, int rows, IList<Color> colors) {
+        protected Palette(int cols, int rows, IList<Color> colors) {
             InitializeComponent();
 
             Loaded += (s, e) => {
@@ -58,6 +55,7 @@ namespace ColorPicker {
                     DockPanel rect = new() {
                         Background = new SolidColorBrush(color),
                         UseLayoutRounding = true,
+                        SnapsToDevicePixels = true
                     };
 
                     rect.MouseLeftButtonDown += (s, e) => PaletteClicked.Invoke(this, new PaletteClickedEventArgs(color));
