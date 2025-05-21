@@ -38,8 +38,6 @@
                 <colorpicker:Palette12x16
                     Grid.Row="0"
                     Grid.Column="1"
-                    Width="240"
-                    Height="320"
                     PaletteClicked="Palette_PaletteClicked" />
             </Grid>
         </Grid>

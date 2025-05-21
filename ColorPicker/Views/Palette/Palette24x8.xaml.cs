@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -12,13 +11,14 @@ namespace ColorPicker {
     /// </summary>
     public partial class Palette24x8 : UserControl {
 
-        public Palette24x8() : this(cols: 24, rows: 8) { }
+        public Palette24x8()
+            : this(cols: 24, rows: 8, PaletteColors192.Colors) { }
 
-        public Palette24x8(int cols, int rows) {
+        protected Palette24x8(int cols, int rows, IList<Color> colors) {
             InitializeComponent();
 
             Loaded += (s, e) => {
-                GeneratePalette(cols, rows);
+                GeneratePalette(cols, rows, colors);
             };
         }
 
@@ -27,12 +27,10 @@ namespace ColorPicker {
         #endregion
 
         #region GeneratePalette
-        protected void GeneratePalette(int cols, int rows) {
-            if (cols < 0 || rows < 0 || checked(cols * rows) != PaletteColors192.Colors.Count) {
+        protected void GeneratePalette(int cols, int rows, IList<Color> colors) {
+            if (cols < 0 || rows < 0 || checked(cols * rows) != colors.Count) {
                 throw new ArgumentException("Mismatch palette colors", $"{cols}, {rows}");
             }
-
-            ReadOnlyCollection<Color> colors = PaletteColors192.Colors;
 
             GridPalette.ColumnDefinitions.Clear();
 
