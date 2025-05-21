@@ -75,8 +75,6 @@ namespace ColorPicker {
             int new_value = int.Clamp(value, MinValue, MaxValue);
 
             if (current_value != new_value || value != new_value) {
-                bool is_minimum = IsMinimum, is_maximum = IsMaximum;
-
                 current_value = new_value;
 
                 if (textBox.IsFocused) {
@@ -91,13 +89,6 @@ namespace ColorPicker {
                     SetValue(ValueProperty, new_value);
                     ValueChanged?.Invoke(this, EventArgs.Empty);
                 }
-
-                if (is_minimum != IsMinimum) {
-                    OnPropertyChanged(nameof(IsMinimum));
-                }
-                if (is_maximum != IsMaximum) {
-                    OnPropertyChanged(nameof(IsMaximum));
-                }
             }
 
             return value;
@@ -110,6 +101,9 @@ namespace ColorPicker {
             textBox.Text = $"{val}";
             textBox.CaretIndex = index;
             textBox.TextChanged += TextBox_TextChanged;
+
+            OnPropertyChanged(nameof(IsMinimum));
+            OnPropertyChanged(nameof(IsMaximum));
         }
 
         protected void ChangeValue(int diff) {
