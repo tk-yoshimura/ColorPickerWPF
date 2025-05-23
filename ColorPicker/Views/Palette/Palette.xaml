@@ -9,7 +9,15 @@
     d:DesignWidth="240"
     mc:Ignorable="d">
     <Grid
-        x:Name="GridPalette"
+        MouseLeave="DockPanel_MouseLeave"
+        MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
+        MouseMove="DockPanel_MouseMove"
         SnapsToDevicePixels="True"
-        UseLayoutRounding="True" />
+        UseLayoutRounding="True">
+        
+        <Grid x:Name="GridPalette" />
+        <DockPanel>
+            <Image x:Name="ImageCursor" />
+        </DockPanel>
+    </Grid>
 </UserControl>
