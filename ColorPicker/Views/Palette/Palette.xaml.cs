@@ -124,6 +124,7 @@ namespace ColorPicker {
 
             if (select_index < 0) {
                 ImageCursor.Source = null;
+                return;
             }
 
             DrawingVisual visual = new();
