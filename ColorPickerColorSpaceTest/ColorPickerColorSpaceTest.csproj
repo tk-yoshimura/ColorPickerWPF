@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ColorPicker\ColorPicker.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="ColorPicker">
       <HintPath>..\ColorPicker\bin\Debug\net8.0-windows\ColorPicker.dll</HintPath>
     </Reference>

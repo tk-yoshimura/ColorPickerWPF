@@ -46,7 +46,7 @@ namespace ColorPicker {
             if (current_color.G != color.G || current_color.B != color.B) {
                 if (current_color.R != color.R) {
                     current_color = color;
-                    base.SetValue(color.R, user_operation);
+                    base.SetValue(color.R, user_operation, internal_only);
                 }
                 else {
                     current_color = color;
@@ -63,7 +63,7 @@ namespace ColorPicker {
             else if (current_color.R != color.R) {
                 current_color = color;
 
-                base.SetValue(color.R, user_operation);
+                base.SetValue(color.R, user_operation, internal_only);
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);

@@ -60,7 +60,7 @@ namespace ColorPicker {
                     hue = OstwaldHue.InvertValue(hue);
                 }
 
-                base.SetValue(hue / scale6_dec, user_operation);
+                base.SetValue(hue / scale6_dec, user_operation, internal_only);
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
@@ -114,7 +114,7 @@ namespace ColorPicker {
                         hue = OstwaldHue.InvertValue(hue);
                     }
 
-                    base.SetValue(hue / scale6_dec, user_operation: false, internal_only: true);
+                    base.SetValue(hue / scale6_dec, user_operation: false);
 
                     RenderAllImages();
                 }
