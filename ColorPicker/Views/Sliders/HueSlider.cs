@@ -114,7 +114,7 @@ namespace ColorPicker {
                         hue = OstwaldHue.InvertValue(hue);
                     }
 
-                    base.SetValue(hue / scale6_dec, user_operation: false);
+                    base.SetValue(hue / scale6_dec, user_operation: false, internal_only: true);
 
                     RenderAllImages();
                 }
