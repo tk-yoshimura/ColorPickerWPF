@@ -114,5 +114,15 @@ namespace ColorPickerGUITest {
                 OnPropertyChanged(nameof(HSVResolutionMode));
             }
         }
+
+        private HueConversionMode hue_conversion_mode = HueConversionMode.OstwaldPerceptual;
+        public HueConversionMode HueConversionMode {
+            get => hue_conversion_mode;
+            set {
+                hue_conversion_mode = value;
+
+                OnPropertyChanged(nameof(HueConversionMode));
+            }
+        }
     }
 }

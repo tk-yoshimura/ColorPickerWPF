@@ -9,7 +9,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="ColorPickerGUI Demo"
     Width="800"
-    Height="520"
+    Height="550"
     MinWidth="400"
     MinHeight="250"
     mc:Ignorable="d">
@@ -19,11 +19,20 @@
 
     <Window.Resources>
         <ObjectDataProvider
-            x:Key="EnumDataSource"
+            x:Key="EnumResolutionModeSource"
             MethodName="GetValues"
             ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="colorpicker:NumericBoxResolutionMode" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider
+            x:Key="EnumHueConversionSource"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="colorpicker:HueConversionMode" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
@@ -31,6 +40,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="24" />
         </Grid.RowDefinitions>
 
@@ -55,6 +65,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     HSVColorChanged="HSVColorPicker_HSVColorChanged"
+                    HueConversionMode="{Binding HueConversionMode}"
                     SelectedColor="{Binding SelectedHSV}" />
                 <colorpicker:YCbCrColorPicker
                     x:Name="YCbCrColorPicker"
@@ -97,6 +108,7 @@
                         x:Name="HueSlider"
                         Height="20"
                         HSVColorChanged="HueSlider_HSVColorChanged"
+                        HueConversionMode="{Binding HueConversionMode}"
                         SelectedColor="{Binding SelectedHSV}" />
                     <colorpicker:SaturationSlider
                         x:Name="SaturationSlider"
@@ -198,20 +210,6 @@
                         Height="20"
                         SliderValueChanged="GraphicalSlider_SliderValueChanged"
                         Value="{Binding SelectedValue}" />
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0">RGBA Resolution</TextBlock>
-                        <ComboBox
-                            Grid.Column="1"
-                            Margin="4"
-                            ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
-                            SelectedItem="{Binding RGBResolutionMode}" />
-                    </Grid>
                 </StackPanel>
 
                 <StackPanel
@@ -222,22 +220,7 @@
                         Height="20"
                         SliderValueChanged="GraphicalSlider_SliderValueChanged"
                         Value="{Binding SelectedValue}" />
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0">HSV Resolution</TextBlock>
-                        <ComboBox
-                            Grid.Column="1"
-                            Margin="4"
-                            ItemsSource="{Binding Source={StaticResource EnumDataSource}}"
-                            SelectedItem="{Binding HSVResolutionMode}" />
-                    </Grid>
                 </StackPanel>
-
 
                 <StackPanel Grid.Row="4" Grid.Column="2">
                     <colorpicker:NumericBox
@@ -265,7 +248,57 @@
             </Grid>
         </Grid>
 
-        <StatusBar Grid.Row="1">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0">RGBA Resolution</TextBlock>
+                <ComboBox
+                    Grid.Column="1"
+                    Margin="4"
+                    ItemsSource="{Binding Source={StaticResource EnumResolutionModeSource}}"
+                    SelectedItem="{Binding RGBResolutionMode}" />
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0">HSV Resolution</TextBlock>
+                <ComboBox
+                    Grid.Column="1"
+                    Margin="4"
+                    ItemsSource="{Binding Source={StaticResource EnumResolutionModeSource}}"
+                    SelectedItem="{Binding HSVResolutionMode}" />
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0">Hue Conversion</TextBlock>
+                <ComboBox
+                    Grid.Column="1"
+                    Margin="4"
+                    ItemsSource="{Binding Source={StaticResource EnumHueConversionSource}}"
+                    SelectedItem="{Binding HueConversionMode}" />
+            </Grid>
+        </Grid>
+
+        <StatusBar Grid.Row="2">
             <StatusBarItem>
                 <TextBlock x:Name="StatusBar" />
             </StatusBarItem>
