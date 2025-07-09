@@ -39,7 +39,13 @@ namespace ColorPicker {
         }
 
         protected override void SetValue(double value, bool user_operation, bool internal_only = false) {
-            SetSelectedColor(new HSV(value * scale6_dec, SelectedColor.S, SelectedColor.V), user_operation, internal_only);
+            double hue = value * scale6_dec;
+
+            if (HueConversionMode == HueConversionMode.OstwaldPerceptual) {
+                hue = OstwaldHue.Value(hue);
+            }
+
+            SetSelectedColor(new HSV(hue, SelectedColor.S, SelectedColor.V), user_operation, internal_only);
             base.SetValue(value, user_operation, internal_only);
         }
 
@@ -48,7 +54,13 @@ namespace ColorPicker {
             if (current_color.H != color.H) {
                 current_color = color;
 
-                base.SetValue(color.H / scale6_dec, user_operation);
+                double hue = color.H;
+
+                if (HueConversionMode == HueConversionMode.OstwaldPerceptual) {
+                    hue = OstwaldHue.InvertValue(hue);
+                }
+
+                base.SetValue(hue / scale6_dec, user_operation);
 
                 if (!internal_only) {
                     SetValue(SelectedColorProperty, color);
@@ -68,6 +80,48 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region HueConversionMode
+        protected static readonly DependencyProperty HueConversionModeProperty =
+            DependencyProperty.Register(
+                nameof(HueConversionMode),
+                typeof(HueConversionMode),
+                typeof(HueSlider),
+                new FrameworkPropertyMetadata(
+                    HueConversionMode.OstwaldPerceptual,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnHueConversionModeChanged
+                )
+            );
+
+        private static void OnHueConversionModeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+            if (obj is HueSlider ctrl) {
+                ctrl.HueConversionMode = (HueConversionMode)e.NewValue;
+            }
+        }
+
+        private HueConversionMode hue_conversion_mode = HueConversionMode.OstwaldPerceptual;
+        public HueConversionMode HueConversionMode {
+            get => hue_conversion_mode;
+            set {
+                if (hue_conversion_mode != value) {
+                    hue_conversion_mode = value;
+
+                    SetValue(HueConversionModeProperty, value);
+
+                    double hue = SelectedColor.H;
+
+                    if (HueConversionMode == HueConversionMode.OstwaldPerceptual) {
+                        hue = OstwaldHue.InvertValue(hue);
+                    }
+
+                    base.SetValue(hue / scale6_dec, user_operation: false);
+
+                    RenderAllImages();
+                }
+            }
+        }
+        #endregion
+
         #region Render
         protected override void RenderSlider(int width, int height, byte[] buf, object parameter = null) {
             if (height < 1) {
@@ -76,10 +130,16 @@ namespace ColorPicker {
 
             double scale = 6d / (width - 1);
 
+            bool is_standard_hue = HueConversionMode == HueConversionMode.RGBStandard;
+
             unsafe {
                 fixed (byte* c = buf) {
                     for (int x = 0, i = 0; x < width; x++, i += 4) {
                         double hue = double.Clamp(x * scale, 0, 6);
+
+                        if (!is_standard_hue) {
+                            hue = OstwaldHue.Value(hue);
+                        }
 
                         double r = 0d, g = 0d, b = 0d;
 

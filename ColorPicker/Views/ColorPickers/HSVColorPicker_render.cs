@@ -29,6 +29,8 @@ namespace ColorPicker {
 
             byte[] buf = new byte[checked(size * size * 4)];
 
+            bool is_standard_hue = HueConversionMode == HueConversionMode.RGBStandard;
+
             unsafe {
                 fixed (byte* c = buf) {
                     for (int x, y = 0, i = 0; y < size; y++) {
@@ -48,6 +50,10 @@ namespace ColorPicker {
                             }
 
                             double hue = (double.Atan2Pi(-dx, dy) + 1d) * 3d;
+
+                            if (!is_standard_hue) {
+                                hue = OstwaldHue.Value(hue);
+                            }
 
                             double r = 0d, g = 0d, b = 0d;
 
@@ -238,6 +244,10 @@ namespace ColorPicker {
             RenderTargetBitmap bitmap = new(size, size, dpi_x, dpi_y, PixelFormats.Pbgra32);
 
             (double h, double s, double v) = color;
+
+            if (HueConversionMode == HueConversionMode.OstwaldPerceptual) {
+                h = OstwaldHue.InvertValue(h);
+            }
 
             double ring_radius = radius * (outer_ring + inner_ring) / 2;
 

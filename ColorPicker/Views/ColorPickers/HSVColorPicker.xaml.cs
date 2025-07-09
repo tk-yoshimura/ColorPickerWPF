@@ -81,6 +81,41 @@ namespace ColorPicker {
         }
         #endregion
 
+        #region HueConversionMode
+        protected static readonly DependencyProperty HueConversionModeProperty =
+            DependencyProperty.Register(
+                nameof(HueConversionMode),
+                typeof(HueConversionMode),
+                typeof(HSVColorPicker),
+                new FrameworkPropertyMetadata(
+                    HueConversionMode.OstwaldPerceptual,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnHueConversionModeChanged
+                )
+            );
+
+        private static void OnHueConversionModeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
+            if (obj is HSVColorPicker ctrl) {
+                ctrl.HueConversionMode = (HueConversionMode)e.NewValue;
+            }
+        }
+
+        private HueConversionMode hue_conversion_mode = HueConversionMode.OstwaldPerceptual;
+        public HueConversionMode HueConversionMode {
+            get => hue_conversion_mode;
+            set {
+                if (hue_conversion_mode != value) {
+                    hue_conversion_mode = value;
+
+                    SetValue(HueConversionModeProperty, value);
+
+                    RenderRing();
+                    RenderPointer(SelectedColor);
+                }
+            }
+        }
+        #endregion
+
         #region ColorPicker events
         private void ColorPicker_Loaded(object sender, RoutedEventArgs e) {
             RenderAllImages();

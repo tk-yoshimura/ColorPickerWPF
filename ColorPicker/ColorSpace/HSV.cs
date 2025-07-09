@@ -9,7 +9,7 @@ namespace ColorPicker.ColorSpace {
         private double h, s, v;
 
         public HSV(double h, double s, double v) {
-            this.h = CyclicRemainder(double.IsNaN(h) ? 0d : h, 6d);
+            this.h = Utils.CyclicArithmetic.Remainder(double.IsFinite(h) ? h : 0d, 6d);
             this.s = double.Clamp(double.IsNaN(s) ? 0d : s, 0d, 1d);
             this.v = double.Clamp(double.IsNaN(v) ? 0d : v, 0d, 1d);
         }
@@ -19,7 +19,7 @@ namespace ColorPicker.ColorSpace {
                 return h;
             }
             set {
-                h = CyclicRemainder(double.IsNaN(value) ? 0d : value, 6d);
+                h = Utils.CyclicArithmetic.Remainder(double.IsFinite(value) ? value : 0d, 6d);
             }
         }
 
@@ -145,13 +145,5 @@ namespace ColorPicker.ColorSpace {
             return $"h={H:0.000} s={S:0.000} v={V:0.000}";
         }
 
-        private static double CyclicRemainder(double value, double cycle) {
-            value %= cycle;
-            if (double.IsNegative(value)) {
-                value += cycle;
-            }
-
-            return value;
-        }
     }
 }

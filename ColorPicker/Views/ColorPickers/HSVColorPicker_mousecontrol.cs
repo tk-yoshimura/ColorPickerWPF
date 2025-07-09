@@ -89,6 +89,11 @@ namespace ColorPicker {
                     return;
                 }
 
+
+                if (HueConversionMode == HueConversionMode.OstwaldPerceptual) {
+                    phase = ColorSpace.OstwaldHue.Value(phase);
+                }
+
                 SetSelectedColor(new ColorSpace.HSV(phase, SelectedColor.S, SelectedColor.V), user_operation: true);
             }
             else if (operation_place == OperationPlace.Triangle) {
