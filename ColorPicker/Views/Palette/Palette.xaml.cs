@@ -122,7 +122,7 @@ namespace ColorPicker {
                 return;
             }
 
-            if (select_index < 0) {
+            if (select_index < 0 || select_index >= Rows * Columns) {
                 ImageCursor.Source = null;
                 return;
             }
@@ -138,7 +138,10 @@ namespace ColorPicker {
 
             int x = select_index % Columns, y = select_index / Columns;
 
-            Rect rect1 = new(x * width / Columns, y * height / Rows, width / Columns, height / Rows);
+            double x0 = GridPalette.ColumnDefinitions[x].Offset;
+            double y0 = GridPalette.RowDefinitions[y].Offset;
+
+            Rect rect1 = new(x0, y0, width / Columns, height / Rows);
             Rect rect2 = new(rect1.X + 1, rect1.Y + 1, rect1.Width - 2, rect1.Height - 2);
 
             using (DrawingContext context = visual.RenderOpen()) {
