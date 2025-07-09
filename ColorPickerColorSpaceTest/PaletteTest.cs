@@ -7,31 +7,37 @@ namespace ColorPickerColorSpaceTest {
         [TestMethod]
         public void OstwaldTest() {
             RGB[] colors = [
-                (RGB)Color.FromRgb(0xFD, 0x1B, 0x1B),
-                (RGB)Color.FromRgb(0xFE, 0x41, 0x18),
-                (RGB)Color.FromRgb(0xFF, 0x59, 0x0B),
-                (RGB)Color.FromRgb(0xFF, 0x7F, 0x00),
-                (RGB)Color.FromRgb(0xFF, 0xCC, 0x00),
+                (RGB)Color.FromRgb(0xFE, 0x00, 0x00),
+                (RGB)Color.FromRgb(0xFF, 0x2C, 0x00),
+                (RGB)Color.FromRgb(0xFF, 0x53, 0x00),
+                (RGB)Color.FromRgb(0xFF, 0x80, 0x00),
+                (RGB)Color.FromRgb(0xFF, 0xCD, 0x00),
                 (RGB)Color.FromRgb(0xFF, 0xE6, 0x00),
-                (RGB)Color.FromRgb(0xCC, 0xE7, 0x00),
-                (RGB)Color.FromRgb(0x99, 0xCF, 0x15),
-                (RGB)Color.FromRgb(0x66, 0xB8, 0x2B),
-                (RGB)Color.FromRgb(0x33, 0xA2, 0x3D),
-                (RGB)Color.FromRgb(0x00, 0x8F, 0x62),
-                (RGB)Color.FromRgb(0x00, 0x86, 0x78),
-                (RGB)Color.FromRgb(0x00, 0x7A, 0x87),
-                (RGB)Color.FromRgb(0x05, 0x5D, 0x87),
-                (RGB)Color.FromRgb(0x09, 0x3F, 0x86),
-                (RGB)Color.FromRgb(0x0F, 0x21, 0x8B),
-                (RGB)Color.FromRgb(0x1D, 0x1A, 0x88),
-                (RGB)Color.FromRgb(0x28, 0x12, 0x85),
-                (RGB)Color.FromRgb(0x34, 0x0C, 0x81),
-                (RGB)Color.FromRgb(0x56, 0x00, 0x7D),
-                (RGB)Color.FromRgb(0x77, 0x00, 0x71),
-                (RGB)Color.FromRgb(0xAF, 0x00, 0x65),
-                (RGB)Color.FromRgb(0xD4, 0x00, 0x45),
-                (RGB)Color.FromRgb(0xEE, 0x00, 0x26),
+                (RGB)Color.FromRgb(0xDA, 0xF5, 0x00),
+                (RGB)Color.FromRgb(0xA7, 0xEC, 0x00),
+                (RGB)Color.FromRgb(0x60, 0xE3, 0x00),
+                (RGB)Color.FromRgb(0x00, 0xDA, 0x13),
+                (RGB)Color.FromRgb(0x00, 0xD2, 0x90),
+                (RGB)Color.FromRgb(0x00, 0xCF, 0xB8),
+                (RGB)Color.FromRgb(0x00, 0xBC, 0xCF),
+                (RGB)Color.FromRgb(0x00, 0x8B, 0xCF),
+                (RGB)Color.FromRgb(0x00, 0x57, 0xCF),
+                (RGB)Color.FromRgb(0x00, 0x1D, 0xD1),
+                (RGB)Color.FromRgb(0x09, 0x00, 0xCF),
+                (RGB)Color.FromRgb(0x28, 0x00, 0xCE),
+                (RGB)Color.FromRgb(0x46, 0x00, 0xCD),
+                (RGB)Color.FromRgb(0x8A, 0x00, 0xCB),
+                (RGB)Color.FromRgb(0xC9, 0x00, 0xBC),
+                (RGB)Color.FromRgb(0xDF, 0x00, 0x7F),
+                (RGB)Color.FromRgb(0xEE, 0x00, 0x4E),
+                (RGB)Color.FromRgb(0xF8, 0x00, 0x27),
             ];
+
+            foreach (RGB color in colors) {
+                HSV hsv = color;
+
+                Console.WriteLine($"{hsv.H:0.000}");
+            }
 
             foreach (double t in new[] { 0, 0.25, 0.45, 0.6 }) {
                 foreach (RGB color in colors) {
